@@ -6,7 +6,7 @@ use \AdelineD\OC\P9\View\View;
 class ControllerHome {
 
 
-  //display latest post in home page
+  //display home page
   public function home(){
       $loader = new \Twig_Loader_Filesystem('View'); // Dossier contenant les templates
       $twig = new \Twig_Environment($loader, array(

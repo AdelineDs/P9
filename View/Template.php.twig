@@ -32,7 +32,7 @@
                 </div>
                 <form class="form-inline">
                     <button class="btn btn-sm btn-outline-secondary" type="button">Se Connecter</button>
-                    <button class="btn btn-sm btn-outline-secondary" type="button">S'inscrire</button>
+                    <a href="index.php?action=registration"><button class="btn btn-sm btn-outline-secondary" type="button">S'inscrire</button></a>
                 </form>
             </nav>
             <div class="espace" style="height: 87px">
@@ -42,18 +42,21 @@
                 {% block content %}
                 {% endblock %}
             </div>
-            <footer>
-                <div>
-                    Mentions Légales
-                </div>
-                <div>
-                    Copyright
-                </div>
-            </footer>
+            <div class="row">
+                <footer class="col-sm-12">
+                    <div>
+                        Mentions Légales
+                    </div>
+                    <div>
+                        Copyright
+                    </div>
+                </footer>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
                 integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="public/js/script.js"></script>
     </body>
 </html>
