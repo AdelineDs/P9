@@ -6,7 +6,7 @@ class ControllerMain {
     public function render($template, $array){
         $loader = new \Twig_Loader_Filesystem('View');
         $twig = new \Twig_Environment($loader, array(
-            'cache' => 'twigCache',
+            'cache' => false,
         ));
         $temp = $twig->load($template);
         echo $temp->render($array);

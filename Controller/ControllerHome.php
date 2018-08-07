@@ -1,11 +1,20 @@
 <?php
 namespace AdelineD\OC\P9\Controller;
 
+use \AdelineD\OC\P9\Model\Photos;
+
 class ControllerHome extends ControllerMain {
 
+    private $photos;
 
-  //display home page
+    public function __construct(){
+        $this->photos = new Photos();
+    }
+
+    //display home page
   public function home(){
-      $this->render('viewHome.php.twig', array());
+        $photos = $this->photos->getPopularPhotos();
+        $this->render('viewHome.php.twig', array('photos' => $photos));
   }
 }
+

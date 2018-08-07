@@ -20,7 +20,7 @@ abstract class Model {
     // BDD connection
     private function getBdd(){
         if($this->bdd == null){
-            $this->bdd = new \PDO('mysql:host=ftp.adeline-decarpentries.fr;dbname=adelined_p8;charset=utf8', 'adelined_p8', '&projet8%', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
+            $this->bdd = new \PDO('mysql:host=localhost;dbname=p9;charset=utf8', 'root', 'root', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
         }
         return $this->bdd;
     }
