@@ -1,0 +1,22 @@
+{% extends 'Template.php.twig' %}
+
+{% block title %}P9 Carte photo{% endblock %}
+
+{% block content %}
+    <div class="col-lg-10 offset-lg-1">
+        <div id="mapAndPhoto">
+            <div id="map"></div>
+            <div id="gallery">
+                <ul id="rslides"></ul>
+            </div>
+        </div>
+        <div id="text"></div>
+        <div id="boundsGallery">
+            <div id="slider" class="MS-content"></div>
+            <div class="MS-controls">
+                <button class="MS-left"><i class="fas fa-angle-left"></i></button>
+                <button class="MS-right"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
