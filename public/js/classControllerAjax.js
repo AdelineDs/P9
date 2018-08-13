@@ -1,16 +1,17 @@
 class ControllerAjax {
 
-    constructor(latMin, latMax, lngMin, lngMax) {
+    constructor(latMin, latMax, lngMin, lngMax, photosArray) {
         this.latMin = latMin;
         this.latMax = latMax;
         this.lngMin = lngMin;
         this.lngMax = lngMax;
+        this.photosArray = photosArray
         this.phpcontroller = "?action=";
-        this.searchAroundPhotos(this.latMin, this.latMax, this.lngMin, this.lngMax);
+        this.searchAroundPhotos(this.latMin, this.latMax, this.lngMin, this.lngMax, this.photosArray);
     }//-- end contructor --
     //
     //cherche les photos présente dans les limites de la carte
-    searchAroundPhotos(latMin, latMax, lngMin, lngMax) {
+    searchAroundPhotos(latMin, latMax, lngMin, lngMax, photosArray) {
         $.ajax({
             url: this.phpcontroller + "getAroundPhotos",
             method: 'GET',
@@ -18,7 +19,8 @@ class ControllerAjax {
                 "latMin": latMin,
                 "latMax": latMax,
                 "lngMin": lngMin,
-                "lngMax": lngMax
+                "lngMax": lngMax,
+                "photosArray": JSON.stringify(photosArray)
             },
             success: (data) => {
                 if (data == "Error") {

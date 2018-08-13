@@ -7,15 +7,16 @@ class Gallery {
 
     createGallery(source){
         const gallery = document.getElementById("rslides");
-        if(document.getElementById("thumbnailsLink")){
+        if(document.getElementsByClassName("thumbnailsLink")){
             gallery.innerHTML="";
         }
         source.forEach(element => {
             const li = document.createElement("li")
-            li.className = "li";
+            li.className = `li`;
+            li.name = `photo_${element.id}`
 
             const link = document.createElement("a");
-            link.id = "thumbnailsLink";
+            link.className = "thumbnailsLink";
             link.href = `http://localhost/OpenDeclic/P9/${element.url}`;
 
             const thumbnails = document.createElement("img");

@@ -5,16 +5,33 @@ namespace AdelineD\OC\P9\Model;
 class Photos extends Model {
 
     public function getPopularPhotos(){
-        $sql = 'SELECT * FROM photos WHERE status=0 ORDER BY note DESC LIMIT 9';
+        $sql = 'SELECT * FROM photos WHERE status=0 ORDER BY likes DESC LIMIT 9';
         $photos = $this->executeQuery($sql, array());
         return $photos;
     }
 
     //Renvoie les photos publiques  présentes dans les limites données
-    public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax){
+    public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray){
         $sql = 'SELECT * FROM photos WHERE lat > ? && lat < ? && lng > ? && lng < ? && status=0';
-        $arroundsPhotos = $this->executeQuery($sql, array($latMin, $latMax, $lngMin, $lngMax));
-        return $arroundsPhotos;
+        $aroundPhotos = $this->executeQuery($sql, array($latMin, $latMax, $lngMin, $lngMax));
+        $array = json_decode($photosArray);
+        $data = [];
+        //on retire le prefixe pour recupérer l'id de la photo
+        foreach($array as $key => $element){
+            $array[$key]= str_replace('photo_', '', $element);
+        }
+        while ($aPhoto = $aroundPhotos->fetch(\PDO::FETCH_ASSOC))
+        {
+            $data [] = $aPhoto;
+        }
+        //pour chaque photo de la galerie secondaire si son id est déjà présent dans la galerie principale
+        //on retire la photo de la galerie secondaire
+        foreach ($data as $photo){
+            if (in_array($photo['id'], $array)){
+                unset($data[array_search($photo, $data)]);
+            }
+        }
+        return $data;
 
     }
 }

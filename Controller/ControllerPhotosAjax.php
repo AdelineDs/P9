@@ -11,8 +11,8 @@ class ControllerPhotosAjax extends ControllerMain {
     }
 
     //Renvoie les photos présentes dans les limites données
-    public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax){
-        $arroundPhotos = $this->photos->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax);
+    public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray){
+        $arroundPhotos = $this->photos->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray);
         $this->render('viewAroundPhotos.php.twig', array('aroundPhotos' => $arroundPhotos));
     }
 }

@@ -36,12 +36,13 @@ class Router {
                 }
                 elseif ($_GET['action'] == 'getAroundPhotos')
                 {
-                    if (isset($_GET["latMin"])&&isset($_GET["latMax"])&&isset($_GET["lngMin"])&&isset($_GET["lngMax"])) {
+                    if (isset($_GET["latMin"])&&isset($_GET["latMax"])&&isset($_GET["lngMin"])&&isset($_GET["lngMax"])&&isset($_GET["photosArray"])) {
                         $latMin = $_GET["latMin"];
                         $latMax = $_GET["latMax"];
                         $lngMin = $_GET["lngMin"];
                         $lngMax = $_GET["lngMax"];
-                        $this->ctrlPhotosAjax->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax);
+                        $photosArray = $_GET["photosArray"];
+                        $this->ctrlPhotosAjax->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray);
                     }
                     else{
                         throw new \Exception( "Données non présentes");
