@@ -27,10 +27,13 @@ class ControllerAjax {
                     alert("Requête corrompue");
                 }
                 else {
-                    $(".empty").remove();
-                    $('.MS-controls').show();
                     document.getElementById('slider').innerHTML = "";
-                    $("#slider").append(data);
+                    $('.MS-controls').hide();
+                    if (data != ""){
+                        $(".empty").remove();
+                        $('.MS-controls').show();
+                        $("#slider").append(data);
+                    }
                 }
             }
         });

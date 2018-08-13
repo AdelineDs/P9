@@ -11,9 +11,9 @@ class Gallery {
             gallery.innerHTML="";
         }
         source.forEach(element => {
-            const li = document.createElement("li")
+            const li = document.createElement("li");
             li.className = `li`;
-            li.name = `photo_${element.id}`
+            li.name = `photo_${element.id}`;
 
             const link = document.createElement("a");
             link.className = "thumbnailsLink";
@@ -29,8 +29,22 @@ class Gallery {
 
             const caption = document.createElement("p");
             caption.className = "caption";
-            caption.appendChild(document.createTextNode(element.description));
+            caption.appendChild(document.createTextNode(`${element.description} - `));
+
+            const likes = document.createElement("p");
+            likes.className = "likes";
+            const heart = document.createElement("i");
+            heart.className = "fas fa-heart";
+
+            caption.appendChild(heart);
+            caption.appendChild(document.createTextNode(` ${element.likes}`));
+
+            const author = document.createElement("p");
+            author.className = "author";
+            author.appendChild(document.createTextNode(element.pseudo));
+
             li.appendChild(caption);
+            li.appendChild(author);
             gallery.appendChild(li);
         });
     }//-- end createGallery --

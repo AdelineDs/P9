@@ -5,7 +5,7 @@ class PhotosJson extends Model {
 
     //Méthode qui recupere toutes les photos publiques
     public function getAllPhotos(){
-        $sql = 'SELECT * FROM photos WHERE status=0';
+        $sql = 'SELECT * FROM members INNER JOIN photos ON memberId = idMember  WHERE status=0';
         $photos = $this->executeQuery($sql) or die('Erreur');
         while ($photo = $photos->fetch(\PDO::FETCH_ASSOC))
         {

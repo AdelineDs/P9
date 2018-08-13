@@ -1,5 +1,5 @@
 class leafletMap{
-    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=6, maxZoom=16){
+    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=6, maxZoom=14){
         this.map = map;
         this.latLng = latLng;
         this.zoom = zoom;
@@ -15,6 +15,7 @@ class leafletMap{
 
     photoRecovery(source) {
         ajaxGet(source, reponse => {
+            console.log(reponse);
             let photosList = JSON.parse(reponse);
             let takenIds =[];
             let addedImage = false;
@@ -44,13 +45,25 @@ class leafletMap{
                     let marker = new L.Marker(latLng, {title: photo.name});
                     marker.gallery = photoGallery;
                     this.markersCluster.addLayer(marker);
+                    marker.bindPopup(photo.name);
                 }//--end if--
             }//-- end for --
-            this.list = new L.Control.ListMarkers({layer: this.markersCluster, itemIcon: null, maxZoom: this.maxZoom});
-            this.myMap.addControl(this.list);
+            //this.list = new L.Control.ListMarkers({layer: this.markersCluster, itemIcon: null, maxZoom: this.maxZoom});
+            //this.myMap.addControl(this.list);
 
-            this.list.on('item-click', e => {
+            this.markersCluster.on("mouseover", (e) => {
+                e.layer.openPopup();
+            });
+
+            this.markersCluster.on("mouseout", (e) => {
+                e.layer.closePopup();
+            });
+
+            this.markersCluster.on('click', e => {
                 let imageGallery = new Gallery(e.layer.gallery);
+                let latLngs = [ e.layer.getLatLng() ];
+                let markerBounds = L.latLngBounds(latLngs);
+                this.myMap.fitBounds(markerBounds);
 
                 $("#rslides").removeClass();
                 $('.rslides_nav').remove();
@@ -77,13 +90,16 @@ class leafletMap{
                     zoom: {
                         enabled: true,
                         duration: 500
+                    },
+                    gallery: {
+                        enabled: true
                     }
 
                 });
 
                 this.searchBoundsGallery();
 
-                $('#boundsGallery').multislider({interval: 3000});
+                $('#boundsGallery').multislider({interval: 5000});
                 $('#boundsGallery').magnificPopup({
                     delegate: "a",
                     type: 'image',
@@ -97,6 +113,9 @@ class leafletMap{
                     zoom: {
                         enabled: true,
                         duration: 500
+                    },
+                    gallery: {
+                        enabled: true
                     }
 
                 });
@@ -104,7 +123,7 @@ class leafletMap{
             this.myMap.on('moveend', (e) => {
 
                 this.searchBoundsGallery();
-                
+
                 const text = document.getElementById("text");
                 $('h3').remove();
                 $('.empty').remove();

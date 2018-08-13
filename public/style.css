@@ -103,6 +103,14 @@ body {
     color: black;
 }
 
+#rslides p{
+    visibility: hidden;
+}
+
+#rslides:hover p{
+    visibility: visible;
+}
+
 .caption {
     position: absolute;
     display: block;
@@ -116,10 +124,23 @@ body {
     color: #fff;
 }
 
+.author {
+    position: absolute;
+    display: block;
+    left: 0;
+    padding: 5px;
+    text-align: center;
+    background: rgba(0,0,0, .8);
+    color: #fff;
+}
+
+.fas.fa-heart {
+    font-size: 1rem;
+}
+
 .caption2{
     text-align: center;
 }
-
 
 #boundsGallery {
     position: relative;
@@ -160,8 +181,6 @@ body {
 .fas{
     font-size: 3em;
 }
-
-
 
 
 
