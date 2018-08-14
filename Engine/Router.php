@@ -1,9 +1,11 @@
 <?php
 
 use \AdelineD\OC\P9\Controller\ControllerHome;
+use \AdelineD\OC\P9\Controller\ControllerError;
 use \AdelineD\OC\P9\Controller\ControllerMap;
 use \AdelineD\OC\P9\Controller\ControllerPictures;
 use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
+use \AdelineD\OC\P9\Controller\ControllerMember;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -12,9 +14,11 @@ Autoloader::register();
 class Router {
     
     private $ctrlHome;
+    private $ctrlError;
     private $ctrlMap;
     private $ctrlPictures;
     private $ctrlPhotosAjax;
+    private $ctrlMember;
 
 
     public function __construct() {
@@ -22,6 +26,8 @@ class Router {
         $this->ctrlMap = new ControllerMap();
         $this->ctrlPictures = new ControllerPictures();
         $this->ctrlPhotosAjax = new ControllerPhotosAjax();
+        $this->ctrlMember= new ControllerMember();
+        $this->ctrlError = new ControllerError();
     }
     
     public function routerQuery(){
@@ -48,6 +54,15 @@ class Router {
                         throw new \Exception( "Données non présentes");
                     }
                 }
+                elseif ($_GET['action'] == 'member'){
+                    $idMember = intval($this->getParam($_GET, 'id'));
+                    if ($idMember > 0){
+                        $this->ctrlMember->memberPage($idMember);
+                    }
+                    else{
+                        throw new \Exception("Identifiant de membre non valide.");
+                    }
+                }
                 else{
                     throw new \Exception("Action non valide");
                 }
@@ -70,9 +85,8 @@ class Router {
         }
     }
 
-        private function error($msgError){
-        $view = new View("Error");
-        $view->generate(array('msgError' => $msgError));
-}
+    private function error($msgError){
+        $this->ctrlError->error($msgError);
+    }
 }//--end class Router      
 

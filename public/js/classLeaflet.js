@@ -15,7 +15,6 @@ class leafletMap{
 
     photoRecovery(source) {
         ajaxGet(source, reponse => {
-            console.log(reponse);
             let photosList = JSON.parse(reponse);
             let takenIds =[];
             let addedImage = false;
@@ -78,7 +77,7 @@ class leafletMap{
                 });
 
                 $('.li').magnificPopup({
-                    delegate: "a",
+                    delegate: ".thumbnailsLink",
                     type: 'image',
                     closeOnContentClick : true,
                     closeBtnInside : false,

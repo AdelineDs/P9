@@ -39,12 +39,17 @@ class Gallery {
             caption.appendChild(heart);
             caption.appendChild(document.createTextNode(` ${element.likes}`));
 
+            const linkAuthor = document.createElement("a");
+            linkAuthor.href = `?action=member&id=${element.idMember}`;
+
             const author = document.createElement("p");
             author.className = "author";
             author.appendChild(document.createTextNode(element.pseudo));
 
+            linkAuthor.appendChild(author);
+
             li.appendChild(caption);
-            li.appendChild(author);
+            li.appendChild(linkAuthor);
             gallery.appendChild(li);
         });
     }//-- end createGallery --

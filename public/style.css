@@ -63,15 +63,10 @@ footer {
 }
 
 
-
-
+/*---- Map ---- */
 #map{
     height: 500px;
     width: 700px;
-}
-
-body {
-    margin: 50px;
 }
 
 #mapAndPhoto{
@@ -79,38 +74,22 @@ body {
     align-items: center;
 }
 
+/*---- Main Gallery ----*/
 #gallery {
     margin-left: 30px;
     position: relative;
 }
-
 .thumbnails{
     max-width: 500px;
     max-height: 500px;
     width: auto !important;
 }
-
-.thumbnails2{
-    max-width: 300px;
-    max-height: 200px;
-    width: auto !important;
-    display: flex;
-    margin: auto;
-}
-
-
-.list-markers-li a{
-    color: black;
-}
-
 #rslides p{
     visibility: hidden;
 }
-
 #rslides:hover p{
     visibility: visible;
 }
-
 .caption {
     position: absolute;
     display: block;
@@ -123,7 +102,6 @@ body {
     background: rgba(0,0,0, .8);
     color: #fff;
 }
-
 .author {
     position: absolute;
     display: block;
@@ -133,11 +111,19 @@ body {
     background: rgba(0,0,0, .8);
     color: #fff;
 }
-
 .fas.fa-heart {
     font-size: 1rem;
 }
 
+
+/*---- Around Gallery ---- */
+.thumbnails2{
+    max-width: 300px;
+    max-height: 200px;
+    width: auto !important;
+    display: flex;
+    margin: auto;
+}
 .caption2{
     text-align: center;
 }
@@ -152,34 +138,67 @@ body {
 }
 .MS-content .item {
     display: inline-block;
-   /* width: 20%; */
+    /* width: 20%; */
     position: relative;
     vertical-align: top;
     overflow: hidden;
     height: 100%;
     white-space: normal;
 }
-
 .MS-controls{
     display: none;
 }
-
 .MS-controls button {
     position: absolute;
     top: 35%;
     background: none;
     border: none;
 }
-
 #boundsGallery .MS-controls .MS-left {
     left: 10px;
 }
 #boundsGallery .MS-controls .MS-right {
     right: 10px;
 }
-
 .fas{
     font-size: 3em;
+}
+
+/*---- Member Page ----*/
+
+.itemMember img {
+    display: block;
+    width: 100%;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    z-index: 9;
+}
+.itemMember:hover img {
+    -webkit-transform: scale(1.01);
+    transform: scale(1.05);
+    z-index: 10;
+}
+.photoName {
+    position: absolute;
+    bottom: 1.25rem;
+    z-index: 12;
+    color: white;
+    font-weight: bold;
+    left: 0;
+    opacity: 0;
+}
+.itemMember:hover .photoName,.itemMember:hover .photoLikes{
+    opacity: 1;
+    transition: opacity .4s ease-in-out;
+}
+.photoLikes {
+    position: relative;
+    bottom: 1.25rem;
+    z-index: 12;
+    color: white;
+    font-weight: bold;
+    left: 20.5rem;
+    opacity: 0;
 }
 
 
@@ -188,8 +207,11 @@ body {
 
 
 
-
-
+/*
+.list-markers-li a{
+    color: black;
+}
+*/
 
 /*--Media Queries--*/
 @media all and (max-width: 768px){

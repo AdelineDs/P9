@@ -1,0 +1,25 @@
+{% extends 'Template.php.twig' %}
+
+{% block title %}Membre : {{ member.pseudo }}{% endblock %}
+
+{% block content %}
+    <div class="col-lg-10 offset-lg-1 text-center">
+        <h2>{{ member.pseudo }}</h2>
+        <p>Membre depuis le : {{ member.registration_date_fr }}</p>
+    </div>
+    <div class="col-lg-10 offset-lg-1">
+        <div class="grid">
+            <div class="grid-sizer">
+                {% for photo in photos %}
+                    {% if photo.status == 0 %}
+                        <div class="grid-item itemMember">
+                            <img src="{{ photo.url }}" />
+                            <p class="photoName">{{ photo.name }}</p>
+                            <p class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

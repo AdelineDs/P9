@@ -34,4 +34,11 @@ class Photos extends Model {
         return $data;
 
     }
+
+    public function getAllPhotosMember($idMember){
+        $sql = 'SELECT * FROM photos WHERE memberId=? ORDER BY likes DESC';
+        $photos = $this->executeQuery($sql, array($idMember));
+        return $photos;
+
+    }
 }
