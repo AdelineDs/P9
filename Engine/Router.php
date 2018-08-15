@@ -29,7 +29,10 @@ class Router {
         $this->ctrlMember= new ControllerMember();
         $this->ctrlError = new ControllerError();
     }
-    
+
+    /**
+     *
+     */
     public function routerQuery(){
         try{
             if(isset($_GET['action'])){
@@ -61,6 +64,18 @@ class Router {
                     }
                     else{
                         throw new \Exception("Identifiant de membre non valide.");
+                    }
+                }
+                //send comment
+                elseif ($_GET['action'] == 'comment'){
+                    if(!empty($_POST['author']) && !empty($_POST['comment'])){
+                        $author = $this->getParam($_POST, 'author');
+                        $comment = $this->getParam($_POST, 'comment');
+                        $idMember = $this->getParam($_POST, 'id');
+                        $this->ctrlMember->comment($idMember, $author, $comment);
+                    }
+                    else{
+                        throw new \Exception("Tous les champs ne sont pas remplis !");
                     }
                 }
                 else{

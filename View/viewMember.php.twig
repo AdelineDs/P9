@@ -13,13 +13,38 @@
                 {% for photo in photos %}
                     {% if photo.status == 0 %}
                         <div class="grid-item itemMember">
-                            <img src="{{ photo.url }}" />
-                            <p class="photoName">{{ photo.name }}</p>
-                            <p class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</p>
+                            <div class="photoItem">
+                                <img src="{{ photo.url }}" />
+                                <span class="photoName">{{ photo.name }}</span>
+                                <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
         </div>
+    </div>
+    <div class="col-lg-6 offset-lg-3 commentForm text-center">
+        <h2>Laisser un commentaire à {{ member.pseudo }}:</h2>
+        <form action="?action=comment" method="post">
+            <input type="hidden" value="{{ member.idMember }}" name="id"/>
+            <div class="form-group">
+                <label for="author">Nom ou pseudo: </label>
+                <input name="author" id="author" type=text class="form-control" required="">
+            </div>
+            <div class="form-group">
+                <label for="comment">Votre commentaire : </label>
+                <textarea name="comment" id="comment" class="form-control" rows="5" required=""></textarea>
+            </div>
+            <input type="submit" value="Commenter" class="submitCom">
+        </form>
+    </div>
+    <div class="col-lg-6 offset-lg-3 text-center listCom">
+        {% for com in comments  %}
+        <div class="comment">
+            <p class="textCom">" {{ com.comment }} "</p>
+            <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}
