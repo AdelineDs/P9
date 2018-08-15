@@ -25,6 +25,10 @@
     </div>
     <div class="col-lg-12 texte">
         <p>Rejoignez-nous !</p>
+        {% if session.id and session.pseudo %}
+            {{ session.id }}
+            {{ session.pseudo }}
+        {% endif %}
         <div class="row">
             <div class="col-lg-1 offset-lg-5">
                 <button type="button" class="btn btn-outline-secondary">Se Connecter</button>

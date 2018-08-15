@@ -17,6 +17,10 @@ abstract class Model {
         return $result;
     }
 
+    protected function getLastId(){
+        return $this->bdd->lastInsertId();
+    }
+
     // BDD connection
     private function getBdd(){
         if($this->bdd == null){

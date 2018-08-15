@@ -4,7 +4,11 @@
 
 {% block content %}
     <div class="col-lg-10 offset-lg-1 text-center">
-        <h2>{{ member.pseudo }}</h2>
+        {% if session.id and session.pseudo and session.id == get.id %}
+            <h2>Bonjour {{ session.pseudo }}, vous pouvez gérer votre profil !</h2>
+        {% else %}
+            <h2>{{ member.pseudo }}</h2>
+        {% endif %}
         <p>Membre depuis le : {{ member.registration_date_fr }}</p>
     </div>
     <div class="col-lg-10 offset-lg-1">
@@ -25,7 +29,7 @@
         </div>
     </div>
     <div class="col-lg-6 offset-lg-3 commentForm text-center">
-        <h2>Laisser un commentaire à {{ member.pseudo }}:</h2>
+        <h2>Laisser un commentaire à {{ member.pseudo }} :</h2>
         <form action="?action=comment" method="post">
             <input type="hidden" value="{{ member.idMember }}" name="id"/>
             <div class="form-group">

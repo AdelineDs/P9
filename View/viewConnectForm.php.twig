@@ -1,0 +1,24 @@
+{% extends 'Template.php.twig' %}
+
+{% block content %}
+    <div class="col-lg-10 offset-lg-1 text-center homeAdmin">
+        <h2>Bienvenue dans l'interface de connection</h2>
+        <p>Pour vous connecter à votre espace personnel, veuillez compléter ce formulaire :</p>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+    <div class="col-lg-6 offset-lg-3 text-center connectForm">
+        <form action="?action=connectMember" method="post">
+            <div class="form-group">
+                <label for="pseudo">Entrez votre pseudo : </label>
+                <input name="pseudo" id="pseudo" type=text class="form-control" required="">
+            </div>
+            <div class="form-group">
+                <label for="pass">Entrez votre mot de passe : </label>
+                <input name="pass" id="pass" class="form-control" type=password required=""></input>
+            </div>
+            <input type="submit" value="Se connecter" class="connectMember">
+        </form>
+    </div>
+{% endblock %}

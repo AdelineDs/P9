@@ -78,6 +78,36 @@ class Router {
                         throw new \Exception("Tous les champs ne sont pas remplis !");
                     }
                 }
+                elseif ($_GET['action'] == 'registrationForm'){
+                    $this->ctrlMember->viewRegistration();
+                }
+                elseif ($_GET['action'] == 'registration'){
+                    if(!empty($_POST['pseudo']) && !empty($_POST['pass1']) && !empty($_POST['pass2']) && !empty($_POST['email'])){
+                        $pseudo = $this->getParam($_POST, 'pseudo');
+                        $pass1 = $this->getParam($_POST, 'pass1');
+                        $pass2 = $this->getParam($_POST, 'pass2');
+                        $email = $this->getParam($_POST, 'email');
+                        $this->ctrlMember->registration($pseudo, $pass1, $pass2, $email);
+                    }
+                    else{
+                        $error = "Tous les champs ne sont pas remplis";
+                        $this->ctrlMember->viewRegistration($error);
+                    }
+                }
+                elseif ($_GET['action'] == 'connectForm'){
+                    $this->ctrlMember->viewConnection();
+                }
+                elseif ($_GET['action'] == 'connectMember') {
+                    if (isset($_POST['pseudo']) && $_POST['pass']) {
+                        if (!empty($_POST['pseudo']) && !empty($_POST['pass'])) {
+                            $this->ctrlMember->connection($_POST['pseudo'], $_POST['pass']);
+                        }
+                        else{
+                            $error = "Tous les champs ne sont pas remplis";
+                            $this->ctrlMember->viewConnection($error);
+                        }
+                    }
+                }
                 else{
                     throw new \Exception("Action non valide");
                 }

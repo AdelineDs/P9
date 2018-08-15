@@ -10,7 +10,7 @@ class PhotosJson extends Model {
                 INNER JOIN photos AS p 
                 ON memberId = idMember  
                 WHERE status=0';
-        $photos = $this->executeQuery($sql) or die('Erreur');
+        $photos = $this->executeQuery($sql);
         while ($photo = $photos->fetch(\PDO::FETCH_ASSOC))
         {
             $data [] = $photo;

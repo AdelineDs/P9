@@ -25,6 +25,7 @@ class ControllerMember extends ControllerMain
         $this->comments = new Comments();
     }
 
+    //display a member page
     public function memberPage($idMember){
         $member = $this->member->getMember($idMember);
         $photos = $this->photos->getAllPhotosMember($idMember);
@@ -32,7 +33,9 @@ class ControllerMember extends ControllerMain
         $this->render("viewMember.php.twig", array(
             'member' => $member,
             'photos' => $photos,
-            'comments' => $comments
+            'comments' => $comments,
+            'session' => $_SESSION,
+            'get' => $_GET
         ));
     }
 
@@ -42,6 +45,61 @@ class ControllerMember extends ControllerMain
         $this->comments->addComment($idMember, $author, $comment);
         // refresh post
         $this->memberPage($idMember);
+    }
+
+    //display Registration page
+    public function viewRegistration($error = null)
+    {
+        if ($error == null){
+            $this->render('viewRegistrationForm.php.twig', array());
+        }
+        else{
+            $this->render('viewRegistrationForm.php.twig', array('error' => $error));
+        }
+
+    }
+
+    //do registration and display member page
+    public function registration($pseudo, $pass1, $pass2, $email){
+        $pseudo = strip_tags($pseudo);
+        if ($pass1 == $pass2){
+            $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+        }
+        else{
+            $insert_error = "Les mots de passes ne sont pas identiques";
+            $this->viewRegistration($insert_error);
+        }
+        $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
+        $_SESSION['id'] = $idNewMember;
+        $_SESSION['pseudo'] = $pseudo;
+        $this->memberPage($idNewMember);
+    }
+
+    // display connect page
+    public function viewConnection($error = null)
+    {
+        if ($error == null){
+            $this->render('viewConnectForm.php.twig', array());
+        }
+        else{
+            $this->render('viewConnectForm.php.twig', array('error' => $error));
+        }
+    }
+
+    public function connection($pseudo, $pass){
+        $pseudo = strip_tags($pseudo);
+        $member = $this->member->getMemberConnection($pseudo);
+        $isPassCorrect = password_verify($pass, $member['password']);
+        if ($isPassCorrect == FALSE){
+            $error = 'Mauvais identifiant ou mot de passe !';
+            $this->viewConnection($error);
+        }
+        else{
+            $idMember = $member['idMember'];
+            $_SESSION['id'] = $idMember;
+            $_SESSION['login'] = $pseudo;
+            $this->memberPage($idMember);
+        }
     }
 
 }

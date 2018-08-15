@@ -12,6 +12,9 @@ namespace AdelineD\OC\P9\Controller;
 class ControllerError extends ControllerMain
 {
     public function error($msgError){
-        $this->render("viewError.php.twig", array('msgError' => $msgError));
+        $this->render("viewError.php.twig", array(
+            'msgError' => $msgError,
+            'session' => $_SESSION
+        ));
     }
 }
