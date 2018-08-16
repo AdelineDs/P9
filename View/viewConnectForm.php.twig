@@ -1,8 +1,10 @@
 {% extends 'Template.php.twig' %}
 
+{% block title %}Connexion{% endblock %}
+
 {% block content %}
     <div class="col-lg-10 offset-lg-1 text-center homeAdmin">
-        <h2>Bienvenue dans l'interface de connection</h2>
+        <h2>Bienvenue dans l'interface de connexion</h2>
         <p>Pour vous connecter à votre espace personnel, veuillez compléter ce formulaire :</p>
         {% if error %}
             <p class="error">{{ error }}</p>

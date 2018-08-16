@@ -22,6 +22,14 @@ class Members extends Model
             throw new \Exception("Aucun membre ne correspond à l'identifiant '$idMember'");
         }
     }
+    public function verifyMember($pseudo, $email){
+        $sql = 'SELECT COUNT(*) FROM members WHERE pseudo=? OR email=?';
+        $data = $this->executeQuery($sql, array($pseudo, $email));
+        $result = $data->fetchColumn();
+        if ($result == 0){
+            return true;
+        }
+    }
 
     // add new member in bdd
     public function addMember($pseudo, $pass, $email){

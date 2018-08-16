@@ -64,15 +64,24 @@ class ControllerMember extends ControllerMain
         $pseudo = strip_tags($pseudo);
         if ($pass1 == $pass2){
             $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+            $result = $this->member->verifyMember($pseudo,$email);
+            if ($result == true)
+            {
+                $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
+                $_SESSION['id'] = $idNewMember;
+                $_SESSION['pseudo'] = $pseudo;
+                //header('location : ?action=member&amp;id='.$idNewMember);
+                $this->memberPage($idNewMember);
+            }
+            else{
+                $insert_error = "Le pseudo ou l'adresse mail a déjà été utilisé.";
+                $this->viewRegistration($insert_error);
+            }
         }
         else{
             $insert_error = "Les mots de passes ne sont pas identiques";
             $this->viewRegistration($insert_error);
         }
-        $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
-        $_SESSION['id'] = $idNewMember;
-        $_SESSION['pseudo'] = $pseudo;
-        $this->memberPage($idNewMember);
     }
 
     // display connect page
@@ -99,6 +108,7 @@ class ControllerMember extends ControllerMain
             $_SESSION['id'] = $idMember;
             $_SESSION['login'] = $pseudo;
             $this->memberPage($idMember);
+            //header('location : index.php?action=member&amp;id='.$idMember);
         }
     }
 
