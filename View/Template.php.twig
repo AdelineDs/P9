@@ -42,18 +42,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="?action=map">Carte</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
-                        </li>
                     </ul>
                 </div>
                 <form class="form-inline">
-                    <a href="?action=connectForm">
-                        <button class="btn btn-sm btn-outline-secondary" type="button">Se Connecter</button>
-                    </a>
+                    {% if session.id and session.pseudo %}
+                        <a class="navbar-text" href="?action=member&id={{ session.id }}">
+                            <span>Mon profil</span>
+                        </a>
+                    {% else %}
+                        <a href="?action=connectForm">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Se Connecter</button>
+                        </a>
+                    {% endif %}
                     <a href="?action=registrationForm">
                         <button class="btn btn-sm btn-outline-secondary" type="button">S'inscrire</button>
                     </a>

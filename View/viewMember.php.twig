@@ -6,6 +6,9 @@
     <div class="col-lg-10 offset-lg-1 text-center">
         {% if session.id and session.pseudo and session.id == get.id %}
             <h2>Bonjour {{ session.pseudo }}, vous pouvez gérer votre profil !</h2>
+            <form action="index.php?action=disconnect" method="post">
+                <input type="submit" value="Déconnexion" name="Deconnexion" class="disconnectMember"/>
+            </form>
         {% else %}
             <h2>{{ member.pseudo }}</h2>
         {% endif %}

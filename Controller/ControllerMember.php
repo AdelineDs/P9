@@ -106,7 +106,7 @@ class ControllerMember extends ControllerMain
         else{
             $idMember = $member['idMember'];
             $_SESSION['id'] = $idMember;
-            $_SESSION['login'] = $pseudo;
+            $_SESSION['pseudo'] = $pseudo;
             $this->memberPage($idMember);
             //header('location : index.php?action=member&amp;id='.$idMember);
         }

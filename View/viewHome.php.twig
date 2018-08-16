@@ -4,7 +4,7 @@
 
 {% block content %}
     <section class="col-md-6 offset-md-3 home">
-        <h2>Bienvenue !</h2>
+        <h2>Bienvenue {% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %} !</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nulla tortor, pulvinar nec lacus vel, blandit cursus enim.
             Phasellus tristique nunc non accumsan blandit. Curabitur at ornare ipsum. Sed diam elit, vehicula id diam eget, vestibulum
             feugiat arcu. Sed egestas, nibh non tincidunt dignissim, dui urna dapibus justo, non placerat quam mauris a mi. Ut vel
@@ -25,10 +25,6 @@
     </div>
     <div class="col-lg-12 texte">
         <p>Rejoignez-nous !</p>
-        {% if session.id and session.pseudo %}
-            {{ session.id }}
-            {{ session.pseudo }}
-        {% endif %}
         <div class="row">
             <div class="col-lg-1 offset-lg-5">
                 <button type="button" class="btn btn-outline-secondary">Se Connecter</button>

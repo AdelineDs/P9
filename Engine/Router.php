@@ -30,9 +30,7 @@ class Router {
         $this->ctrlError = new ControllerError();
     }
 
-    /**
-     *
-     */
+
     public function routerQuery(){
         try{
             if(isset($_GET['action'])){
@@ -107,6 +105,12 @@ class Router {
                             $this->ctrlMember->viewConnection($error);
                         }
                     }
+                }
+                //disconnect
+                elseif ($_GET['action'] == 'disconnect'){
+                    session_unset();
+                    session_destroy();
+                    $this->ctrlHome->home();
                 }
                 else{
                     throw new \Exception("Action non valide");
