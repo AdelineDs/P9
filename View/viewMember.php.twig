@@ -27,6 +27,12 @@
                                 <img src="{{ photo.url }}" />
                                 <span class="photoName">{{ photo.name }}</span>
                                 <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                                <form method="post" action="?action=vote" class="voteForm">
+                                    <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
+                                    <input type="hidden" name="photoId" value="{{ photo.id }}" />
+                                    <input type="hidden" name="memberId" value="{{ session.id }}" />
+                                    <button type="submit" class="voteButton"><i class="fas fa-heart"></i></button>
+                                </form>
                             </div>
                         </div>
                     {% endif %}

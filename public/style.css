@@ -166,6 +166,7 @@ footer {
 }
 
 /*---- Member Page ----*/
+/*- Photos -*/
 .itemMember img {
     display: block;
     width: 100%;
@@ -193,7 +194,9 @@ footer {
     left: 0;
     opacity: 0;
 }
-.itemMember:hover .photoName,.itemMember:hover .photoLikes{
+.itemMember:hover .photoName,
+.itemMember:hover .photoLikes,
+.itemMember:hover .voteButton{
     opacity: 1;
     transition: opacity .4s ease-in-out;
 }
@@ -206,6 +209,27 @@ footer {
     right: 0;
     opacity: 0;
 }
+.voteButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 12;
+    color: white;
+    transition: color .5s;
+    opacity: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-shadow: rgb(11, 11, 11) 1px 0px 0px, rgb(11, 11, 11) 0.533333px 0.833333px 0px, rgb(11, 11, 11) -0.416667px 0.916667px 0px,
+    rgb(11, 11, 11) -0.983333px 0.133333px 0px, rgb(11, 11, 11) -0.65px -0.75px 0px, rgb(11, 11, 11) 0.283333px -0.966667px 0px,
+    rgb(11, 11, 11) 0.966667px -0.283333px 0px;
+    cursor: pointer;
+}
+.voteButton:hover{
+    color: #ff0159;
+}
+
+/*- Comments -*/
 .commentForm{
     margin-top: 5rem;
     margin-bottom: 3rem;

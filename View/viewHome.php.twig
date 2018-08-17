@@ -15,11 +15,21 @@
     <div class="col-lg-10 offset-lg-1">
         <div class="grid">
             <div class="grid-sizer">
-                {% for photo in photos %}
-                    <div class="grid-item">
-                        <img src="{{ photo.url }}" />
-                    </div>
-                {% endfor %}
+                {% if session.id and session.pseudo %}
+                    {% for photo in photos %}
+                        <div class="grid-item">
+                            <img src="{{ photo.url }}" />
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for photo in photos %}
+                        {% if photo.status == 0 %}
+                            <div class="grid-item">
+                                <img src="{{ photo.url }}" />
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

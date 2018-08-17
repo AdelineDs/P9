@@ -6,6 +6,7 @@ use \AdelineD\OC\P9\Controller\ControllerMap;
 use \AdelineD\OC\P9\Controller\ControllerPhotos;
 use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
+use \AdelineD\OC\P9\Controller\ControllerVote;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -19,6 +20,7 @@ class Router {
     private $ctrlPhotos;
     private $ctrlPhotosAjax;
     private $ctrlMember;
+    private $ctrlVote;
 
 
     public function __construct() {
@@ -28,6 +30,7 @@ class Router {
         $this->ctrlPhotosAjax = new ControllerPhotosAjax();
         $this->ctrlMember= new ControllerMember();
         $this->ctrlError = new ControllerError();
+        $this->ctrlVote = new ControllerVote();
     }
 
 
@@ -116,10 +119,16 @@ class Router {
                     $this->ctrlHome->home();
                 }
                 //report a comment
-                elseif ($_GET['action'] == 'reportCom') {
+                elseif ($_GET['action'] == 'reportCom'){
                     $comId = intval($this->getParam($_POST, 'comId'));
                     $memberId = intval($this->getParam($_POST, 'memberId'));
                     $this->ctrlMember->reportComment($comId, $memberId);
+                }
+                elseif ($_GET['action'] == 'vote'){
+                    $photoId = intval($this->getParam($_POST, 'photoId'));
+                    $memberId = intval($this->getParam($_POST, 'memberId'));
+                    $likedMemberId = intval($this->getParam($_POST, 'likedMemberId'));
+                    $this->ctrlVote->vote($photoId, $memberId, $likedMemberId);
                 }
                 else{
                     throw new \Exception("Action non valide");
