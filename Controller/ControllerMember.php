@@ -70,8 +70,7 @@ class ControllerMember extends ControllerMain
                 $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
                 $_SESSION['id'] = $idNewMember;
                 $_SESSION['pseudo'] = $pseudo;
-                //header('location : ?action=member&amp;id='.$idNewMember);
-                $this->memberPage($idNewMember);
+                header('Location: index.php?action=member&id='.$idNewMember);
             }
             else{
                 $insert_error = "Le pseudo ou l'adresse mail a déjà été utilisé.";
@@ -108,8 +107,7 @@ class ControllerMember extends ControllerMain
             $idMember = $member['idMember'];
             $_SESSION['id'] = $idMember;
             $_SESSION['pseudo'] = $pseudo;
-            //$this->memberPage($idMember);
-            header('Location : index.php?action=member&id='.$idMember);
+            header('Location: index.php?action=member&id='.$idMember);
         }
     }
 
