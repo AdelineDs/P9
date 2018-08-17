@@ -95,6 +95,7 @@ class ControllerMember extends ControllerMain
         }
     }
 
+    //member connection
     public function connection($pseudo, $pass){
         $pseudo = strip_tags($pseudo);
         $member = $this->member->getMemberConnection($pseudo);
@@ -107,9 +108,15 @@ class ControllerMember extends ControllerMain
             $idMember = $member['idMember'];
             $_SESSION['id'] = $idMember;
             $_SESSION['pseudo'] = $pseudo;
-            $this->memberPage($idMember);
-            //header('location : index.php?action=member&amp;id='.$idMember);
+            //$this->memberPage($idMember);
+            header('Location : index.php?action=member&id='.$idMember);
         }
+    }
+
+    //report a comment
+    public function reportComment($comId, $memberId) {
+        $this->comments->reportCom($comId);
+        $this->memberPage($memberId);
     }
 
 }

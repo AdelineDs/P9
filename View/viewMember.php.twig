@@ -3,17 +3,20 @@
 {% block title %}{{ member.pseudo }}{% endblock %}
 
 {% block content %}
+    <!-- display member profil -->
     <div class="col-lg-10 offset-lg-1 text-center">
         {% if session.id and session.pseudo and session.id == get.id %}
             <h2>Bonjour {{ session.pseudo }}, vous pouvez gérer votre profil !</h2>
             <form action="index.php?action=disconnect" method="post">
                 <input type="submit" value="Déconnexion" name="Deconnexion" class="disconnectMember"/>
             </form>
+            <a href="?action=addPhoto">Ajouter une photo à ma galerie</a>
         {% else %}
             <h2>{{ member.pseudo }}</h2>
         {% endif %}
         <p>Membre depuis le : {{ member.registration_date_fr }}</p>
     </div>
+    <!-- display photos -->
     <div class="col-lg-10 offset-lg-1">
         <div class="grid">
             <div class="grid-sizer">
@@ -31,6 +34,7 @@
             </div>
         </div>
     </div>
+    <!-- comment form -->
     <div class="col-lg-6 offset-lg-3 commentForm text-center">
         <h2>Laisser un commentaire à {{ member.pseudo }} :</h2>
         <form action="?action=comment" method="post">
@@ -46,11 +50,26 @@
             <input type="submit" value="Commenter" class="submitCom">
         </form>
     </div>
+    <!-- display comments list -->
     <div class="col-lg-6 offset-lg-3 text-center listCom">
         {% for com in comments  %}
         <div class="comment">
-            <p class="textCom">" {{ com.comment }} "</p>
+            {% if com.reported != 1 %}
+                <p class="textCom">" {{ com.comment }} "</p>
+                {% if com.reported == 2 %}
+                    <p>Ce commentaire a été modéré</p>
+                {% endif %}
+            {% else %}
+                <p>Ce commentaire a été signalé et est en attente de modération. Merci de votre compréhension.</p>
+            {% endif %}
             <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+            {% if com.reported == 0 %}
+                <form method="post" action="?action=reportCom">
+                    <input type="hidden" name="comId" value="{{ com.id }}" />
+                    <input type="hidden" name="memberId" value="{{ member.idMember }}" />
+                    <input type="submit" value="Signaler le commentaire" class="reportButton"/>
+                </form>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

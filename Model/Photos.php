@@ -10,7 +10,7 @@ class Photos extends Model {
         return $photos;
     }
 
-    //Renvoie les photos publiques  présentes dans les limites données
+    //Renvoie les photos publiques  présentes dans les limites de la cartes données
     public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray){
         $sql = 'SELECT * FROM photos WHERE lat > ? && lat < ? && lng > ? && lng < ? && status=0';
         $aroundPhotos = $this->executeQuery($sql, array($latMin, $latMax, $lngMin, $lngMax));
@@ -32,13 +32,16 @@ class Photos extends Model {
             }
         }
         return $data;
-
     }
 
+    //récupère toutes les photos d'un membre
     public function getAllPhotosMember($idMember){
         $sql = 'SELECT * FROM photos WHERE memberId=? ORDER BY likes DESC';
         $photos = $this->executeQuery($sql, array($idMember));
         return $photos;
+    }
+
+    public function addPhoto(){
 
     }
 }

@@ -3,7 +3,7 @@
 use \AdelineD\OC\P9\Controller\ControllerHome;
 use \AdelineD\OC\P9\Controller\ControllerError;
 use \AdelineD\OC\P9\Controller\ControllerMap;
-use \AdelineD\OC\P9\Controller\ControllerPictures;
+use \AdelineD\OC\P9\Controller\ControllerPhotos;
 use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 
@@ -16,7 +16,7 @@ class Router {
     private $ctrlHome;
     private $ctrlError;
     private $ctrlMap;
-    private $ctrlPictures;
+    private $ctrlPhotos;
     private $ctrlPhotosAjax;
     private $ctrlMember;
 
@@ -24,7 +24,7 @@ class Router {
     public function __construct() {
         $this->ctrlHome = new ControllerHome();
         $this->ctrlMap = new ControllerMap();
-        $this->ctrlPictures = new ControllerPictures();
+        $this->ctrlPhotos = new ControllerPhotos();
         $this->ctrlPhotosAjax = new ControllerPhotosAjax();
         $this->ctrlMember= new ControllerMember();
         $this->ctrlError = new ControllerError();
@@ -39,7 +39,7 @@ class Router {
                 }
                 elseif ($_GET['action'] == 'getPictures')
                 {
-                    $this->ctrlPictures->getPictures();
+                    $this->ctrlPhotos->getPictures();
                 }
                 elseif ($_GET['action'] == 'getAroundPhotos')
                 {
@@ -106,11 +106,20 @@ class Router {
                         }
                     }
                 }
+                elseif ($_GET['action'] == 'addPhoto'){
+                    $this->ctrlPhotos->viewAddPhoto();
+                }
                 //disconnect
                 elseif ($_GET['action'] == 'disconnect'){
                     session_unset();
                     session_destroy();
                     $this->ctrlHome->home();
+                }
+                //report a comment
+                elseif ($_GET['action'] == 'reportCom') {
+                    $comId = intval($this->getParam($_POST, 'comId'));
+                    $memberId = intval($this->getParam($_POST, 'memberId'));
+                    $this->ctrlMember->reportComment($comId, $memberId);
                 }
                 else{
                     throw new \Exception("Action non valide");

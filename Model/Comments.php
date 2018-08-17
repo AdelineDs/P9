@@ -26,4 +26,10 @@ class Comments extends Model{
         $comments = $this->executeQuery($sql,array($idMember));
         return $comments;
     }
+
+    //update a reported comment
+    public function reportCom($idCom){
+        $sql = 'UPDATE comments SET reported=1  WHERE id=?';
+        $this->executeQuery($sql, array($idCom));
+    }
 }
