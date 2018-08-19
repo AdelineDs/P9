@@ -62,23 +62,44 @@ class ControllerMember extends ControllerMain
     //do registration and display member page
     public function registration($pseudo, $pass1, $pass2, $email){
         $pseudo = strip_tags($pseudo);
-        if ($pass1 == $pass2){
-            $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
-            $result = $this->member->verifyMember($pseudo,$email);
-            if ($result == true)
+        //check format pseudo
+        if (preg_match("/^[0-9a-zA-Z]+$/", $pseudo)){
+            //check format email
+            if ( preg_match ( "/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , $email ) )
             {
-                $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
-                $_SESSION['id'] = $idNewMember;
-                $_SESSION['pseudo'] = $pseudo;
-                header('Location: index.php?action=member&id='.$idNewMember);
+                //check format password
+                if (preg_match("/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/", $pass1)){
+                    if ($pass1 == $pass2){
+                        $pass_hash = password_hash($pass1, PASSWORD_DEFAULT);
+                        $result = $this->member->verifyMember($pseudo,$email);
+                        if ($result == true)
+                        {
+                            $idNewMember = $this->member->addMember($pseudo, $pass_hash, $email);
+                            $_SESSION['id'] = $idNewMember;
+                            $_SESSION['pseudo'] = $pseudo;
+                            header('Location: index.php?action=member&id='.$idNewMember);
+                        }
+                        else{
+                            $insert_error = "Le pseudo ou l'adresse mail a déjà été utilisé.";
+                            $this->viewRegistration($insert_error);
+                        }
+                    }
+                    else{
+                        $insert_error = "Les mots de passes ne sont pas identiques";
+                        $this->viewRegistration($insert_error);
+                    }
+                }else{
+                    $insert_error = "Le format du mot de passe est incorrect : 8 caractères avec au moins 1 chiffre et 1 caractère spécial.";
+                    $this->viewRegistration($insert_error);
+                }
             }
             else{
-                $insert_error = "Le pseudo ou l'adresse mail a déjà été utilisé.";
+                $insert_error = "L'adresse email n'a pas un format valide";
                 $this->viewRegistration($insert_error);
             }
         }
         else{
-            $insert_error = "Les mots de passes ne sont pas identiques";
+            $insert_error = "Le pseudo n'a pas le format attendu (uniquement lettres et chiffres).";
             $this->viewRegistration($insert_error);
         }
     }
