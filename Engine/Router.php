@@ -109,7 +109,9 @@ class Router {
                 elseif ($_GET['action'] == 'connectMember') {
                     if (isset($_POST['pseudo']) && $_POST['pass']) {
                         if (!empty($_POST['pseudo']) && !empty($_POST['pass'])) {
-                            $this->ctrlMember->connection($_POST['pseudo'], $_POST['pass']);
+                            $pseudo = $this->getParam($_POST, 'pseudo');
+                            $pass = $this->getParam($_POST, 'pass');
+                            $this->ctrlMember->connection($pseudo, $pass);
                         }
                         else{
                             $error = "Tous les champs ne sont pas remplis";
@@ -119,6 +121,55 @@ class Router {
                 }
                 elseif ($_GET['action'] == 'addPhoto'){
                     $this->ctrlPhotos->viewAddPhoto();
+                }
+                elseif ($_GET['action'] == 'confirmAdd'){
+                    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['status']) && isset($_POST['idMember'])){
+                        if (!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['lat']) && !empty($_POST['lng'])){
+                            $title = $this->getParam($_POST, 'title');
+                            $description = $this->getParam($_POST, 'description');
+                            $lat = $this->getParam($_POST, 'lat');
+                            $lng = $this->getParam($_POST, 'lng');
+                            $status = intval($this->getParam($_POST, 'status'));
+                            $idMember = intval($this->getParam($_POST, 'idMember'));
+                            $sizeMax = 1000000;
+                            $file = basename($_FILES['photo']['name']);
+                            $fileSize = filesize($_FILES['photo']['tmp_name']);
+                            $extends = array('.png', '.gif', '.jpg', '.jpeg');
+                            $extend = strtolower(strrchr($_FILES['photo']['name'], '.'));
+                            if(in_array($extend, $extends)) //Si l'extension est dans le tableau
+                            {
+                                if($fileSize < $sizeMax) {
+                                    $folder = 'public/img/';
+                                    $file = uniqid().$extend;
+                                    if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)){
+                                        $url = $folder.$file;
+                                        $this->ctrlMember->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+                                    }
+                                    else{
+                                        $error = "Echec de l'upload de la photo.";
+                                        $this->ctrlPhotos->viewAddPhoto($error);
+                                    }
+
+                                }
+                                else{
+                                    $error = 'Le fichier est trop gros...';
+                                    $this->ctrlPhotos->viewAddPhoto($error);
+                                }
+                            }
+                            else{
+                                $error = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg,...';
+                                $this->ctrlPhotos->viewAddPhoto($error);
+                            }
+                        }
+                        else{
+                            $error = "Tous les champs ne sont pas remplis";
+                            $this->ctrlPhotos->viewAddPhoto($error);
+                        }
+                    }
+                    else{
+                        $error = "Un problème est survenu durant le chargement";
+                        $this->ctrlPhotos->viewAddPhoto($error);
+                    }
                 }
                 //disconnect
                 elseif ($_GET['action'] == 'disconnect'){

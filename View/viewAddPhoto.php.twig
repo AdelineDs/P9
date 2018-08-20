@@ -5,26 +5,31 @@
 {% block content %}
     <div class="col-lg-8 offset-lg-2 text-center">
         <h2>Ajouter une nouvelle photo dans votre galerie :</h2>
+        {% if error %}
+            <div class="col-12 text-center error">
+                {{ error }}
+            </div>
+        {% endif %}
         <form method="post" action="index.php?action=confirmAdd" enctype="multipart/form-data">
-            <input type="hidden" value="{{ session.id }}" name="id"/>
+            <input type="hidden" value="{{ session.id }}" name="idMember"/>
             <div class="form-group">
-                <label for="gallery">Choisir une photo (max. 1 Mo) :</label>
+                <label for="photo">Choisir une photo (max. 5 Mo) :</label>
                 <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
-                <input type="file" name="gallery" class="parcourir" required=""/>
+                <input type="file" name="photo" class="parcourir" id="photo" required=""/>
             </div>
             <div class="form-group">
-                <label for="titre">Titre de la photo (max. 50 caractères) :</label>
-                <input type="text" name="titre" placeholder="Titre de la photo" id="titre" required=""/>
+                <label for="title">Titre de la photo (max. 50 caractères) :</label>
+                <input type="text" name="title" placeholder="Titre de la photo" id="title" required=""/>
             </div>
             <div class="form-group">
                 <label for="description">Description de la photo : </label>
-                <textarea name="description" id="description" class="form-control" rows="5" required="">Description ...</textarea>
+                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Description ..."></textarea>
             </div>
             <div class="form-group">
-                <label for="latitude">Latitude du lieu de prise de vue:</label>
-                <input type="text" name="latitude" placeholder="ex : 43.216667" id="titre" required=""/>
-                <label for="longitude">Longitude du lieu de prise de vue :</label>
-                <input type="text" name="longitude" placeholder="ex : 7.752111" id="titre" required=""/>
+                <label for="lat">Latitude du lieu de prise de vue:</label>
+                <input type="text" name="lat" placeholder="ex : 43.216667" id="lat" required=""/>
+                <label for="lng">Longitude du lieu de prise de vue :</label>
+                <input type="text" name="lng" placeholder="ex : 7.752111" id="lng" required=""/>
                 <p id="gpsHelpBlock" class="form-text text-muted">
                     Vous pouvez utilisez le site de <a href="https://www.coordonnees-gps.fr/" target="_blank">Google</a>
                     ou le site <a href="http://www.gpsfrance.net/adresse-vers-coordonnees-gps" target="_blank">GPSFrance</a>
@@ -37,6 +42,10 @@
                     <option value="0">Public</option>
                     <option value="1">Privé</option>
                 </select>
+                <p id="statusHelpBlock" class="form-text text-muted">
+                    Une photo <strong>public</strong> pourra être vu pas toute personne visitant le site.<br>
+                    Une photo <strong>privé</strong> ne pourra être vue que par les autres membres inscrits
+                </p>
             </div>
             <input type="submit" name="submit" value="Envoyer" class="envoi"/>
         </form>

@@ -53,7 +53,8 @@ class Photos extends Model {
         return $photos;
     }
 
-    public function addPhoto(){
-
+    public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
+        $sql = 'INSERT INTO photos(memberId, name, description, url, lat, lng, status, date_added) VALUES(?, ?, ?, ?, ?, ?, ?, NOW())';
+        $this->executeQuery($sql, array($idMember, $title, $description, $url, $lat, $lng, $status));
     }
 }

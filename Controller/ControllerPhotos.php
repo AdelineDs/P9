@@ -40,8 +40,4 @@ class ControllerPhotos extends ControllerMain {
         }
     }
 
-    public function addPhoto(){
-        $this->photos->addPhoto();
-    }
-
 }

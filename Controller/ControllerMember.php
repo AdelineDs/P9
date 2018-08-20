@@ -154,4 +154,9 @@ class ControllerMember extends ControllerMain
         $this->memberPage($memberId);
     }
 
+    public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
+        $this->photos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+        $this->memberPage($idMember);
+    }
+
 }
