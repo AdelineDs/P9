@@ -21,21 +21,19 @@
         <div class="grid">
             <div class="grid-sizer">
                 {% for photo in photos %}
-                    {% if photo.status == 0 %}
                         <div class="grid-item itemMember">
                             <div class="photoItem">
                                 <img src="{{ photo.url }}" />
                                 <span class="photoName">{{ photo.name }}</span>
                                 <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
-                                <form method="post" action="?action=vote" class="voteForm">
+                                <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
                                     <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
                                     <input type="hidden" name="photoId" value="{{ photo.id }}" />
                                     <input type="hidden" name="memberId" value="{{ session.id }}" />
-                                    <button type="submit" class="voteButton"><i class="fas fa-heart"></i></button>
+                                    <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
                                 </form>
                             </div>
                         </div>
-                    {% endif %}
                 {% endfor %}
             </div>
         </div>

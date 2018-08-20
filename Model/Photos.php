@@ -36,8 +36,20 @@ class Photos extends Model {
 
     //récupère toutes les photos d'un membre
     public function getAllPhotosMember($idMember){
-        $sql = 'SELECT * FROM photos WHERE memberId=? ORDER BY likes DESC';
+        $sql = 'SELECT * FROM photos WHERE memberId=? AND status=0 ORDER BY likes DESC';
         $photos = $this->executeQuery($sql, array($idMember));
+        return $photos;
+    }
+
+    //récupère toutes les photos d'un membre
+    public function getAllPhotosAndLikes($idMember, $idConnectMember){
+        $sql = 'SELECT photos.*, IF(likes.id_photo IS NULL, FALSE, TRUE) as liked 
+                FROM photos 
+                LEFT JOIN likes 
+                ON (likes.id_member = ? AND likes.id_photo = photos.id)
+                WHERE photos.memberId = ?
+                ORDER BY likes DESC';
+        $photos = $this->executeQuery($sql, array($idConnectMember, $idMember));
         return $photos;
     }
 

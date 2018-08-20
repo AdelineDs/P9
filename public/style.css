@@ -228,6 +228,12 @@ footer {
 .voteButton:hover{
     color: #ff0159;
 }
+.liked{
+    color: #ff0159;
+}
+.voteForm {
+    margin: 0;
+}
 
 /*- Comments -*/
 .commentForm{

@@ -61,7 +61,15 @@ class Router {
                 elseif ($_GET['action'] == 'member'){
                     $idMember = intval($this->getParam($_GET, 'id'));
                     if ($idMember > 0){
-                        $this->ctrlMember->memberPage($idMember);
+                        if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
+                            if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
+                                $this->ctrlMember->memberPage($idMember, $_SESSION['id']);
+                            }else{
+                                throw new \Exception("Erreur lors de la récupération de la session");
+                            }
+                        }else{
+                            $this->ctrlMember->memberPage($idMember);
+                        }
                     }
                     else{
                         throw new \Exception("Identifiant de membre non valide.");

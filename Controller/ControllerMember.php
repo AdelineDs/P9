@@ -26,17 +26,33 @@ class ControllerMember extends ControllerMain
     }
 
     //display a member page
-    public function memberPage($idMember){
-        $member = $this->member->getMember($idMember);
-        $photos = $this->photos->getAllPhotosMember($idMember);
-        $comments = $this->comments->getComments($idMember);
-        $this->render("viewMember.php.twig", array(
-            'member' => $member,
-            'photos' => $photos,
-            'comments' => $comments,
-            'session' => $_SESSION,
-            'get' => $_GET
-        ));
+    public function memberPage($idMember, $idConnectMember = null){
+        if ($idConnectMember == null){
+            $member = $this->member->getMember($idMember);
+            $photos = $this->photos->getAllPhotosMember($idMember);
+            $comments = $this->comments->getComments($idMember);
+            $this->render("viewMember.php.twig", array(
+                'member' => $member,
+                'photos' => $photos,
+                'comments' => $comments,
+                'session' => $_SESSION,
+                'get' => $_GET
+            ));
+        }
+        else{
+            $member = $this->member->getMember($idMember);
+            $photos = $this->photos->getAllPhotosAndLikes($idMember, $idConnectMember);
+            var_dump($photos);
+            $comments = $this->comments->getComments($idMember);
+            $this->render("viewMember.php.twig", array(
+                'member' => $member,
+                'photos' => $photos,
+                'comments' => $comments,
+                'session' => $_SESSION,
+                'get' => $_GET
+            ));
+        }
+
     }
 
     // add comment to a member page
