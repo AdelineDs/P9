@@ -151,7 +151,7 @@ class ControllerMember extends ControllerMain
     //report a comment
     public function reportComment($comId, $memberId) {
         $this->comments->reportCom($comId);
-        $this->memberPage($memberId);
+        header('Location: index.php?action=member&id='.$memberId);
     }
 
 }

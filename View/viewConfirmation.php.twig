@@ -1,0 +1,31 @@
+{% extends 'Template.php.twig' %}
+
+{% block title %}Supprimer le commenatire{% endblock %}
+
+{% block content %}
+    {% if session.id and session.pseudo and session.status == 1 %}
+        <div class="col-lg-10 offset-lg-1 text-center">
+            <h2>Etes-vous sûre de vouloir supprimer ce commentaire ?</h2>
+            <a href="?action=management">retour à l'administration</a>
+        </div>
+        <div class="col-lg-10 offset-lg-1 text-center">
+            <div class="comment">
+                <p class="textCom">" {{ com.comment }} "</p>
+                <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+            </div>
+        </div>
+        <div class="col-lg-10 offset-lg-1 text-center">
+            <form action="index.php?action=confirmDeleteCom" method="post">
+                <input type="hidden" value="{{ com.id }}" name="idCom"/>
+                <input  class="confirm" type="submit" value="OUI">
+            </form>
+            <form action="index.php?action=management" method="post">
+                <input  class="cancel" type="submit" value="NON">
+            </form>
+        </div>
+    {% else %}
+        <div class="col-lg-10 offset-lg-1 text-center">
+            Vous n'avez pas l'autorisation pour accéder à cette page
+        </div>
+    {% endif %}
+{% endblock %}

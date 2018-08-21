@@ -59,4 +59,10 @@ class Comments extends Model{
         $sql = 'UPDATE comments SET author= ?, comment=?, reported=2 WHERE id=?';
         $this->executeQuery($sql, array($author, $comment, $idCom));
     }
+
+    //delete a comment in database
+    public function confirmDelete($idCom) {
+        $sql = 'DELETE FROM comments WHERE id= ?';
+        $this->executeQuery($sql, array($idCom));
+    }
 }

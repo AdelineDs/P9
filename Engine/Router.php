@@ -248,6 +248,34 @@ class Router {
                         throw new \Exception("Une erreur est survenue durant la récupération des données");
                     }
                 }
+                //send to the confirmation page deleting a comment
+                elseif ($_GET['action'] == 'deleteCom') {
+                    $idCom = intval($this->getParam($_GET, 'id'));
+                    if ($idCom != 0) {
+                        $this->ctrlAdmin->viewConfirmation($idCom);
+                    }
+                    else {
+                        $error = "Identifiant de commentaire non valide";
+                        $this->ctrlAdmin->viewAdmin($error);
+                    }
+                }
+                //delete comment
+                elseif ($_GET['action'] == 'confirmDeleteCom') {
+                    if (isset($_POST['idCom'])){
+                        if (!empty($_POST['idCom'])){
+                            $idCom = $this->getParam($_POST, 'idCom');
+                            $this->ctrlAdmin->confirmDeleteCom($idCom);
+                        }
+                        else{
+                            $error = "Erreur avec l'identifiant de commentaire";
+                            $this->ctrlAdmin->viewAdmin($error);
+                        }
+                    }
+                    else{
+                        $error = "Erreur avec l'identifiant de commentaire";
+                        $this->ctrlAdmin->viewAdmin($error);
+                    }
+                }
                 else{
                     throw new \Exception("Action non valide");
                 }

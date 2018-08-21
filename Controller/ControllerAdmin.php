@@ -19,6 +19,7 @@ class ControllerAdmin extends ControllerMain
         $this->comments = new Comments();
     }
 
+    //display admin page
     public function viewAdmin($error = null){
         $reportedCom = $this->comments->getReportedCom();
         if ($error == null){
@@ -37,6 +38,7 @@ class ControllerAdmin extends ControllerMain
 
     }
 
+    //display form for moderation of comment
     public function moderationForm($idCom){
         $com = $this->comments->getComment($idCom);
         $this->render('viewModerationComForm.php.twig', array(
@@ -45,8 +47,24 @@ class ControllerAdmin extends ControllerMain
         ));
     }
 
+    //confirm the moderation of a comment
     public function moderateCom($idCom, $author, $comment){
         $this->comments->modifyCom($idCom, $author, $comment);
+        header('Location: index.php?action=management');
+    }
+
+    //display confirmation page for deleting comment
+    public function viewConfirmation($idCom){
+        $com = $this->comments->getComment($idCom);
+        $this->render('viewConfirmation.php.twig', array(
+            'com' => $com,
+            'session' => $_SESSION
+        ));
+    }
+
+    //confirm deleting comment
+    public function confirmDeleteCom($idCom) {
+        $this->comments->confirmDelete($idCom);
         header('Location: index.php?action=management');
     }
 }

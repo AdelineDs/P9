@@ -5,7 +5,12 @@
 {% block content %}
     {% if session.id and session.pseudo and session.status == 1 %}
         <div class="col-lg-10 offset-lg-1 text-center">
-        Bienvenue sur l'interface d'administration
+        <h2>Bienvenue sur l'interface d'administration</h2>
+        {% if error %}
+            <div class="col-12 text-center error">
+                {{ error }}
+            </div>
+        {% endif %}
         {% for com in reportedCom %}
             <div class="warning">
                 Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
@@ -15,10 +20,10 @@
                 </p>
             </div>
         {% endfor %}
+        </div>
     {% else %}
         <div class="col-lg-10 offset-lg-1 text-center">
             Vous n'avez pas l'autorisation pour accéder à cette page
         </div>
     {% endif %}
-    </div>
 {% endblock %}
