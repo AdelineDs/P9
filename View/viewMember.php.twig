@@ -10,7 +10,10 @@
             <form action="index.php?action=disconnect" method="post">
                 <input type="submit" value="Déconnexion" name="Deconnexion" class="disconnectMember"/>
             </form>
-            <a href="?action=addPhoto">Ajouter une photo à ma galerie</a>
+            <a href="?action=addPhoto">Ajouter une photo à ma galerie</a><br>
+            {% if session.status == 1 %}
+                <a href="?action=management">Gestion de l'administation</a>
+            {% endif %}
         {% else %}
             <h2>{{ member.pseudo }}</h2>
         {% endif %}

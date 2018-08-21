@@ -7,6 +7,7 @@ use \AdelineD\OC\P9\Controller\ControllerPhotos;
 use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 use \AdelineD\OC\P9\Controller\ControllerVote;
+use \AdelineD\OC\P9\Controller\ControllerAdmin;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -21,6 +22,7 @@ class Router {
     private $ctrlPhotosAjax;
     private $ctrlMember;
     private $ctrlVote;
+    private $ctrlAdmin;
 
 
     public function __construct() {
@@ -31,6 +33,7 @@ class Router {
         $this->ctrlMember= new ControllerMember();
         $this->ctrlError = new ControllerError();
         $this->ctrlVote = new ControllerVote();
+        $this->ctrlAdmin = new ControllerAdmin();
     }
 
 
@@ -58,6 +61,7 @@ class Router {
                         throw new \Exception( "Données non présentes");
                     }
                 }
+                //display a member page
                 elseif ($_GET['action'] == 'member'){
                     $idMember = intval($this->getParam($_GET, 'id'));
                     if ($idMember > 0){
@@ -87,9 +91,11 @@ class Router {
                         throw new \Exception("Tous les champs ne sont pas remplis !");
                     }
                 }
+                //diplay registration form
                 elseif ($_GET['action'] == 'registrationForm'){
                     $this->ctrlMember->viewRegistration();
                 }
+                //do the regostration for a new member
                 elseif ($_GET['action'] == 'registration'){
                     if(!empty($_POST['pseudo']) && !empty($_POST['pass1']) && !empty($_POST['pass2']) && !empty($_POST['email'])){
                         $pseudo = $this->getParam($_POST, 'pseudo');
@@ -103,9 +109,11 @@ class Router {
                         $this->ctrlMember->viewRegistration($error);
                     }
                 }
+                //display connect form
                 elseif ($_GET['action'] == 'connectForm'){
                     $this->ctrlMember->viewConnection();
                 }
+                //connect a member
                 elseif ($_GET['action'] == 'connectMember') {
                     if (isset($_POST['pseudo']) && $_POST['pass']) {
                         if (!empty($_POST['pseudo']) && !empty($_POST['pass'])) {
@@ -119,9 +127,11 @@ class Router {
                         }
                     }
                 }
+                //display form for add photo
                 elseif ($_GET['action'] == 'addPhoto'){
                     $this->ctrlPhotos->viewAddPhoto();
                 }
+                //add a photo in member gallery
                 elseif ($_GET['action'] == 'confirmAdd'){
                     if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['status']) && isset($_POST['idMember'])){
                         if (!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['lat']) && !empty($_POST['lng'])){
@@ -143,7 +153,7 @@ class Router {
                                     $file = uniqid().$extend;
                                     if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)){
                                         $url = $folder.$file;
-                                        $this->ctrlMember->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+                                        $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
                                     }
                                     else{
                                         $error = "Echec de l'upload de la photo.";
@@ -183,11 +193,60 @@ class Router {
                     $memberId = intval($this->getParam($_POST, 'memberId'));
                     $this->ctrlMember->reportComment($comId, $memberId);
                 }
+                //like or dislike a photo
                 elseif ($_GET['action'] == 'vote'){
                     $photoId = intval($this->getParam($_POST, 'photoId'));
                     $memberId = intval($this->getParam($_POST, 'memberId'));
                     $likedMemberId = intval($this->getParam($_POST, 'likedMemberId'));
                     $this->ctrlVote->vote($photoId, $memberId, $likedMemberId);
+                }
+                //display tha admin management page
+                elseif ($_GET['action'] == 'management'){
+                    if (isset($_SESSION['id']) && isset($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                            if ($_SESSION['status'] == 1){
+                                $this->ctrlAdmin->viewAdmin();
+                            }
+                            else{
+                                throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
+                            }
+                        }
+                        else{
+                            throw new \Exception("Un erreur est survenue durant la récupération des données de sessions");
+                        }
+                    }
+                    else{
+                        throw new \Exception("Impossible de récupérer les données de sessions");
+                    }
+
+                }
+                //sent to comment moderation form
+                elseif ($_GET['action'] == 'moderateCom') {
+                    $idCom = intval($this->getParam($_GET, 'id'));
+                    if ($idCom != 0) {
+                        $this->ctrlAdmin->moderationForm($idCom);
+                    }
+                    else {
+                        $error = "Identifiant de commentaire non valide";
+                        $this->ctrlAdmin->viewAdmin($error);
+                    }
+                }
+                //confirms the modification of a comment
+                elseif ($_GET['action'] == 'confirmModerationCom') {
+                    if (isset($_POST['author']) && isset($_POST['comment']) && isset($_POST['idCom'])){
+                        if(!empty($_POST['author']) && !empty($_POST['comment']) && !empty($_POST['idCom'])){
+                            $idCom = $this->getParam($_POST, 'idCom');
+                            $author = $this->getParam($_POST, 'author');
+                            $comment = $this->getParam($_POST, 'comment');
+                            $this->ctrlAdmin->moderateCom($idCom, $author, $comment);
+                        }
+                        else{
+                            throw new \Exception("Tous les champs ne sont pas remplis !");
+                        }
+                    }
+                    else{
+                        throw new \Exception("Une erreur est survenue durant la récupération des données");
+                    }
                 }
                 else{
                     throw new \Exception("Action non valide");

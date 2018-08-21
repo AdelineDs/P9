@@ -12,12 +12,12 @@ class ControllerHome extends ControllerMain {
     }
 
     //display home page
-  public function home(){
+    public function home(){
         $photos = $this->photos->getPopularPhotos();
         $this->render('viewHome.php.twig', array(
             'photos' => $photos,
             'session' => $_SESSION
         ));
-  }
+    }
 }
 

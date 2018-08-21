@@ -40,4 +40,9 @@ class ControllerPhotos extends ControllerMain {
         }
     }
 
+    public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
+        $this->photos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+        header('Location: index.php?action=member&id='.$idMember);
+    }
+
 }

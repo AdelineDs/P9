@@ -42,7 +42,6 @@ class ControllerMember extends ControllerMain
         else{
             $member = $this->member->getMember($idMember);
             $photos = $this->photos->getAllPhotosAndLikes($idMember, $idConnectMember);
-            var_dump($photos);
             $comments = $this->comments->getComments($idMember);
             $this->render("viewMember.php.twig", array(
                 'member' => $member,
@@ -136,7 +135,7 @@ class ControllerMember extends ControllerMain
         $pseudo = strip_tags($pseudo);
         $member = $this->member->getMemberConnection($pseudo);
         $isPassCorrect = password_verify($pass, $member['password']);
-        if ($isPassCorrect == FALSE){
+        if (!$isPassCorrect){
             $error = 'Mauvais identifiant ou mot de passe !';
             $this->viewConnection($error);
         }
@@ -144,6 +143,7 @@ class ControllerMember extends ControllerMain
             $idMember = $member['idMember'];
             $_SESSION['id'] = $idMember;
             $_SESSION['pseudo'] = $pseudo;
+            $_SESSION['status'] = $member['statusMember'];
             header('Location: index.php?action=member&id='.$idMember);
         }
     }
@@ -152,11 +152,6 @@ class ControllerMember extends ControllerMain
     public function reportComment($comId, $memberId) {
         $this->comments->reportCom($comId);
         $this->memberPage($memberId);
-    }
-
-    public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
-        $this->photos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
-        $this->memberPage($idMember);
     }
 
 }

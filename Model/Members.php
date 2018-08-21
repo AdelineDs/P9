@@ -41,7 +41,7 @@ class Members extends Model
 
     //get member account
     public function getMemberConnection($pseudo) {
-        $sql = 'SELECT idMember, password FROM members WHERE pseudo= ? ';
+        $sql = 'SELECT idMember, password, statusMember FROM members WHERE pseudo= ? ';
         $member = $this->executeQuery($sql, array($pseudo));
         return $member->fetch();
     }
