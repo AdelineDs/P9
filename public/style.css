@@ -1,4 +1,4 @@
-/*------General ------*/
+/*------ General ------*/
 html {
     overflow-y: scroll;
 }
@@ -12,27 +12,31 @@ body{
     box-sizing: border-box;
 }
 
-/*--- Nav Menu ---*/
-.menu {
-    justify-content: flex-end;
+.btn-outline-secondary {
+    margin: 0 5px 0 5px;
 }
-.navbar {
-    background-color: gold;
+.btn-outline-secondary:hover {
+    background-color: #5dafcd;
+    border-color: #5dafcd;
 }
 
 footer {
     display: flex;
     justify-content: space-around;
-    background: gold;
+    background: #222629;
+    color: white;
+    padding: 15px;
 }
-
-.home{
-    text-align: center;
+/*--- Nav Menu ---*/
+.menu {
+    justify-content: flex-end;
 }
-.texte{
-    text-align: center;
+.navbar {
+    background-color: #222629;
 }
-
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: #5dafcd;
+}
 
 /*----- Masonry -----*/
 /* clear fix */
@@ -52,16 +56,54 @@ footer {
 .grid-item img {
     display: block;
     width: 100%;
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-    z-index: 9;
-}
-.grid-item:hover img {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-    z-index: 10;
 }
 
+/*---- Home page ----*/
+.popularPhotos{
+    padding: 0;
+}
+.homeItem{
+    position: relative;
+}
+.photoInfos {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 11;
+    opacity: 0;
+    width: 100%;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1c1c1c+43,131313+63,141414+74&0+0,1+100 */
+    background: -moz-linear-gradient(top, rgba(28,28,28,0) 0%, rgba(28,28,28,0.43) 43%, rgba(19,19,19,0.63) 63%, rgba(20,20,20,0.74) 74%, rgba(20,20,20,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(28,28,28,0) 0%,rgba(28,28,28,0.43) 43%,rgba(19,19,19,0.63) 63%,rgba(20,20,20,0.74) 74%,rgba(20,20,20,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(28,28,28,0) 0%,rgba(28,28,28,0.43) 43%,rgba(19,19,19,0.63) 63%,rgba(20,20,20,0.74) 74%,rgba(20,20,20,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001c1c1c', endColorstr='#141414',GradientType=0 ); /* IE6-9 */
+    line-height: 1rem;
+    height: 25%;
+    justify-content: end;
+    padding: 10px;
+    transform: translateX(1rem);
+    transition: all 0.4s ease-in-out;
+}
+.homeItem:hover .photoInfos {
+    opacity: 1;
+    transform: translate(0, 0);
+    transition: all 0.4s ease-in-out;
+}
+.photoAuthor a {
+    color: white;
+    font-weight: bold;
+}
+.photoTitle {
+    font-style: italic;
+}
+.rejoin{
+    padding: 40px 0 40px 0;
+    background-color: #5dafcd;
+}
 
 /*---- Map ---- */
 #map{
@@ -266,7 +308,7 @@ footer {
 @media all and (max-width: 768px){
     .grid-sizer,
     .grid-item {
-        width: 50%;
+        width: 100%;
     }
 
     .photoLikes {

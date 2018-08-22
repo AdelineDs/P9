@@ -185,7 +185,7 @@ class Router {
                 elseif ($_GET['action'] == 'disconnect'){
                     session_unset();
                     session_destroy();
-                    $this->ctrlHome->home();
+                    header('Location: index.php');
                 }
                 //report a comment
                 elseif ($_GET['action'] == 'reportCom'){

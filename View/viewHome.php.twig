@@ -3,7 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    <section class="col-md-6 offset-md-3 home">
+    <section class="col-md-6 offset-md-3 text-center">
         <h2>Bienvenue {% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %} !</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nulla tortor, pulvinar nec lacus vel, blandit cursus enim.
             Phasellus tristique nunc non accumsan blandit. Curabitur at ornare ipsum. Sed diam elit, vehicula id diam eget, vestibulum
@@ -12,20 +12,31 @@
             himenaeos. Nullam ornare ullamcorper nibh at auctor.
         </p>
     </section>
-    <div class="col-lg-10 offset-lg-1">
+    <div class="col-12 text-center popularPhotos">
         <div class="grid">
             <div class="grid-sizer">
                 {% if session.id and session.pseudo %}
                     {% for photo in photos %}
-                        <div class="grid-item">
-                            <img src="{{ photo.url }}" />
+                        <div class="grid-item itemHome">
+                            <div class="homeItem">
+                                <img src="{{ photo.url }}" />
+                                <span class="photoName">{{ photo.pseudo }}</span>
+                                <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                            </div>
                         </div>
                     {% endfor %}
                 {% else %}
                     {% for photo in photos %}
                         {% if photo.status == 0 %}
-                            <div class="grid-item">
-                                <img src="{{ photo.url }}" />
+                            <div class="grid-item itemHome">
+                                <div class="homeItem">
+                                    <img src="{{ photo.url }}" />
+                                    <div class="photoInfos">
+                                        <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
+                                        <span class="photoTitle"></i>{{ photo.name }}</span>
+                                    </div>
+
+                                </div>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -33,16 +44,22 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 texte">
+    <div class="col-12 rejoin">
+    <div class="col-6 offset-3 text-center ">
         <p>Rejoignez-nous !</p>
         <div class="row">
-            <div class="col-lg-1 offset-lg-5">
-                <button type="button" class="btn btn-outline-secondary">Se Connecter</button>
+            <div class="col-lg-6">
+                <a href="?action=connectForm">
+                    <button class="btn btn-sm btn-outline-dark" type="button">Se Connecter</button>
+                </a>
             </div>
-            <div class="col-lg-1">
-                <button type="button" class="btn btn-outline-secondary">S'inscrire</button>
+            <div class="col-lg-6">
+                <a href="?action=registrationForm">
+                    <button class="btn btn-sm btn-outline-dark" type="button">S'inscrire</button>
+                </a>
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
 

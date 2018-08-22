@@ -5,7 +5,11 @@ namespace AdelineD\OC\P9\Model;
 class Photos extends Model {
 
     public function getPopularPhotos(){
-        $sql = 'SELECT * FROM photos ORDER BY likes DESC LIMIT 9';
+        $sql = 'SELECT p.*, m.pseudo, m.idMember 
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON memberId = idMember
+                ORDER BY likes DESC LIMIT 9';
         $photos = $this->executeQuery($sql, array());
         return $photos;
     }
