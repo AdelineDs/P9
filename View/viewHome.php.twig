@@ -20,8 +20,10 @@
                         <div class="grid-item itemHome">
                             <div class="homeItem">
                                 <img src="{{ photo.url }}" />
-                                <span class="photoName">{{ photo.pseudo }}</span>
-                                <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                                <div class="photoInfos">
+                                    <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
+                                    <span class="photoTitle"></i>{{ photo.name }}</span>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -35,7 +37,6 @@
                                         <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
                                         <span class="photoTitle"></i>{{ photo.name }}</span>
                                     </div>
-
                                 </div>
                             </div>
                         {% endif %}

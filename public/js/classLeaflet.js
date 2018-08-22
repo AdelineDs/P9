@@ -98,7 +98,7 @@ class leafletMap{
 
                 this.searchBoundsGallery();
 
-                $('#boundsGallery').multislider({interval: 5000});
+                $('#boundsGallery').multislider({interval: 3000});
                 $('#boundsGallery').magnificPopup({
                     delegate: "a",
                     type: 'image',
@@ -120,8 +120,9 @@ class leafletMap{
                 });
             })//-- end list.on --
             this.myMap.on('moveend', (e) => {
-
-                this.searchBoundsGallery();
+                let mainPhotos = document.getElementsByClassName("li");
+                if(mainPhotos.length != 0){
+                    this.searchBoundsGallery();
 
                 const text = document.getElementById("text");
                 $('h3').remove();
@@ -134,6 +135,7 @@ class leafletMap{
                 empty.className = "empty";
                 empty.appendChild(document.createTextNode("Aucune suggestion dans cette zone !"));
                 text.appendChild(empty);
+                }
 
             })//-- end myMyap.moveend --
         });//-- end ajaxGet --
@@ -173,14 +175,10 @@ class leafletMap{
         //on recupère la liste des photos de la galerie principale
         let mainPhotos = document.getElementsByClassName("li");
         let photosArray = [];
-        if (mainPhotos){
-            for (let photo of mainPhotos){
-                photosArray.push(photo.name);
-            }
+        for (let photo of mainPhotos){
+            photosArray.push(photo.name);
         }
-        if(mainPhotos){
-            let controleur = new ControllerAjax(latMin, latMax, lngMin, lngMax, photosArray);
-        }
+        let controleur = new ControllerAjax(latMin, latMax, lngMin, lngMax, photosArray);
     }
 
 }//---- END CLASS LEAFLETMAP ----

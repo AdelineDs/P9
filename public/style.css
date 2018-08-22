@@ -6,6 +6,8 @@ body{
     margin: 0;
     padding: 0;
     font-size: 16px;
+    background-color: #222629;
+    color: white;
 }
 
 * {
@@ -20,6 +22,10 @@ body{
     border-color: #5dafcd;
 }
 
+.content {
+    min-height: 100vh;
+}
+
 footer {
     display: flex;
     justify-content: space-around;
@@ -27,15 +33,29 @@ footer {
     color: white;
     padding: 15px;
 }
+
+.footer{
+    border-top: solid 1px #5dafcd;
+}
+
+.error{
+    color: red;
+    font-weight: bold;
+}
+
 /*--- Nav Menu ---*/
 .menu {
     justify-content: flex-end;
 }
 .navbar {
     background-color: #222629;
+    border-bottom: #5dafcd solid 1px;
 }
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
     color: #5dafcd;
+}
+.space{
+    height: 56px;
 }
 
 /*----- Masonry -----*/
@@ -61,6 +81,7 @@ footer {
 /*---- Home page ----*/
 .popularPhotos{
     padding: 0;
+    overflow: hidden
 }
 .homeItem{
     position: relative;
@@ -81,12 +102,13 @@ footer {
     background: -webkit-linear-gradient(top, rgba(28,28,28,0) 0%,rgba(28,28,28,0.43) 43%,rgba(19,19,19,0.63) 63%,rgba(20,20,20,0.74) 74%,rgba(20,20,20,1) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba(28,28,28,0) 0%,rgba(28,28,28,0.43) 43%,rgba(19,19,19,0.63) 63%,rgba(20,20,20,0.74) 74%,rgba(20,20,20,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001c1c1c', endColorstr='#141414',GradientType=0 ); /* IE6-9 */
-    line-height: 1rem;
+    line-height: 1.2rem;
     height: 25%;
     justify-content: end;
     padding: 10px;
     transform: translateX(1rem);
     transition: all 0.4s ease-in-out;
+    margin: -0.05%;
 }
 .homeItem:hover .photoInfos {
     opacity: 1;
@@ -289,20 +311,8 @@ footer {
     font-size: 1.2rem;
 }
 
-/*---- Registration ----*/
-.error{
-    color: red;
-    font-weight: bold;
-}
 
 
-
-
-/*
-.list-markers-li a{
-    color: black;
-}
-*/
 
 /*--Media Queries--*/
 @media all and (max-width: 768px){
@@ -314,4 +324,11 @@ footer {
     .photoLikes {
         top: 0;
     }
+}
+
+@media all  and (max-width: 363px) {
+    .space{
+        height: 87px;
+    }
+
 }
