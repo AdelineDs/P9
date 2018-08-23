@@ -1,11 +1,26 @@
-{% extends 'Template.php.twig' %}
+{% extends 'withSidebar.php.twig' %}
 
 {% block title %}Administration{% endblock %}
 
-{% block content %}
+{% block sidebar %}
+        {% if session.id and session.pseudo and session.status == 1%}
+            <div class="sidebar-text d-flex text-center px-3 my-5">
+                Bienvenue sur la page d'administration {{ session.pseudo }}.
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="?action=member&id={{ session.id }}">
+                        <span data-feather="corner-down-left"></span>
+                        Retour au profil
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+{% endblock %}
+
+{% block main %}
     {% if session.id and session.pseudo and session.status == 1 %}
         <div class="col-lg-10 offset-lg-1 text-center">
-        <h2>Bienvenue sur l'interface d'administration</h2>
         {% if error %}
             <div class="col-12 text-center error">
                 {{ error }}

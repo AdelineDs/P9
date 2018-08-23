@@ -46,21 +46,26 @@
         </div>
     </div>
     <div class="col-12 rejoin">
-    <div class="col-6 offset-3 text-center ">
-        <p>Rejoignez-nous !</p>
-        <div class="row">
-            <div class="col-lg-6">
-                <a href="?action=connectForm">
-                    <button class="btn btn-sm btn-outline-dark" type="button">Se Connecter</button>
-                </a>
-            </div>
-            <div class="col-lg-6">
-                <a href="?action=registrationForm">
-                    <button class="btn btn-sm btn-outline-dark" type="button">S'inscrire</button>
-                </a>
-            </div>
+        <div class="col-6 offset-3 text-center ">
+            {% if session.id and session.pseudo %}
+                <a href="?action=member&id={{ session.id }}" class="goProfil">Gestion du profil</a>
+            {% else %}
+                <p>Rejoignez-nous !</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a href="?action=connectForm">
+                            <button class="btn btn-sm btn-outline-dark" type="button">Se Connecter</button>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a href="?action=registrationForm">
+                            <button class="btn btn-sm btn-outline-dark" type="button">S'inscrire</button>
+                        </a>
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
-    </div>
     </div>
 {% endblock %}
 

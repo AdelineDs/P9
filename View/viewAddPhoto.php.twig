@@ -1,10 +1,23 @@
-{% extends 'Template.php.twig' %}
+{% extends 'withSidebar.php.twig' %}
 
 {% block title %}Ajouter une nouvelle photo{% endblock %}
 
-{% block content %}
-    <div class="col-lg-8 offset-lg-2 text-center">
-        <h2>Ajouter une nouvelle photo dans votre galerie :</h2>
+{% block sidebar %}
+    <div class="sidebar-text d-flex text-center px-3 my-5">
+        Ajoutez une photo dans votre galerie {{ session.pseudo }}.
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="?action=member&id={{ session.id }}">
+                <span data-feather="corner-down-left"></span>
+                Retour au profil
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-8 offset-lg-3 text-center">
         {% if error %}
             <div class="col-12 text-center error">
                 {{ error }}
@@ -33,7 +46,7 @@
                 <p id="gpsHelpBlock" class="form-text text-muted">
                     Vous pouvez utilisez le site de <a href="https://www.coordonnees-gps.fr/" target="_blank">Google</a>
                     ou le site <a href="http://www.gpsfrance.net/adresse-vers-coordonnees-gps" target="_blank">GPSFrance</a>
-                    pour trouver les coordonées.
+                    pour trouver les coordonnées.
                 </p>
             </div>
             <div class="form-group">
