@@ -46,4 +46,15 @@ class Members extends Model
         return $member->fetch();
     }
 
+    //get all members info
+    public function getMembersInfo(){
+        $sql = 'SELECT m.idMember, m.pseudo, DATE_FORMAT(m.registration_date, \'%d/%m/%Y\') AS registration_date_fr, COUNT(p.id) AS nbPhotos, SUM(p.likes) AS nbLikes
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON m.idMember = p.memberId 
+                GROUP BY m.idMember';
+        $members = $this->executeQuery($sql);
+        return $members;
+    }
+
 }

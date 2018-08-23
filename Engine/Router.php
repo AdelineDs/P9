@@ -200,12 +200,12 @@ class Router {
                     $likedMemberId = intval($this->getParam($_POST, 'likedMemberId'));
                     $this->ctrlVote->vote($photoId, $memberId, $likedMemberId);
                 }
-                //display tha admin management page
-                elseif ($_GET['action'] == 'management'){
+                //display the reported comments management page
+                elseif ($_GET['action'] == 'comManagement'){
                     if (isset($_SESSION['id']) && isset($_SESSION['pseudo']) && isset($_SESSION['status'])){
                         if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && isset($_SESSION['status'])){
                             if ($_SESSION['status'] == 1){
-                                $this->ctrlAdmin->viewAdmin();
+                                $this->ctrlAdmin->viewComManagement();
                             }
                             else{
                                 throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
@@ -228,7 +228,7 @@ class Router {
                     }
                     else {
                         $error = "Identifiant de commentaire non valide";
-                        $this->ctrlAdmin->viewAdmin($error);
+                        $this->ctrlAdmin->viewComManagement($error);
                     }
                 }
                 //confirms the modification of a comment
@@ -256,7 +256,7 @@ class Router {
                     }
                     else {
                         $error = "Identifiant de commentaire non valide";
-                        $this->ctrlAdmin->viewAdmin($error);
+                        $this->ctrlAdmin->viewComManagement($error);
                     }
                 }
                 //delete comment
@@ -268,13 +268,33 @@ class Router {
                         }
                         else{
                             $error = "Erreur avec l'identifiant de commentaire";
-                            $this->ctrlAdmin->viewAdmin($error);
+                            $this->ctrlAdmin->viewComManagement($error);
                         }
                     }
                     else{
                         $error = "Erreur avec l'identifiant de commentaire";
-                        $this->ctrlAdmin->viewAdmin($error);
+                        $this->ctrlAdmin->viewComManagement($error);
                     }
+                }
+                //display tha admin management page
+                elseif ($_GET['action'] == 'membersManagement'){
+                    if (isset($_SESSION['id']) && isset($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                            if ($_SESSION['status'] == 1){
+                                $this->ctrlAdmin->viewMembersManagement();
+                            }
+                            else{
+                                throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
+                            }
+                        }
+                        else{
+                            throw new \Exception("Un erreur est survenue durant la récupération des données de sessions");
+                        }
+                    }
+                    else{
+                        throw new \Exception("Impossible de récupérer les données de sessions");
+                    }
+
                 }
                 else{
                     throw new \Exception("Action non valide");

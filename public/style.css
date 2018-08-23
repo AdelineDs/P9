@@ -82,6 +82,52 @@ footer {
     width: 100%;
 }
 
+
+/*----- Sidebar -----*/
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(93, 175, 205, .4);
+    padding-top: 56px;
+}
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+.sidebar .nav-link {
+    font-weight: 500;
+    color: rgba(255,255,255,.75);
+}
+.sidebar .nav-link:hover {
+    color: #5dafcd;
+}
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+.nav-item-secondary{
+    background: rgba(71,71,71);
+    box-shadow: inset -1px 0 0 rgba(93, 175, 205, .4);
+    width: 100%;
+}
+
+
 /*---- Home page ----*/
 .popularPhotos{
     padding: 0;
@@ -321,75 +367,17 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-/*
- * Sidebar
- */
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 0;
-    box-shadow: inset -1px 0 0 rgba(93, 175, 205, .4);
-    padding-top: 56px;
+/*----- Admin -----*/
+/*--- Members management ---*/
+.tableMembers thead{
+    background: #5dafcd;
 }
-
-.sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 48px; /* Height of navbar */
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-.sidebar .nav-link {
-    font-weight: 500;
-    color: rgba(255,255,255,.75);
-}
-
-.sidebar .nav-link:hover {
+.actionLink:hover {
     color: #5dafcd;
 }
-
-.sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #999;
+.actionLink {
+    color: white;
 }
-
-.sidebar .nav-link.active {
-    color: #007bff;
-}
-
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-    color: inherit;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*--Media Queries--*/

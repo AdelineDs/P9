@@ -9,33 +9,35 @@
 namespace AdelineD\OC\P9\Controller;
 
 use \AdelineD\OC\P9\Model\Comments;
+use \AdelineD\OC\P9\Model\Members;
 
 class ControllerAdmin extends ControllerMain
 {
     private $comments;
+    private $members;
 
     public function __construct()
     {
         $this->comments = new Comments();
+        $this->members = new  Members();
     }
 
-    //display admin page
-    public function viewAdmin($error = null){
+    //display comments admin page
+    public function viewComManagement($error = null){
         $reportedCom = $this->comments->getReportedCom();
         if ($error == null){
-            $this->render('viewAdmin.php.twig', array(
+            $this->render('viewComAdmin.php.twig', array(
                 'reportedCom' => $reportedCom,
                 'session' => $_SESSION
             ));
         }
         else{
-            $this->render('viewAdmin.php.twig', array(
+            $this->render('viewComAdmin.php.twig', array(
                 'reportedCom' => $reportedCom,
                 'error' => $error,
                 'session' => $_SESSION
             ));
         }
-
     }
 
     //display form for moderation of comment
@@ -50,7 +52,7 @@ class ControllerAdmin extends ControllerMain
     //confirm the moderation of a comment
     public function moderateCom($idCom, $author, $comment){
         $this->comments->modifyCom($idCom, $author, $comment);
-        header('Location: index.php?action=management');
+        header('Location: index.php?action=comManagement');
     }
 
     //display confirmation page for deleting comment
@@ -65,6 +67,24 @@ class ControllerAdmin extends ControllerMain
     //confirm deleting comment
     public function confirmDeleteCom($idCom) {
         $this->comments->confirmDelete($idCom);
-        header('Location: index.php?action=management');
+        header('Location: index.php?action=comManagement');
+    }
+
+    //display comments admin page
+    public function viewMembersManagement($error = null){
+        $members = $this->members->getMembersInfo();
+        if ($error == null){
+            $this->render('viewMembersAdmin.php.twig', array(
+                'members' => $members,
+                'session' => $_SESSION
+            ));
+        }
+        else{
+            $this->render('viewMembersAdmin.php.twig', array(
+                'members' => $members,
+                'error' => $error,
+                'session' => $_SESSION
+            ));
+        }
     }
 }

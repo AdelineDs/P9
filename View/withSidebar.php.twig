@@ -13,7 +13,7 @@
                     <span>{{ member.registration_date_fr }}</span>
                 </div>
                 {% if session.id and session.pseudo and session.id == member.idMember %}
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column" id="stacked-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">
                                 <span data-feather="home"></span>
@@ -34,10 +34,24 @@
                         </li>
                         {% if session.status == 1 %}
                             <li class="nav-item">
-                                <a class="nav-link" href="?action=management">
+                                <a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu" class="nav-link">
                                     <span data-feather="monitor"></span>
-                                    Gestion de l'administation
+                                    Administation <span data-feather="chevron-down"></span>
                                 </a>
+                                <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                                    <li class="nav-item-secondary">
+                                        <a href="?action=comManagement" class="nav-link">
+                                            <span data-feather="message-circle"></span>
+                                            Gestion des commentaires
+                                        </a>
+                                    </li>
+                                    <li class="nav-item-secondary">
+                                        <a href="?action=membersManagement" class="nav-link">
+                                            <span data-feather="users"></span>
+                                            Gestion des membres
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         {% endif %}
                         <li class="nav-item">
