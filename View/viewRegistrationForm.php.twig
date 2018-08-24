@@ -4,19 +4,19 @@
 
 {% block content %}
     <div class="col-12 text-center registration">
-        <h2>Inscription</h2>
+        <h2 class="my-5">Inscription</h2>
         <p>Pour vous inscrire en tant que membre, veuillez compléter ce formulaire :</p>
-        <p>Vous êtes déja inscrit ? <a href="?action=connectForm">Connectez-vous !</a></p>
+        <p>Vous êtes déja inscrit ? <a href="?action=connectForm" class="formLink">Connectez-vous !</a></p>
     </div>
     {% if error %}
         <div class="col-12 text-center error">
             {{ error }}
         </div>
     {% endif %}
-    <div class="col-6 offset-3 text-center registrationForm">
+    <div class="col-4 offset-4 text-center registrationForm">
         <form action="?action=registration" method="post">
             <div class="form-group">
-                <label for="pseudo">Choisissez votre login : </label>
+                <label for="pseudo">Choisissez votre pseudo : </label>
                 <input name="pseudo" id="pseudo" type=text class="form-control" required="" placeholder="Votre pseudo (lettres et chifres uniquements)" aria-describedby="pseudoHelpBlock">
                 <small id="pseudoHelpBlock" class="form-text"></small>
             </div>

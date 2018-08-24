@@ -29,7 +29,7 @@ class Gallery {
 
             const caption = document.createElement("p");
             caption.className = "caption";
-            caption.appendChild(document.createTextNode(`${element.description} - `));
+            caption.appendChild(document.createTextNode(`${element.name} - `));
 
             const likes = document.createElement("p");
             likes.className = "likes";

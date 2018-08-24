@@ -23,7 +23,7 @@ body{
 }
 
 .content {
-    min-height: 100vh;
+    min-height: 85vh;
 }
 
 footer {
@@ -365,7 +365,11 @@ footer {
     font-size: 1.2rem;
 }
 
-
+/*----- Connection and registration forms -----*/
+.formLink, .formLink:hover {
+    color: #5dafcd;
+    font-weight: bold;
+}
 
 /*----- Admin -----*/
 /*--- Members management ---*/
@@ -375,8 +379,13 @@ footer {
 .actionLink:hover {
     color: #5dafcd;
 }
+.tdLink {
+    padding: 0 !important;
+}
 .actionLink {
     color: white;
+    display: block;
+    padding: 0.75em;
 }
 
 

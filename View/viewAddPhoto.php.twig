@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="col-lg-4 offset-lg-5 text-center">
+    <div class="col-6 offset-4 mt-5 text-center">
         {% if error %}
             <div class="col-12 text-center error">
                 {{ error }}
@@ -26,13 +26,17 @@
         <form method="post" action="index.php?action=confirmAdd" enctype="multipart/form-data">
             <input type="hidden" value="{{ session.id }}" name="idMember"/>
             <div class="form-group">
-                <label for="photo">Choisir une photo (max. 5 Mo) :</label>
+                <label for="photo">Choisir une photo (max. 1 Mo) :</label>
                 <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
                 <input type="file" name="photo" class="parcourir" id="photo" required=""/>
+                <p id="uploadHelpBlock" class="form-text text-muted">
+                    Vous pouvez utilisez, par exemple, tutiliser ce <a href="https://compressnow.com/fr/" target="_blank">site</a>
+                    pour compresser votre photo si nécessaire.
+                </p>
             </div>
             <div class="form-group">
                 <label for="title">Titre de la photo (max. 50 caractères) :</label>
-                <input type="text" name="title" placeholder="Titre de la photo" id="title" required=""/>
+                <input class="form-control" type="text" name="title" placeholder="Titre de la photo" id="title" required=""/>
             </div>
             <div class="form-group">
                 <label for="description">Description de la photo : </label>
@@ -40,9 +44,9 @@
             </div>
             <div class="form-group">
                 <label for="lat">Latitude du lieu de prise de vue:</label>
-                <input type="text" name="lat" placeholder="ex : 43.216667" id="lat" required=""/>
+                <input class="form-control" type="text" name="lat" placeholder="ex : 43.216667" id="lat" required=""/>
                 <label for="lng">Longitude du lieu de prise de vue :</label>
-                <input type="text" name="lng" placeholder="ex : 7.752111" id="lng" required=""/>
+                <input class="form-control" type="text" name="lng" placeholder="ex : 7.752111" id="lng" required=""/>
                 <p id="gpsHelpBlock" class="form-text text-muted">
                     Vous pouvez utilisez le site de <a href="https://www.coordonnees-gps.fr/" target="_blank">Google</a>
                     ou le site <a href="http://www.gpsfrance.net/adresse-vers-coordonnees-gps" target="_blank">GPSFrance</a>
@@ -51,7 +55,7 @@
             </div>
             <div class="form-group">
                 <label for="status">Choisir une catégorie pour la photo :</label>
-                <select name="status">
+                <select class="form-control" name="status">
                     <option value="0">Public</option>
                     <option value="1">Privé</option>
                 </select>

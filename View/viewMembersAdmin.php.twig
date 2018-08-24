@@ -40,8 +40,8 @@
             <td>{{ member.nbPhotos }}</td>
             <td>{{ member.nbLikes }}</td>
             <td>{{ member.registration_date_fr }}</td>
-            <td><a class="actionLink" href="?action=member&id={{ member.idMember }}"><span data-feather="user"></span></a></td>
-            <td><a class="actionLink" href="#"><span data-feather="user-x"></span></a></td>
+            <td class="tdLink"><a class="actionLink" href="?action=member&id={{ member.idMember }}"><span data-feather="user"></span></a></td>
+            <td class="tdLink"><a class="actionLink" href="#"><span data-feather="user-x"></span></a></td>
         </tr>
         {% endfor %}
         </tbody>

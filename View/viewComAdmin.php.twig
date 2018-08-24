@@ -1,6 +1,6 @@
 {% extends 'withSidebar.php.twig' %}
 
-{% block title %}Administration{% endblock %}
+{% block title %}Gestion des commentaires{% endblock %}
 
 {% block sidebar %}
         {% if session.id and session.pseudo and session.status == 1%}
@@ -27,13 +27,18 @@
             </div>
         {% endif %}
         {% for com in reportedCom %}
-            <div class="warning">
+            {% if com is null %}
+                <div>tout va bien ! Il n'y a aucun commentaire à modérer</div>
+            {% else %}
+                <div class="warning">
                 Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
                 <p class="comAdminManagement">
                     <span><a href="?action=moderateCom&id={{ com.id }}">Modérer le commentaire</a></span> /
                     <span><a href="?action=deleteCom&id={{ com.id }}">Supprimer le commentaire</a></span>
                 </p>
-            </div>
+                </div>
+            {% endif %}
+
         {% endfor %}
         </div>
     {% else %}
