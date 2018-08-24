@@ -23,7 +23,15 @@ class ControllerPhotos extends ControllerMain {
     }
 
     public function getPictures(){
-        $this->photosJson->getAllPhotos();
+        if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
+            if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
+                $this->photosJson->getAllPhotos();
+            }
+        }
+        else{
+            $this->photosJson->getAllPublicPhotos();
+        }
+
     }
 
     // display connect page
