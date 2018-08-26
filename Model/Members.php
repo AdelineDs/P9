@@ -13,7 +13,7 @@ class Members extends Model
 {
     //get member informations
     public function getMember($idMember){
-        $sql = 'SELECT idMember, pseudo, DATE_FORMAT(registration_date, \'%d/%m/%Y\') AS registration_date_fr FROM members WHERE idMember=?';
+        $sql = 'SELECT idMember, pseudo, reported, DATE_FORMAT(registration_date, \'%d/%m/%Y\') AS registration_date_fr FROM members WHERE idMember=?';
         $member = $this->executeQuery($sql, array($idMember));
         if ($member->rowCount() == 1) {
             return $member->fetch(); // Access to the first result line
@@ -48,13 +48,35 @@ class Members extends Model
 
     //get all members info
     public function getMembersInfo(){
-        $sql = 'SELECT m.idMember, m.pseudo, DATE_FORMAT(m.registration_date, \'%d/%m/%Y\') AS registration_date_fr, COUNT(p.id) AS nbPhotos, SUM(p.likes) AS nbLikes
+        $sql = 'SELECT m.idMember, m.pseudo, m.reported, DATE_FORMAT(m.registration_date, \'%d/%m/%Y\') AS registration_date_fr, COUNT(p.id) AS nbPhotos, SUM(p.likes) AS nbLikes
                 FROM members AS m 
                 INNER JOIN photos AS p 
                 ON m.idMember = p.memberId 
                 GROUP BY m.idMember';
         $members = $this->executeQuery($sql);
         return $members;
+    }
+
+    //get a member info
+    public function getMemberInfo($idMember){
+        $sql = 'SELECT m.idMember, m.pseudo, m.reported, DATE_FORMAT(m.registration_date, \'%d/%m/%Y\') AS registration_date_fr, COUNT(p.id) AS nbPhotos, SUM(p.likes) AS nbLikes
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON m.idMember = p.memberId 
+                WHERE m.idMember=?';
+        $member = $this->executeQuery($sql, array($idMember));
+        if ($member->rowCount() == 1) {
+            return $member->fetch();
+        }  //access to the first line of results
+        else {
+            throw new \Exception("Aucun membre ne correspond à l'identifiant '$idMember'");
+        }
+    }
+
+    //update a member when is reported
+    public function reportMember($memberId){
+        $sql = 'UPDATE members SET reported=reported+1  WHERE idMember=?';
+        $this->executeQuery($sql, array($memberId));
     }
 
 }

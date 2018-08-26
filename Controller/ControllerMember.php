@@ -154,4 +154,10 @@ class ControllerMember extends ControllerMain
         header('Location: index.php?action=member&id='.$memberId);
     }
 
+    //report a member
+    public function reportMember($memberId) {
+        $this->member->reportMember($memberId);
+        header('Location: index.php?action=member&id='.$memberId);
+    }
+
 }

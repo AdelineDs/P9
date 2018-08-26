@@ -20,29 +20,25 @@
 
 {% block main %}
     {% if session.id and session.pseudo and session.status == 1 %}
-        <div class="col-lg-10 offset-lg-1 text-center">
+        <div class="col-6 offset-lg-4 text-center mt-5">
+            <h2>Commentaires à modérer :</h2>
         {% if error %}
             <div class="col-12 text-center error">
                 {{ error }}
             </div>
         {% endif %}
         {% for com in reportedCom %}
-            {% if com is null %}
-                <div>tout va bien ! Il n'y a aucun commentaire à modérer</div>
-            {% else %}
                 <div class="warning">
-                Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
+                Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a class="managementLink" href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
                 <p class="comAdminManagement">
-                    <span><a href="?action=moderateCom&id={{ com.id }}">Modérer le commentaire</a></span> /
-                    <span><a href="?action=deleteCom&id={{ com.id }}">Supprimer le commentaire</a></span>
+                    <span><a class="managementLink" href="?action=moderateCom&id={{ com.id }}">Modérer le commentaire</a></span> /
+                    <span><a class="managementLink" href="?action=deleteCom&id={{ com.id }}">Supprimer le commentaire</a></span>
                 </p>
                 </div>
-            {% endif %}
-
         {% endfor %}
         </div>
     {% else %}
-        <div class="col-lg-10 offset-lg-1 text-center">
+        <div class="col-6 offset-4 text-center">
             Vous n'avez pas l'autorisation pour accéder à cette page
         </div>
     {% endif %}

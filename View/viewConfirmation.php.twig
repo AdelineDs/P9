@@ -1,28 +1,52 @@
 {% extends 'Template.php.twig' %}
 
-{% block title %}Supprimer le commenatire{% endblock %}
+{% block title %}Supprimer le {% if com %} }}commentaire {% elseif member %} membre{% endif %}{% endblock %}
 
 {% block content %}
     {% if session.id and session.pseudo and session.status == 1 %}
-        <div class="col-lg-10 offset-lg-1 text-center">
-            <h2>Etes-vous sûre de vouloir supprimer ce commentaire ?</h2>
-            <a href="?action=management">retour à l'administration</a>
+        <div class="col-lg-10 offset-lg-1 text-center my-5">
+            <h2 class="mb-4">Etes-vous sûre de vouloir supprimer ce {% if com %}commentaire{% elseif member %}membre{% endif %} ?</h2>
+            {% if com %}
+                <a href="?action=comManagement" class="backLink">retour</a>
+            {% elseif member %}
+                <a href="?action=membersManagement" class="backLink">retour</a>
+            {% endif %}
+
         </div>
-        <div class="col-lg-10 offset-lg-1 text-center">
-            <div class="comment">
-                <p class="textCom">" {{ com.comment }} "</p>
-                <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+        {% if com %}
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="comment">
+                    <p class="textCom">" {{ com.comment }} "</p>
+                    <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-10 offset-lg-1 text-center">
-            <form action="index.php?action=confirmDeleteCom" method="post">
-                <input type="hidden" value="{{ com.id }}" name="idCom"/>
-                <input  class="confirm" type="submit" value="OUI">
-            </form>
-            <form action="index.php?action=management" method="post">
-                <input  class="cancel" type="submit" value="NON">
-            </form>
-        </div>
+            <div class="col-lg-4 offset-lg-4 text-center d-flex">
+                <form action="?action=confirmDeleteCom" method="post" class="col-6">
+                    <input type="hidden" value="{{ com.id }}" name="idCom"/>
+                    <input  class="confirm col-12" type="submit" value="OUI">
+                </form>
+                <form action="?action=comManagement" method="post" class="col-6">
+                    <input  class="cancel col-12" type="submit" value="NON">
+                </form>
+            </div>
+        {% elseif member %}
+            <div class="col-lg-10 offset-lg-1 text-center memberDescription">
+                <ul>
+                    <li>Membre : {{ member.pseudo }}</li>
+                    <li>Inscrit depuis le : {{ member.registration_date_fr }}</li>
+                    <li>Signalé : {{ member.reported }} fois</li>
+                </ul>
+            </div>
+            <div class="col-lg-4 offset-lg-4 text-center d-flex">
+                <form action="?action=confirmDeleteMember" method="post" class="col-6">
+                    <input type="hidden" value="{{ com.id }}" name="idCom"/>
+                    <input  class="confirm col-12" type="submit" value="OUI">
+                </form>
+                <form action="?action=membersManagement" method="post" class="col-6">
+                    <input  class="cancel col-12" type="submit" value="NON">
+                </form>
+            </div>
+        {% endif %}
     {% else %}
         <div class="col-lg-10 offset-lg-1 text-center">
             Vous n'avez pas l'autorisation pour accéder à cette page

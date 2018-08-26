@@ -8,60 +8,69 @@
                     <span data-feather="user"></span>
                     {{ member.pseudo }}
                 </div>
-                <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mb-5">
+                <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mb-3">
                     <span>Membre depuis le :</span>
                     <span>{{ member.registration_date_fr }}</span>
                 </div>
-                {% if session.id and session.pseudo and session.id == member.idMember %}
-                    <ul class="nav flex-column" id="stacked-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php">
-                                <span data-feather="home"></span>
-                                Accueil
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="?action=addPhoto">
-                                <span data-feather="camera"></span>
-                                Ajouter une photo
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="settings"></span>
-                                Gestion du profil
-                            </a>
-                        </li>
-                        {% if session.status == 1 %}
+                {% if session.id and session.pseudo %}
+                    <div class="sidebar-text d-flex justify-content-center px-3 mb-5">
+                        <form method="post" action="?action=reportMember">
+                            <input type="hidden" name="memberId" value="{{ member.idMember }}" />
+                            <input type="submit" value="Signaler le membre" class="reportButton"/>
+                        </form>
+                    </div>
+                    {% if session.id == member.idMember %}
+                        <ul class="nav flex-column" id="stacked-menu">
                             <li class="nav-item">
-                                <a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu" class="nav-link">
-                                    <span data-feather="monitor"></span>
-                                    Administation <span data-feather="chevron-down"></span>
+                                <a class="nav-link" href="index.php">
+                                    <span data-feather="home"></span>
+                                    Accueil
                                 </a>
-                                <ul class="nav nav-stacked collapse left-submenu" id="item1">
-                                    <li class="nav-item-secondary">
-                                        <a href="?action=comManagement" class="nav-link">
-                                            <span data-feather="message-circle"></span>
-                                            Gestion des commentaires
-                                        </a>
-                                    </li>
-                                    <li class="nav-item-secondary">
-                                        <a href="?action=membersManagement" class="nav-link">
-                                            <span data-feather="users"></span>
-                                            Gestion des membres
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?action=disconnect">
-                                <span data-feather="log-out"></span>
-                                Déconnexion
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="?action=addPhoto">
+                                    <span data-feather="camera"></span>
+                                    Ajouter une photo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <span data-feather="settings"></span>
+                                    Gestion du profil
+                                </a>
+                            </li>
+                            {% if session.status == 1 %}
+                                <li class="nav-item">
+                                    <a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu" class="nav-link">
+                                        <span data-feather="monitor"></span>
+                                        Administration <span data-feather="chevron-down"></span>
+                                    </a>
+                                    <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                                        <li class="nav-item-secondary">
+                                            <a href="?action=comManagement" class="nav-link">
+                                                <span data-feather="message-circle"></span>
+                                                Gestion des commentaires
+                                            </a>
+                                        </li>
+                                        <li class="nav-item-secondary">
+                                            <a href="?action=membersManagement" class="nav-link">
+                                                <span data-feather="users"></span>
+                                                Gestion des membres
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?action=disconnect">
+                                    <span data-feather="log-out"></span>
+                                    Déconnexion
+                                </a>
+                            </li>
+                        </ul>
                     {% endif %}
-                </ul>
+                {% endif %}
             {% endblock sidebar %}
         </div>
     </nav>

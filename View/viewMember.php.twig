@@ -4,26 +4,31 @@
 
 {% block main %}
     <!-- display photos -->
-    <div class="col-lg-10 offset-lg-2 mt-5">
-        <div class="grid">
-            <div class="grid-sizer">
-                {% for photo in photos %}
-                        <div class="grid-item itemMember">
-                            <div class="photoItem">
-                                <img src="{{ photo.url }}" />
-                                <span class="photoName">{{ photo.name }}</span>
-                                <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
-                                <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
-                                    <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
-                                    <input type="hidden" name="photoId" value="{{ photo.id }}" />
-                                    <input type="hidden" name="memberId" value="{{ session.id }}" />
-                                    <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
-                                </form>
+    <div class="col-lg-10 offset-lg-2 mt-5 text-center">
+        {% if member.reported < 4 %}
+            <div class="grid">
+                <div class="grid-sizer">
+                    {% for photo in photos %}
+                            <div class="grid-item itemMember">
+                                <div class="photoItem">
+                                    <img src="{{ photo.url }}" />
+                                    <span class="photoName">{{ photo.name }}</span>
+                                    <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                                    <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
+                                        <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
+                                        <input type="hidden" name="photoId" value="{{ photo.id }}" />
+                                        <input type="hidden" name="memberId" value="{{ session.id }}" />
+                                        <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <p>Après signalement, ce membre est en attente de modération. Dans cette attente ses photos ne sont pas visibles par mesure de précaution.</p>
+            <p>Merci de votre compréhenssion</p>
+        {% endif %}
     </div>
     <!-- comment form -->
     <div class="col-lg-6 offset-lg-4 commentForm text-center">

@@ -252,7 +252,7 @@ class Router {
                 elseif ($_GET['action'] == 'deleteCom') {
                     $idCom = intval($this->getParam($_GET, 'id'));
                     if ($idCom != 0) {
-                        $this->ctrlAdmin->viewConfirmation($idCom);
+                        $this->ctrlAdmin->viewComConfirmation($idCom);
                     }
                     else {
                         $error = "Identifiant de commentaire non valide";
@@ -276,12 +276,43 @@ class Router {
                         $this->ctrlAdmin->viewComManagement($error);
                     }
                 }
-                //display tha admin management page
+                //display the admin management page
                 elseif ($_GET['action'] == 'membersManagement'){
                     if (isset($_SESSION['id']) && isset($_SESSION['pseudo']) && isset($_SESSION['status'])){
-                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && !empty($_SESSION['status'])){
                             if ($_SESSION['status'] == 1){
                                 $this->ctrlAdmin->viewMembersManagement();
+                            }
+                            else{
+                                throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
+                            }
+                        }
+                        else{
+                            throw new \Exception("Un erreur est survenue durant la récupération des données de sessions");
+                        }
+                    }
+                    else{
+                        throw new \Exception("Impossible de récupérer les données de sessions");
+                    }
+
+                }
+                //report a comment
+                elseif ($_GET['action'] == 'reportMember'){
+                    $memberId = intval($this->getParam($_POST, 'memberId'));
+                    $this->ctrlMember->reportMember($memberId);
+                }
+                //display confirm delete member page
+                elseif ($_GET['action'] == 'deleteMember'){
+                    $idMember = intval($this->getParam($_GET, 'id'));
+                    if (isset($_SESSION['id']) && isset($_SESSION['pseudo']) && isset($_SESSION['status'])){
+                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo']) && !empty($_SESSION['status'])){
+                            if ($_SESSION['status'] == 1){
+                                if ($idMember != 0){
+                                    $this->ctrlAdmin->viewMemberConfirmation($idMember);
+                                }
+                                else{
+                                    throw new \Exception("Identifiant de membre non valide");
+                                }
                             }
                             else{
                                 throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");

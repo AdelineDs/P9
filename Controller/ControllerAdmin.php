@@ -56,7 +56,7 @@ class ControllerAdmin extends ControllerMain
     }
 
     //display confirmation page for deleting comment
-    public function viewConfirmation($idCom){
+    public function viewComConfirmation($idCom){
         $com = $this->comments->getComment($idCom);
         $this->render('viewConfirmation.php.twig', array(
             'com' => $com,
@@ -68,6 +68,15 @@ class ControllerAdmin extends ControllerMain
     public function confirmDeleteCom($idCom) {
         $this->comments->confirmDelete($idCom);
         header('Location: index.php?action=comManagement');
+    }
+
+    //display confirmation page for deleting member
+    public function viewMemberConfirmation($idMember){
+        $member = $this->members->getMember($idMember);
+        $this->render('viewConfirmation.php.twig', array(
+            'member' => $member,
+            'session' => $_SESSION
+        ));
     }
 
     //display comments admin page

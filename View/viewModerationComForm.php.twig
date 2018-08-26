@@ -4,9 +4,9 @@
 
 {% block content %}
     {% if session.id and session.pseudo and session.status == 1 %}
-        <div class="col-lg-6 offset-lg-3 text-center">
-        <a href="?action=management">retour à l'administration</a>
-            <form action="?action=confirmModerationCom" method="post" >
+        <div class="col-lg-6 offset-lg-3 text-center mt-5">
+        <a href="?action=comManagement" class="backLink">retour</a>
+            <form action="?action=confirmModerationCom" method="post" class="mt-4">
                 <input type="hidden" value="{{ com.id }}" name="idCom"/>
                 <div class="form-group">
                     <label for="author">Nom ou pseudo:</label>
