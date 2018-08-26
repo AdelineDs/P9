@@ -39,7 +39,7 @@
             </div>
             <div class="col-lg-4 offset-lg-4 text-center d-flex">
                 <form action="?action=confirmDeleteMember" method="post" class="col-6">
-                    <input type="hidden" value="{{ com.id }}" name="idCom"/>
+                    <input type="hidden" value="{{ member.idMember }}" name="idMember"/>
                     <input  class="confirm col-12" type="submit" value="OUI">
                 </form>
                 <form action="?action=membersManagement" method="post" class="col-6">

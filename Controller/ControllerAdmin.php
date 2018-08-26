@@ -96,4 +96,10 @@ class ControllerAdmin extends ControllerMain
             ));
         }
     }
+
+    //confirm deleting member
+    public function confirmDeleteMember($idMember) {
+        $this->members->confirmDelete($idMember);
+        header('Location: index.php?action=membersManagement');
+    }
 }

@@ -327,6 +327,24 @@ class Router {
                     }
 
                 }
+                //delete member
+                elseif ($_GET['action'] == 'confirmDeleteMember') {
+                    if (isset($_POST['idMember'])){
+                        if (!empty($_POST['idMember'])){
+                            $idMember = $this->getParam($_POST, 'idMember');
+                            $this->ctrlAdmin->confirmDeleteMember($idMember);
+                        }
+                        else{
+                            $error = "Erreur avec l'identifiant du membre";
+                            $this->ctrlAdmin->viewMembersManagement($error);
+                        }
+                    }
+                    else{
+                        $error = "Aucun identifiant de membre";
+                        $this->ctrlAdmin->viewMembersManagement($error);
+                    }
+                }
+                //if action don't exist
                 else{
                     throw new \Exception("Action non valide");
                 }

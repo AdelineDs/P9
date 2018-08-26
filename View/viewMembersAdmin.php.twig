@@ -20,6 +20,11 @@
 
 {% block main %}
     <div class="col-8 offset-3 mt-5">
+        {% if error %}
+            <div class="col-12 text-center error mb-5">
+                {{ error }}
+            </div>
+        {% endif %}
         <table class="table table-hover table-bordered table-striped table-dark tableMembers text-center">
         <thead>
         <tr>

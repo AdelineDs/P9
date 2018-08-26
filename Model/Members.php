@@ -50,7 +50,7 @@ class Members extends Model
     public function getMembersInfo(){
         $sql = 'SELECT m.idMember, m.pseudo, m.reported, DATE_FORMAT(m.registration_date, \'%d/%m/%Y\') AS registration_date_fr, COUNT(p.id) AS nbPhotos, SUM(p.likes) AS nbLikes
                 FROM members AS m 
-                INNER JOIN photos AS p 
+                LEFT JOIN photos AS p 
                 ON m.idMember = p.memberId 
                 GROUP BY m.idMember';
         $members = $this->executeQuery($sql);
@@ -77,6 +77,12 @@ class Members extends Model
     public function reportMember($memberId){
         $sql = 'UPDATE members SET reported=reported+1  WHERE idMember=?';
         $this->executeQuery($sql, array($memberId));
+    }
+
+    //delete a member in database
+    public function confirmDelete($idMember) {
+        $sql = 'DELETE FROM members WHERE idMember= ?';
+        $this->executeQuery($sql, array($idMember));
     }
 
 }
