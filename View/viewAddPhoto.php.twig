@@ -36,17 +36,17 @@
             </div>
             <div class="form-group">
                 <label for="title">Titre de la photo (max. 50 caractères) :</label>
-                <input class="form-control" type="text" name="title" placeholder="Titre de la photo" id="title" required=""/>
+                <input class="form-control" type="text" name="title" placeholder="Titre de la photo" id="title" required="" {% if post.title %} value ="{{ post.title }}" {% endif %}>/>
             </div>
             <div class="form-group">
                 <label for="description">Description de la photo : </label>
-                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Description ..."></textarea>
+                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Description ..." {% if post.description %} value ="{{ post.description }}" {% endif %}>></textarea>
             </div>
             <div class="form-group">
                 <label for="lat">Latitude du lieu de prise de vue:</label>
-                <input class="form-control" type="text" name="lat" placeholder="ex : 43.216667" id="lat" required=""/>
+                <input class="form-control" type="text" name="lat" placeholder="ex : 43.216667" id="lat" required="" {% if post.lat %} value ="{{ post.lat }}" {% endif %}>/>
                 <label for="lng">Longitude du lieu de prise de vue :</label>
-                <input class="form-control" type="text" name="lng" placeholder="ex : 7.752111" id="lng" required=""/>
+                <input class="form-control" type="text" name="lng" placeholder="ex : 7.752111" id="lng" required="" {% if post.lng %} value ="{{ post.lng }}" {% endif %}>/>
                 <p id="gpsHelpBlock" class="form-text text-muted">
                     Vous pouvez utilisez le site de <a class="helpLink" href="https://www.coordonnees-gps.fr/" target="_blank">Google</a>
                     ou le site <a class="helpLink" href="http://www.gpsfrance.net/adresse-vers-coordonnees-gps" target="_blank">GPSFrance</a>

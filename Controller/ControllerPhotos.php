@@ -43,7 +43,8 @@ class ControllerPhotos extends ControllerMain {
         else{
             $this->render('viewAddPhoto.php.twig', array(
                 'error' => $error,
-                'session' => $_SESSION
+                'session' => $_SESSION,
+                'post' => $_POST
                 ));
         }
     }

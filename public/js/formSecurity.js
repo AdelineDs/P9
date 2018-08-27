@@ -58,7 +58,7 @@ document.getElementById("pass2").addEventListener("input", function (e) {
 // Contrôle du courriel
 document.getElementById("email").addEventListener("input", function (e) {
     let validiteCourriel = "";
-    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let regex = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
     if (!regex.test(e.target.value) ) {
         // Le courriel saisi ne contient pas le caractère @
         validiteCourriel = "Adresse invalide";

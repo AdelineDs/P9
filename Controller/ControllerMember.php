@@ -69,7 +69,7 @@ class ControllerMember extends ControllerMain
             $this->render('viewRegistrationForm.php.twig', array());
         }
         else{
-            $this->render('viewRegistrationForm.php.twig', array('error' => $error));
+            $this->render('viewRegistrationForm.php.twig', array('error' => $error, 'post' => $_POST));
         }
 
     }
@@ -80,7 +80,7 @@ class ControllerMember extends ControllerMain
         //check format pseudo
         if (preg_match("/^[0-9a-zA-Z]+$/", $pseudo)){
             //check format email
-            if ( preg_match ( "/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , $email ) )
+            if ( preg_match ( "/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/" , $email ) )
             {
                 //check format password
                 if (preg_match("/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/", $pass1)){
