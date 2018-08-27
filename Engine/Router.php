@@ -340,8 +340,25 @@ class Router {
                         }
                     }
                     else{
-                        $error = "Aucun identifiant de membre";
-                        $this->ctrlAdmin->viewMembersManagement($error);
+
+                    }
+                }
+                elseif ($_GET['action'] == 'legalNotice'){
+                    $this->ctrlHome->legalNotice();
+                }
+                elseif ($_GET['action'] == 'profileManagement'){
+                    if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
+                        if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
+                            $this->ctrlMember->viewProfileManagement();
+                        }
+                        else{
+                            $error = "Une erreur s'est produite durant la récupération des données de session";
+                            $this->ctrlMember->viewProfileManagement($error);
+                        }
+                    }
+                    else{
+                        $error = "Impossible de récuprer les données de session";
+                        $this->ctrlMember->viewProfileManagement($error);
                     }
                 }
                 //if action don't exist

@@ -160,4 +160,18 @@ class ControllerMember extends ControllerMain
         header('Location: index.php?action=member&id='.$memberId);
     }
 
+    // display profil management
+    public function viewProfileManagement($error = null)
+    {
+        if ($error == null){
+            $this->render('viewProfileManagement.php.twig', array('session' => $_SESSION));
+        }
+        else{
+            $this->render('viewProfileManagement.php.twig', array(
+                'error' => $error,
+                'session' => $_SESSION
+            ));
+        }
+    }
+
 }

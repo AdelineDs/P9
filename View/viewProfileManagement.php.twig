@@ -1,0 +1,50 @@
+{% extends 'withSidebar.php.twig' %}
+
+{% block title %}Gestion du profil{% endblock %}
+
+{% block sidebar %}
+    {% if session.id and session.pseudo %}
+        <div class="sidebar-text d-flex text-center px-3 my-5">
+            Gestion de mon profil
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="?action=member&id={{ session.id }}">
+                    <span data-feather="corner-down-left"></span>
+                    Retour à mon profil
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    <div class="col-6 offset-4 my-5">
+        {% if error %}
+            <div class="col-12 text-center error mb-5">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="post" action="index.php?action=confirmAdd" enctype="multipart/form-data">
+            <input type="hidden" value="{{ session.id }}" name="idMember"/>
+            <div class="form-group">
+                <label for="avatar">Choisir un avatar (max. 1 Mo) :</label>
+                <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
+                <input type="file" name="avatar" class="parcourir" id="avatar"/>
+                <p id="uploadHelpBlock" class="form-text text-muted">
+                    Vous pouvez, par exemple, utiliser ce <a class="helpLink" href="https://compressnow.com/fr/" target="_blank">site</a>
+                    pour compresser votre photo si nécessaire.
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="place">Se situer :</label>
+                <input class="form-control" type="text" name="place" placeholder="Où vous trouvez-vous ?" id="title"/>
+            </div>
+            <div class="form-group">
+                <label for="description">Parlez nous de vous : </label>
+                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Votre description ..."></textarea>
+            </div>
+            <input type="submit" name="submit" value="Mettre à jour mes infos" class="envoi"/>
+        </form>
+    </div>
+{% endblock %}

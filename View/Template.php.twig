@@ -25,9 +25,21 @@
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- Style -->
         <link rel="stylesheet" href="public/style.css" />
+        <!-- favicon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.1&appId=226351558060849&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
         <div class="container-fluid block-page">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
                 <div class="container">
@@ -72,10 +84,10 @@
             <div class="row footer">
                 <footer class="col-sm-12">
                     <div>
-                        Mentions Légales
+                        <a class="footerLink" href="?action=legalNotice">Mentions Légales</a>
                     </div>
                     <div>
-                        Copyright
+                        Tous droits réservés - Adeline D - 2018
                     </div>
                 </footer>
             </div>

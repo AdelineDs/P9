@@ -3,70 +3,88 @@
 {% block title %}{{ member.pseudo }}{% endblock %}
 
 {% block main %}
-    <!-- display photos -->
-    <div class="col-lg-10 offset-lg-2 mt-5 text-center">
-        {% if member.reported < 4 %}
-            <div class="grid">
-                <div class="grid-sizer">
-                    {% for photo in photos %}
-                            <div class="grid-item itemMember">
-                                <div class="photoItem">
-                                    <img src="{{ photo.url }}" />
-                                    <span class="photoName">{{ photo.name }}</span>
-                                    <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
-                                    <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
-                                        <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
-                                        <input type="hidden" name="photoId" value="{{ photo.id }}" />
-                                        <input type="hidden" name="memberId" value="{{ session.id }}" />
-                                        <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
-                                    </form>
+    <div class="col-10 offset-2 my-3">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link tabLink active" id="nav-gallery-tab" data-toggle="tab" href="#nav-gallery"
+                   role="tab" aria-controls="nav-gallery" aria-selected="true">
+                    Galerie
+                </a>
+                <a class="nav-item nav-link tabLink" id="nav-comments-tab" data-toggle="tab" href="#nav-comments"
+                   role="tab" aria-controls="nav-comments" aria-selected="false">
+                    Commentaires
+                </a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-gallery" role="tabpanel" aria-labelledby="nav-gallery-tab">
+                <!-- display photos -->
+                {% if member.reported < 4 %}
+                    <div class="grid">
+                        <div class="grid-sizer">
+                            {% for photo in photos %}
+                                <div class="grid-item itemMember">
+                                    <div class="photoItem">
+                                        <img src="{{ photo.url }}" />
+                                        <span class="photoName">{{ photo.name }}</span>
+                                        <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
+                                        <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
+                                            <input type="hidden" name="likedMemberId" value="{{ member.idMember }}"/>
+                                            <input type="hidden" name="photoId" value="{{ photo.id }}" />
+                                            <input type="hidden" name="memberId" value="{{ session.id }}" />
+                                            <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Après signalement, ce membre est en attente de modération. Dans cette attente ses photos ne sont pas visibles par mesure de précaution.</p>
+                    <p>Merci de votre compréhenssion</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane fade navComments" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
+                <!-- comment form -->
+                <div class="col-6 offset-3 commentForm text-center">
+                    <h2>Laisser un commentaire à {{ member.pseudo }} :</h2>
+                    <form action="?action=comment" method="post">
+                        <input type="hidden" value="{{ member.idMember }}" name="id"/>
+                        <div class="form-group">
+                            <label for="author">Nom ou pseudo: </label>
+                            <input name="author" id="author" type=text class="form-control" required="" value="{% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %}">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Votre commentaire : </label>
+                            <textarea name="comment" id="comment" class="form-control" rows="5" required=""></textarea>
+                        </div>
+                        <input type="submit" value="Commenter" class="submitCom">
+                    </form>
+                </div>
+                <!-- display comments list -->
+                <div class="col-lg-6 offset-lg-3 text-center listCom">
+                    {% for com in comments  %}
+                        <div class="comment">
+                            {% if com.reported != 1 %}
+                                <p class="textCom">" {{ com.comment }} "</p>
+                                {% if com.reported == 2 %}
+                                    <p>Ce commentaire a été modéré</p>
+                                {% endif %}
+                            {% else %}
+                                <p>Ce commentaire a été signalé et est en attente de modération. Merci de votre compréhension.</p>
+                            {% endif %}
+                            <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+                            {% if com.reported == 0 %}
+                                <form method="post" action="?action=reportCom">
+                                    <input type="hidden" name="comId" value="{{ com.id }}" />
+                                    <input type="hidden" name="memberId" value="{{ member.idMember }}" />
+                                    <input type="submit" value="Signaler le commentaire" class="reportButton"/>
+                                </form>
+                            {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
-        {% else %}
-            <p>Après signalement, ce membre est en attente de modération. Dans cette attente ses photos ne sont pas visibles par mesure de précaution.</p>
-            <p>Merci de votre compréhenssion</p>
-        {% endif %}
-    </div>
-    <!-- comment form -->
-    <div class="col-lg-6 offset-lg-4 commentForm text-center">
-        <h2>Laisser un commentaire à {{ member.pseudo }} :</h2>
-        <form action="?action=comment" method="post">
-            <input type="hidden" value="{{ member.idMember }}" name="id"/>
-            <div class="form-group">
-                <label for="author">Nom ou pseudo: </label>
-                <input name="author" id="author" type=text class="form-control" required="" value="{% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %}">
-            </div>
-            <div class="form-group">
-                <label for="comment">Votre commentaire : </label>
-                <textarea name="comment" id="comment" class="form-control" rows="5" required=""></textarea>
-            </div>
-            <input type="submit" value="Commenter" class="submitCom">
-        </form>
-    </div>
-    <!-- display comments list -->
-    <div class="col-lg-6 offset-lg-4 text-center listCom">
-        {% for com in comments  %}
-        <div class="comment">
-            {% if com.reported != 1 %}
-                <p class="textCom">" {{ com.comment }} "</p>
-                {% if com.reported == 2 %}
-                    <p>Ce commentaire a été modéré</p>
-                {% endif %}
-            {% else %}
-                <p>Ce commentaire a été signalé et est en attente de modération. Merci de votre compréhension.</p>
-            {% endif %}
-            <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
-            {% if com.reported == 0 %}
-                <form method="post" action="?action=reportCom">
-                    <input type="hidden" name="comId" value="{{ com.id }}" />
-                    <input type="hidden" name="memberId" value="{{ member.idMember }}" />
-                    <input type="submit" value="Signaler le commentaire" class="reportButton"/>
-                </form>
-            {% endif %}
         </div>
-        {% endfor %}
     </div>
 {% endblock %}

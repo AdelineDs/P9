@@ -13,12 +13,14 @@
                     <span>{{ member.registration_date_fr }}</span>
                 </div>
                 {% if session.id and session.pseudo %}
-                    <div class="sidebar-text d-flex justify-content-center px-3 mb-5">
-                        <form method="post" action="?action=reportMember">
-                            <input type="hidden" name="memberId" value="{{ member.idMember }}" />
-                            <input type="submit" value="Signaler le membre" class="reportButton"/>
-                        </form>
-                    </div>
+                    {% if  session.id != member.idMember %}
+                        <div class="sidebar-text d-flex justify-content-center px-3 mb-5">
+                            <form method="post" action="?action=reportMember">
+                                <input type="hidden" name="memberId" value="{{ member.idMember }}" />
+                                <input type="submit" value="Signaler le membre" class="reportButton"/>
+                            </form>
+                        </div>
+                    {% endif %}
                     {% if session.id == member.idMember %}
                         <ul class="nav flex-column" id="stacked-menu">
                             <li class="nav-item">
@@ -34,7 +36,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="?action=profileManagement">
                                     <span data-feather="settings"></span>
                                     Gestion du profil
                                 </a>

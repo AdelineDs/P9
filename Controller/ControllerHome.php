@@ -19,5 +19,9 @@ class ControllerHome extends ControllerMain {
             'session' => $_SESSION
         ));
     }
+
+    public function legalNotice(){
+        $this->render('viewLegalNotice.php.twig', array());
+    }
 }
 

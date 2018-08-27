@@ -26,6 +26,13 @@ body{
     min-height: 90vh;
 }
 
+/*---- Links ----*/
+.tabLink, .tabLink:hover,
+.helpLink, .helpLink:hover{
+    color: #5dafcd;
+}
+
+/*---- footer ----*/
 footer {
     display: flex;
     justify-content: space-around;
@@ -37,6 +44,12 @@ footer {
 
 .footer{
     border-top: solid 1px #5dafcd;
+}
+.footerLink{
+    color: white;
+}
+.footerLink:hover{
+    color: #5dafcd;
 }
 
 .error{
@@ -52,7 +65,8 @@ footer {
     background-color: #222629;
     border-bottom: #5dafcd solid 1px;
 }
-.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover {
     color: #5dafcd;
 }
 .space{
@@ -190,6 +204,11 @@ footer {
     font-weight: bold;
 }
 
+/*---- Legal Notice ----*/
+.legalNotice a, .legalNotice a:hover {
+    color: #5dafcd;
+}
+
 /*---- Map ---- */
 #map{
     height: 500px;
@@ -293,6 +312,12 @@ footer {
 }
 
 /*---- Member Page ----*/
+.nav-tabs {
+    border-bottom: none;
+}
+.nav-tabs .nav-link {
+    border: 1px solid white;
+}
 /*- Photos -*/
 .itemMember img {
     display: block;
@@ -363,6 +388,10 @@ footer {
 }
 
 /*- Comments -*/
+.navComments{
+    border-top: solid 1px;
+    border-image: linear-gradient(90deg, white, transparent 90%) 10;
+}
 .commentForm{
     margin-top: 5rem;
     margin-bottom: 3rem;
