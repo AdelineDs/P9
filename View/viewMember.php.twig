@@ -3,7 +3,19 @@
 {% block title %}{{ member.pseudo }}{% endblock %}
 
 {% block main %}
-    <div class="col-10 offset-2 my-3">
+    <!-- display only on smartphone and tablet -->
+    <div class="col-12 col-lg-10 offset-lg-2 my-3 d-lg-none">
+        <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mt-4 mb-1">
+            <span data-feather="user"></span>
+            {{ member.pseudo }}
+        </div>
+        <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mb-3">
+            <span>Membre depuis le :</span>
+            <span>{{ member.registration_date_fr }}</span>
+        </div>
+    </div>
+    <!-- display on desktop -->
+    <div class="col-12 col-lg-10 offset-lg-2 my-3">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link tabLink active" id="nav-gallery-tab" data-toggle="tab" href="#nav-gallery"
@@ -14,6 +26,13 @@
                    role="tab" aria-controls="nav-comments" aria-selected="false">
                     Commentaires
                 </a>
+                <!-- display only on smartphone and tablet -->
+                {% if session.id and session.pseudo and session.id==member.idMember %}
+                    <a class="nav-item nav-link tabLink d-lg-none" id="nav-management-tab" data-toggle="tab" href="#nav-management"
+                       role="tab" aria-controls="nav-management" aria-selected="false">
+                        Gestion du profil
+                    </a>
+                {% endif %}
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -84,6 +103,51 @@
                         </div>
                     {% endfor %}
                 </div>
+            </div>
+            <!-- display only on smartphone and tablet -->
+            <div class="tab-pane fade show active d-lg-none" id="nav-management" role="tabpanel" aria-labelledby="nav-management-tab">
+                {% if session.id and session.pseudo %}
+                    {% if session.id == member.idMember %}
+                        <div class="text-center flex-column mt-3 manageProfile">
+                            <a class="nav-link" href="index.php">
+                                <span data-feather="home"></span>
+                                Accueil
+                            </a>
+                            <a class="nav-link" href="?action=addPhoto">
+                                <span data-feather="camera"></span>
+                                Ajouter une photo
+                            </a>
+                            <a class="nav-link" href="?action=profileManagement">
+                                <span data-feather="settings"></span>
+                                Gestion du profil
+                            </a>
+                            {% if session.status == 1 %}
+                                <a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu" class="nav-link">
+                                    <span data-feather="monitor"></span>
+                                    Administration <span data-feather="chevron-down"></span>
+                                </a>
+                                <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                                    <li class="nav-item-secondary">
+                                        <a href="?action=comManagement" class="nav-link">
+                                            <span data-feather="message-circle"></span>
+                                            Gestion des commentaires
+                                        </a>
+                                    </li>
+                                    <li class="nav-item-secondary">
+                                        <a href="?action=membersManagement" class="nav-link">
+                                            <span data-feather="users"></span>
+                                            Gestion des membres
+                                        </a>
+                                    </li>
+                                </ul>
+                            {% endif %}
+                            <a class="nav-link" href="index.php?action=disconnect">
+                                <span data-feather="log-out"></span>
+                                Déconnexion
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

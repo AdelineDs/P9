@@ -23,7 +23,10 @@ body{
 }
 
 .content {
-    min-height: 90vh;
+    min-height: calc(100vh - 112px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 /*---- Links ----*/
@@ -318,6 +321,13 @@ footer {
 .nav-tabs .nav-link {
     border: 1px solid white;
 }
+.manageProfile .nav-link {
+    font-weight: 500;
+    color: rgba(255,255,255,.75);
+}
+.manageProfile .nav-link:hover {
+    color: #5dafcd;
+}
 /*- Photos -*/
 .itemMember img {
     display: block;
@@ -430,9 +440,11 @@ footer {
     .grid-item {
         width: 100%;
     }
-
     .photoLikes {
         top: 0;
+    }
+    .voteButton{
+        left: 0 !important;
     }
 }
 

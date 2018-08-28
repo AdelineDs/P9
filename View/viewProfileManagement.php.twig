@@ -25,11 +25,11 @@
                 {{ error }}
             </div>
         {% endif %}
-        <form method="post" action="index.php?action=confirmAdd" enctype="multipart/form-data">
+        <form method="post" action="index.php?action=updateProfil" enctype="multipart/form-data">
             <input type="hidden" value="{{ session.id }}" name="idMember"/>
             <div class="form-group">
-                <label for="avatar">Choisir un avatar (max. 1 Mo) :</label>
-                <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
+                <label for="avatar">Choisir un avatar (max. 0.5 Mo) :</label>
+                <input type="hidden" name="MAX-FILE-SIZE" value="524288"/>
                 <input type="file" name="avatar" class="parcourir" id="avatar"/>
                 <p id="uploadHelpBlock" class="form-text text-muted">
                     Vous pouvez, par exemple, utiliser ce <a class="helpLink" href="https://compressnow.com/fr/" target="_blank">site</a>
