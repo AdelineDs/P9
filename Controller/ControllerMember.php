@@ -174,8 +174,12 @@ class ControllerMember extends ControllerMain
         }
     }
 
-    public function updateProfile($idMember, $place, $description, $url){
-        $this->member->updateProfile($idMember, $place, $description, $url);
+    public function updateAvatar($idMember, $url){
+        $this->member->updateAvatar($idMember, $url);
+        header('Location: index.php?action=member&id='.$idMember);
+    }
+    public function updatePlace($idMember, $place){
+        $this->member->updatePlace($idMember, $place);
         header('Location: index.php?action=member&id='.$idMember);
     }
 

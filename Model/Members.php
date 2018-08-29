@@ -13,7 +13,7 @@ class Members extends Model
 {
     //get member informations
     public function getMember($idMember){
-        $sql = 'SELECT idMember, pseudo,avatar_url, reported, DATE_FORMAT(registration_date, \'%d/%m/%Y\') AS registration_date_fr FROM members WHERE idMember=?';
+        $sql = 'SELECT idMember, pseudo, place, avatar_url, reported, DATE_FORMAT(registration_date, \'%d/%m/%Y\') AS registration_date_fr FROM members WHERE idMember=?';
         $member = $this->executeQuery($sql, array($idMember));
         if ($member->rowCount() == 1) {
             return $member->fetch(); // Access to the first result line
@@ -85,9 +85,14 @@ class Members extends Model
         $this->executeQuery($sql, array($idMember));
     }
 
-    public function updateProfile($idMember,$place, $description, $url){
-        $sql = 'UPDATE members SET place=?, description=?, avatar_url=? WHERE idMember=?';
-        $this->executeQuery($sql, array($place, $description, $url, $idMember));
+    public function updateAvatar($idMember, $url){
+        $sql = 'UPDATE members SET avatar_url=? WHERE idMember=?';
+        $this->executeQuery($sql, array($url, $idMember));
+    }
+
+    public function updatePlace($idMember, $place){
+        $sql = 'UPDATE members SET place=? WHERE idMember=?';
+        $this->executeQuery($sql, array($place, $idMember));
     }
 
 }

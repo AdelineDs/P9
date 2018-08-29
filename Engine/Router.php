@@ -363,17 +363,16 @@ class Router {
                 }
                 //add a photo in member gallery
                 elseif ($_GET['action'] == 'updateProfile'){
-                    if (isset($_POST['place']) && isset($_POST['description']) && isset($_POST['idMember'])){
+                    if (isset($_POST['place']) && isset($_POST['idMember'])){
                         if (!empty($_POST['idMember'])){
                             $place = $this->getParam($_POST, 'place');
-                            $description = $this->getParam($_POST, 'description');
                             $idMember = intval($this->getParam($_POST, 'idMember'));
                             $sizeMax = 500000;
                             $file = basename($_FILES['avatar']['name']);
                             $fileSize = filesize($_FILES['avatar']['tmp_name']);
                             $extends = array('.png', '.gif', '.jpg', '.jpeg');
                             $extend = strtolower(strrchr($_FILES['avatar']['name'], '.'));
-                            if (!empty($_POST['avatar'])){
+                            if (!empty($_FILES['avatar'])){
                                 if(in_array($extend, $extends)) //Si l'extension est dans le tableau
                                 {
                                     if($fileSize < $sizeMax) {
@@ -381,7 +380,7 @@ class Router {
                                         $file = uniqid().$extend;
                                         if (move_uploaded_file($_FILES['avatar']['tmp_name'], $folder . $file)){
                                             $url = $folder.$file;
-                                            $this->ctrlMember->updateProfile($idMember, $place, $description, $url);
+                                            $this->ctrlMember->updateAvatar($idMember, $url);
                                         }
                                         else{
                                             $error = "Echec de l'upload de la photo.";
@@ -399,8 +398,8 @@ class Router {
                                     $this->ctrlMember->viewProfileManagement($error);
                                 }
                             }
-                            else{
-                                $this->ctrlMember->updateProfile($idMember, $place, $description);
+                            if (!empty($_POST['place'])){
+                                $this->ctrlMember->updatePlace($idMember, $place);
                             }
                         }
                         else{
