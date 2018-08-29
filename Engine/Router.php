@@ -361,6 +361,58 @@ class Router {
                         $this->ctrlMember->viewProfileManagement($error);
                     }
                 }
+                //add a photo in member gallery
+                elseif ($_GET['action'] == 'updateProfile'){
+                    if (isset($_POST['place']) && isset($_POST['description']) && isset($_POST['idMember'])){
+                        if (!empty($_POST['idMember'])){
+                            $place = $this->getParam($_POST, 'place');
+                            $description = $this->getParam($_POST, 'description');
+                            $idMember = intval($this->getParam($_POST, 'idMember'));
+                            $sizeMax = 500000;
+                            $file = basename($_FILES['avatar']['name']);
+                            $fileSize = filesize($_FILES['avatar']['tmp_name']);
+                            $extends = array('.png', '.gif', '.jpg', '.jpeg');
+                            $extend = strtolower(strrchr($_FILES['avatar']['name'], '.'));
+                            if (!empty($_POST['avatar'])){
+                                if(in_array($extend, $extends)) //Si l'extension est dans le tableau
+                                {
+                                    if($fileSize < $sizeMax) {
+                                        $folder = 'public/avatar/';
+                                        $file = uniqid().$extend;
+                                        if (move_uploaded_file($_FILES['avatar']['tmp_name'], $folder . $file)){
+                                            $url = $folder.$file;
+                                            $this->ctrlMember->updateProfile($idMember, $place, $description, $url);
+                                        }
+                                        else{
+                                            $error = "Echec de l'upload de la photo.";
+                                            $this->ctrlMember->viewProfileManagement($error);
+                                        }
+
+                                    }
+                                    else{
+                                        $error = 'Le fichier est trop gros...';
+                                        $this->ctrlMember->viewProfileManagement($error);
+                                    }
+                                }
+                                else{
+                                    $error = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg,...';
+                                    $this->ctrlMember->viewProfileManagement($error);
+                                }
+                            }
+                            else{
+                                $this->ctrlMember->updateProfile($idMember, $place, $description);
+                            }
+                        }
+                        else{
+                            $error = "Erreur dans la récupération de id du membre";
+                            $this->ctrlMember->viewProfileManagement($error);
+                        }
+                    }
+                    else{
+                        $error = "Un problème est survenu durant le chargement";
+                        $this->ctrlMember->viewProfileManagement($error);
+                    }
+                }
                 //if action don't exist
                 else{
                     throw new \Exception("Action non valide");

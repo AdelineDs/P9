@@ -1,5 +1,5 @@
 class leafletMap{
-    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=6, maxZoom=14){
+    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=2, maxZoom=14){
         this.map = map;
         this.latLng = latLng;
         this.zoom = zoom;
@@ -11,6 +11,9 @@ class leafletMap{
 
         L.tileLayer(this.layer, {minZoom: this.minZoom, maxZoom: this.maxZoom}).addTo(this.myMap);
         this.myMap.addLayer(this.markersCluster);
+        this.searchBoundsGallery();
+        this.doBoundsGallery();
+        this.animationGallery();
     }//-- end constructor --
 
     photoRecovery(source) {
@@ -98,45 +101,9 @@ class leafletMap{
 
                 this.searchBoundsGallery();
 
-                $('#boundsGallery').multislider({interval: 3000});
-                $('#boundsGallery').magnificPopup({
-                    delegate: "a",
-                    type: 'image',
-                    closeOnContentClick : true,
-                    closeBtnInside : false,
-                    fixedContentPos : true,
-                    mainClass: 'mfp-no-margins mfp-with-zoom',
-                    image: {
-                        verticalFit: true
-                    },
-                    zoom: {
-                        enabled: true,
-                        duration: 500
-                    },
-                    gallery: {
-                        enabled: true
-                    }
-
-                });
             })//-- end list.on --
             this.myMap.on('moveend', (e) => {
-                let mainPhotos = document.getElementsByClassName("li");
-                if(mainPhotos.length != 0){
-                    this.searchBoundsGallery();
-
-                const text = document.getElementById("text");
-                $('h3').remove();
-                $('.empty').remove();
-
-                const title = document.createElement("h3");
-                title.appendChild(document.createTextNode("Dans ce secteur :"));
-                text.appendChild(title);
-                const empty = document.createElement("p");
-                empty.className = "empty";
-                empty.appendChild(document.createTextNode("Aucune suggestion dans cette zone !"));
-                text.appendChild(empty);
-                }
-
+                this.doBoundsGallery()
             })//-- end myMyap.moveend --
         });//-- end ajaxGet --
     }//-- end photoRecorvery --
@@ -179,6 +146,47 @@ class leafletMap{
             photosArray.push(photo.name);
         }
         let controleur = new ControllerAjax(latMin, latMax, lngMin, lngMax, photosArray);
+    }
+
+    doBoundsGallery(){
+        let mainPhotos = document.getElementsByClassName("li");
+        if(mainPhotos.length != 0){
+            this.searchBoundsGallery();
+
+            const text = document.getElementById("text");
+            $('h3').remove();
+            $('.empty').remove();
+
+            const title = document.createElement("h3");
+            title.appendChild(document.createTextNode("Dans ce secteur :"));
+            text.appendChild(title);
+            const empty = document.createElement("p");
+            empty.className = "empty";
+            empty.appendChild(document.createTextNode("Aucune suggestion dans cette zone !"));
+            text.appendChild(empty);
+        }
+    }
+
+    animationGallery(){
+        $('#boundsGallery').multislider({interval: 3000});
+        $('#boundsGallery').magnificPopup({
+            delegate: "a",
+            type: 'image',
+            closeOnContentClick : true,
+            closeBtnInside : false,
+            fixedContentPos : true,
+            mainClass: 'mfp-no-margins mfp-with-zoom',
+            image: {
+                verticalFit: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 500
+            },
+            gallery: {
+                enabled: true
+            }
+        });
     }
 
 }//---- END CLASS LEAFLETMAP ----

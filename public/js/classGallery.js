@@ -17,7 +17,7 @@ class Gallery {
 
             const link = document.createElement("a");
             link.className = "thumbnailsLink";
-            link.href = `http://localhost/OpenDeclic/P9/${element.url}`;
+            link.href = `http://projet9.adeline-decarpentries.fr/${element.url}`;
 
             const thumbnails = document.createElement("img");
             thumbnails.className = "thumbnails";

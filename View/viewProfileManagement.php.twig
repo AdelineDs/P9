@@ -25,7 +25,7 @@
                 {{ error }}
             </div>
         {% endif %}
-        <form method="post" action="index.php?action=updateProfil" enctype="multipart/form-data">
+        <form method="post" action="index.php?action=updateProfile" enctype="multipart/form-data">
             <input type="hidden" value="{{ session.id }}" name="idMember"/>
             <div class="form-group">
                 <label for="avatar">Choisir un avatar (max. 0.5 Mo) :</label>
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Parlez nous de vous : </label>
-                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Votre description ..."></textarea>
+                <textarea name="description" id="description" class="form-control" rows="5" placeholder="Votre description ..."></textarea>
             </div>
             <input type="submit" name="submit" value="Mettre à jour mes infos" class="envoi"/>
         </form>

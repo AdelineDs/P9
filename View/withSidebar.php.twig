@@ -4,13 +4,25 @@
     <nav class="col-md-2 d-none d-lg-block sidebar">
         <div class="sidebar-sticky">
             {% block sidebar %}
-                <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mt-4 mb-1">
+                <div class="text-center mb-3 mt-4 avatar">
+                    <img src="{{ member.avatar_url }}" alt="avatar">
+                </div>
+                <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mt-3 mb-1">
                     <span data-feather="user"></span>
                     {{ member.pseudo }}
                 </div>
                 <div class="sidebar-text d-flex justify-content-between align-items-center px-3 mb-3">
                     <span>Membre depuis le :</span>
                     <span>{{ member.registration_date_fr }}</span>
+                </div>
+                <div class="text-center mb-3">
+                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fprojet9.adeline-decarpentries.fr%2Findex.php%3Faction%3Dmember%26id%3D{{ member.idMember}}&amp;src=sdkpreparse"
+                       class="fb-xfbml-parse-ignore">
+                        <button class="fb-share-button fbButton" data-href="http://projet9.adeline-decarpentries.fr/index.php?action=member&amp;id={{ member.idMember }}"
+                                data-layout="button" data-size="large" data-mobile-iframe="true">
+                            <span data-feather="facebook"></span>Partager
+                        </button>
+                    </a>
                 </div>
                 {% if session.id and session.pseudo %}
                     {% if  session.id != member.idMember %}

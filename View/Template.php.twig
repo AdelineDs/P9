@@ -32,15 +32,6 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.1&appId=226351558060849&autoLogAppEvents=1';
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
         <div class="container-fluid block-page">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
                 <div class="container">
@@ -83,9 +74,12 @@
             </div>
             <!-- footer -->
             <div class="row footer">
-                <footer class="col-sm-12">
+                <footer class="col-sm-12 d-flex justify-content-between align-items-center text-center">
                     <div>
                         <a class="footerLink" href="?action=legalNotice">Mentions Légales</a>
+                    </div>
+                    <div>
+                        <a class="footerLink" href=https://goo.gl/forms/UUWrKn0jWY6YjeWw2 target="_blank">Feedback</a>
                     </div>
                     <div>
                         Tous droits réservés - Adeline D - 2018
@@ -131,7 +125,7 @@
         <script type="text/javascript" src="public/js/classControllerAjax.js"></script>
         <script type="text/javascript" src="public/js/classLeaflet.js"></script>
         <script type="text/javascript" src="public/js/classGallery.js"></script>
-        <script type="text/javascript" src="public/js/formSecurity.js"></script>
-        <script type="text/javascript" src="public/js/script.js"></script>
+        <script type="text/javascript" src="public/js/initMasonry.js"></script>
+        {% block script %}{% endblock %}
     </body>
 </html>
