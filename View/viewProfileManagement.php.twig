@@ -38,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label for="place">Se situer :</label>
-                <input class="form-control" type="text" name="place" placeholder="Où vous trouvez-vous ?" id="title"/>
+                <input class="form-control" type="text" name="place" placeholder="Où vous trouvez-vous ?" id="title" {% if member.place %} value="{{ member.place }}" {% endif %}/>
             </div>
             <input type="submit" name="submit" value="Mettre à jour mes infos" class="envoi"/>
         </form>

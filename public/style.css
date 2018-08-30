@@ -450,7 +450,19 @@ footer {
 
 
 /*--Media Queries--*/
+@media all and (max-width: 992px){
+    #mapAndPhoto{
+        display: block;
+    }
+    .thumbnails{
+
+    }
+}
+
 @media all and (max-width: 768px){
+    #gallery {
+        margin-left: 0;
+    }
     .grid-sizer,
     .grid-item {
         width: 100%;

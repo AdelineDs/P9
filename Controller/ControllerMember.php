@@ -161,17 +161,14 @@ class ControllerMember extends ControllerMain
     }
 
     // display profil management
-    public function viewProfileManagement($error = null)
+    public function viewProfileManagement($idMember)
     {
-        if ($error == null){
-            $this->render('viewProfileManagement.php.twig', array('session' => $_SESSION));
-        }
-        else{
-            $this->render('viewProfileManagement.php.twig', array(
-                'error' => $error,
-                'session' => $_SESSION
-            ));
-        }
+        $member = $this->member->getMember($idMember);
+        $this->render('viewProfileManagement.php.twig', array(
+            'member' => $member,
+            'session' => $_SESSION
+        ));
+
     }
 
     public function updateAvatar($idMember, $url){

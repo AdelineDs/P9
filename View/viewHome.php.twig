@@ -4,7 +4,9 @@
 
 {% block content %}
     <section class="col-md-6 offset-md-3 text-center">
-        <h2 class="my-5">Bienvenue {% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %} !</h2>
+        <h2 class="mt-5">Bienvenue sur Map'Pics {% if session.id and session.pseudo %}{{ session.pseudo }}{% endif %} !</h2>
+        <p>Site communautaire de partage de photos. Pour découvrir le monde à travers vos plus beaux clichés !</p>
+        <p class="mb-5"><a class="helpLink" href="?action=map">Voir la carte</a></p>
     </section>
     <div class="col-12 text-center popularPhotos">
         <div class="grid">

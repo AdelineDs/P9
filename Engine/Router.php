@@ -349,19 +349,18 @@ class Router {
                 elseif ($_GET['action'] == 'profileManagement'){
                     if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
                         if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
-                            $this->ctrlMember->viewProfileManagement();
+                            $idMember = $this->getParam($_SESSION, 'id');
+                            $this->ctrlMember->viewProfileManagement($idMember);
                         }
                         else{
-                            $error = "Une erreur s'est produite durant la récupération des données de session";
-                            $this->ctrlMember->viewProfileManagement($error);
+                            throw new \Exception("Une erreur s'est produite durant la récupération des données de session");
                         }
                     }
                     else{
-                        $error = "Impossible de récuprer les données de session";
-                        $this->ctrlMember->viewProfileManagement($error);
+                        throw new \Exception("Impossible de récupérer les données de sessions");
                     }
                 }
-                //add a photo in member gallery
+                // update a member profile
                 elseif ($_GET['action'] == 'updateProfile'){
                     if (isset($_POST['place']) && isset($_POST['idMember'])){
                         if (!empty($_POST['idMember'])){
@@ -370,7 +369,7 @@ class Router {
                             $sizeMax = 500000;
                             $file = basename($_FILES['avatar']['name']);
                             $fileSize = filesize($_FILES['avatar']['tmp_name']);
-                            $extends = array('.png', '.gif', '.jpg', '.jpeg');
+                            $extends = array('.png', '.jpg', '.jpeg');
                             $extend = strtolower(strrchr($_FILES['avatar']['name'], '.'));
                             if (!empty($_FILES['avatar'])){
                                 if(in_array($extend, $extends)) //Si l'extension est dans le tableau
