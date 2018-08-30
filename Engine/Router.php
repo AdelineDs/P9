@@ -8,6 +8,7 @@ use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 use \AdelineD\OC\P9\Controller\ControllerVote;
 use \AdelineD\OC\P9\Controller\ControllerAdmin;
+//use Intervention\Image\ImageManager;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -23,6 +24,7 @@ class Router {
     private $ctrlMember;
     private $ctrlVote;
     private $ctrlAdmin;
+    //private $manager;
 
 
     public function __construct() {
@@ -34,6 +36,7 @@ class Router {
         $this->ctrlError = new ControllerError();
         $this->ctrlVote = new ControllerVote();
         $this->ctrlAdmin = new ControllerAdmin();
+        //$this->manager = new ImageManager();
     }
 
 
@@ -133,8 +136,8 @@ class Router {
                 }
                 //add a photo in member gallery
                 elseif ($_GET['action'] == 'confirmAdd'){
-                    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['status']) && isset($_POST['idMember'])){
-                        if (!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['lat']) && !empty($_POST['lng'])){
+                    if (isset($_FILES['photo']['tmp_name']) && isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['status']) && isset($_POST['idMember'])){
+                        if (!empty($_FILES['photo']['tmp_name']) && !empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['lat']) && !empty($_POST['lng'])){
                             $title = $this->getParam($_POST, 'title');
                             $description = $this->getParam($_POST, 'description');
                             $lat = $this->getParam($_POST, 'lat');
@@ -152,6 +155,11 @@ class Router {
                                     $folder = 'public/img/';
                                     $file = uniqid().$extend;
                                     if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)){
+                                       /* $this->manager->make($_FILES['photo']['tmp_name'])
+                                            ->resize(200, null, function ($contraint){
+                                                $contraint->aspectRation();
+                                            })
+                                            ->save('public/img/thumbs/' .pathinfo($file));*/
                                         $url = $folder.$file;
                                         $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
                                     }

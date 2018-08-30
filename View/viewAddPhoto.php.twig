@@ -17,7 +17,14 @@
 {% endblock %}
 
 {% block main %}
-    <div class="col-6 offset-4 my-5 text-center">
+    <!-- display only on smartphone and tablet -->
+    <div class="col-12 text-center offset-lg-2 mt-5 d-lg-none">
+        <a class="helpLink" href="?action=member&id={{ session.id }}">
+            <span data-feather="corner-down-left"></span>
+            Retour au profil
+        </a>
+    </div>
+    <div class="col-12 col-sm-10 offset-sm-1 col-lg-6 offset-lg-4 my-5 text-center">
         {% if error %}
             <div class="col-12 text-center error">
                 {{ error }}

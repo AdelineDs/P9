@@ -20,7 +20,14 @@
 
 {% block main %}
     {% if session.id and session.pseudo and session.status == 1 %}
-        <div class="col-6 offset-lg-4 text-center mt-5">
+        <!-- display only on smartphone and tablet -->
+        <div class="col-12 text-center offset-lg-2 mt-5 d-lg-none">
+            <a class="helpLink" href="?action=member&id={{ session.id }}">
+                <span data-feather="corner-down-left"></span>
+                Retour au profil
+            </a>
+        </div>
+        <div class="col-12 col-lg-6 offset-lg-4 text-center mt-5">
             <h2>Commentaires à modérer :</h2>
         {% if error %}
             <div class="col-12 text-center error">

@@ -19,39 +19,46 @@
 {% endblock %}
 
 {% block main %}
-    <div class="col-8 offset-3 mt-5">
+    <!-- display only on smartphone and tablet -->
+    <div class="col-12 text-center offset-lg-2 mt-5 d-lg-none">
+        <a class="helpLink" href="?action=member&id={{ session.id }}">
+            <span data-feather="corner-down-left"></span>
+            Retour au profil
+        </a>
+    </div>
+    <div class="col-12 col-lg-8 offset-lg-3 mt-5">
         {% if error %}
             <div class="col-12 text-center error mb-5">
                 {{ error }}
             </div>
         {% endif %}
         <table class="table table-hover table-bordered table-striped table-dark tableMembers text-center">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Pseudo</th>
-            <th scope="col">Nombre de photos</th>
-            <th scope="col">Nombre de likes</th>
-            <th scope="col">Date d'inscription</th>
-            <th scope="col">Nombre de signalements</th>
-            <th scope="col">Voir Profil</th>
-            <th scope="col">Supprimer le membre</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for member in members %}
-        <tr>
-            <th scope="row">{{ loop.index }}</th>
-            <td>{{ member.pseudo }}</td>
-            <td>{{ member.nbPhotos }}</td>
-            <td>{{ member.nbLikes }}</td>
-            <td>{{ member.registration_date_fr }}</td>
-            <td>{{ member.reported }}</td>
-            <td class="tdLink"><a class="actionLink" href="?action=member&id={{ member.idMember }}"><span data-feather="user"></span></a></td>
-            <td class="tdLink"><a class="actionLink" href="?action=deleteMember&id={{ member.idMember }}"><span data-feather="user-x"></span></a></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Nombre de photos</th>
+                    <th scope="col">Nombre de likes</th>
+                    <th scope="col">Date d'inscription</th>
+                    <th scope="col">Nombre de signalements</th>
+                    <th scope="col">Voir Profil</th>
+                    <th scope="col">Supprimer le membre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ member.pseudo }}</td>
+                        <td><span class="d-md-none featherMQ" data-feather="camera"></span>{{ member.nbPhotos }}</td>
+                        <td><span class="d-md-none featherMQ" data-feather="heart"></span>{{ member.nbLikes }}</td>
+                        <td><span class="d-md-none featherMQ" data-feather="clock"></span>{{ member.registration_date_fr }}</td>
+                        <td><span class="d-md-none featherMQ" data-feather="alert-circle"></span>{{ member.reported }}</td>
+                        <td class="tdLink"><a class="actionLink" href="?action=member&id={{ member.idMember }}"><span data-feather="user"></span></a></td>
+                        <td class="tdLink"><a class="actionLink" href="?action=deleteMember&id={{ member.idMember }}"><span data-feather="user-x"></span></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
