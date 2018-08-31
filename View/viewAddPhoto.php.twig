@@ -4,7 +4,7 @@
 
 {% block sidebar %}
     <div class="sidebar-text d-flex text-center px-3 my-5">
-        Ajoutez une photo dans votre galerie {{ session.pseudo }}.
+       {% if photo %}Modifiez {% else %} Ajoutez {% endif %}une photo dans votre galerie {{ session.pseudo }}.
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -30,30 +30,38 @@
                 {{ error }}
             </div>
         {% endif %}
-        <form method="post" action="index.php?action=confirmAdd" enctype="multipart/form-data">
+        <form method="post" action="{% if photo %}?action=confirmEdit{% else %}?action=confirmAdd{% endif %}" enctype="multipart/form-data">
             <input type="hidden" value="{{ session.id }}" name="idMember"/>
-            <div class="form-group">
-                <label for="photo">Choisir une photo (max. 1 Mo) :</label>
-                <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
-                <input type="file" name="photo" class="parcourir" id="photo" required=""/>
-                <p id="uploadHelpBlock" class="form-text text-muted">
-                    Vous pouvez, par exemple, utiliser ce <a class="helpLink" href="https://compressnow.com/fr/" target="_blank">site</a>
-                    pour compresser votre photo si nécessaire.
-                </p>
-            </div>
-            <div class="form-group">
+            {% if photo.id %}
+                <input type="hidden" value="{{ photo.id }}" name="idPhoto" />
+            {% endif %}
+            {% if photo.url %}
+                <img src="{{ photo.url }}" alt="{{ photo.name }}" class="photoEditing mb-3 mx-auto d-block">
+                <a href="" class="helpLink">Supprimer cette photo</a>
+            {% else %}
+                <div class="form-group">
+                    <label for="photo">Choisir une photo (max. 1 Mo) :</label>
+                    <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>
+                    <input type="file" name="photo" class="parcourir" id="photo" required=""/>
+                    <p id="uploadHelpBlock" class="form-text text-muted">
+                        Vous pouvez, par exemple, utiliser ce <a class="helpLink" href="https://compressnow.com/fr/" target="_blank">site</a>
+                        pour compresser votre photo si nécessaire.
+                    </p>
+                </div>
+            {% endif %}
+            <div class="form-group mt-3">
                 <label for="title">Titre de la photo (max. 50 caractères) :</label>
-                <input class="form-control" type="text" name="title" placeholder="Titre de la photo" id="title" required="" {% if post.title %} value ="{{ post.title }}" {% endif %}>
+                <input class="form-control" type="text" name="title" placeholder="Titre de la photo" id="title" required="" {% if post.title %} value ="{{ post.title }}" {% elseif photo.name %} value ="{{ photo.name }}" {% endif %}>
             </div>
             <div class="form-group">
                 <label for="description">Description de la photo : </label>
-                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Description ..." >{% if post.description %} {{ post.description }} {% endif %}</textarea>
+                <textarea name="description" id="description" class="form-control" rows="5" required="" placeholder="Description ..." >{% if post.description %} {{ post.description }}{% elseif photo.description %} {{ photo.description }} {% endif %}</textarea>
             </div>
             <div class="form-group">
                 <label for="lat">Latitude du lieu de prise de vue:</label>
-                <input class="form-control" type="text" name="lat" placeholder="ex : 43.216667" id="lat" required="" {% if post.lat %} value ="{{ post.lat }}" {% endif %}>
+                <input class="form-control" type="text" name="lat" placeholder="ex : 43.216667" id="lat" required="" {% if post.lat %} value ="{{ post.lat }}" {% elseif photo.lat %} value ="{{ photo.lat }}" {% endif %}>
                 <label for="lng">Longitude du lieu de prise de vue :</label>
-                <input class="form-control" type="text" name="lng" placeholder="ex : 7.752111" id="lng" required="" {% if post.lng %} value ="{{ post.lng }}" {% endif %}>
+                <input class="form-control" type="text" name="lng" placeholder="ex : 7.752111" id="lng" required="" {% if post.lng %} value ="{{ post.lng }}" {% elseif photo.lng %} value ="{{ photo.lng }}" {% endif %}>
                 <p id="gpsHelpBlock" class="form-text text-muted">
                     Vous pouvez utilisez le site de <a class="helpLink" href="https://www.coordonnees-gps.fr/" target="_blank">Google</a>
                     ou le site <a class="helpLink" href="http://www.gpsfrance.net/adresse-vers-coordonnees-gps" target="_blank">GPSFrance</a>
@@ -63,15 +71,15 @@
             <div class="form-group">
                 <label for="status">Choisir une catégorie pour la photo :</label>
                 <select class="form-control" name="status">
-                    <option value="0">Public</option>
-                    <option value="1">Privé</option>
+                    <option value="0" {% if post.status == 0 %} selected {% elseif photo.status == 0 %} selected {% endif %}>Public</option>
+                    <option value="1" {% if post.status == 1 %} selected {% elseif photo.status == 1 %} selected {% endif %}>Privé</option>
                 </select>
                 <p id="statusHelpBlock" class="form-text text-muted">
                     Une photo <strong>public</strong> pourra être vu pas toute personne visitant le site.<br>
                     Une photo <strong>privé</strong> ne pourra être vue que par les autres membres inscrits
                 </p>
             </div>
-            <input type="submit" name="submit" value="Envoyer" class="envoi"/>
+            <input type="submit" name="submit" value="{% if photo %}Modifier{% else %}Envoyer{% endif %}" class="envoi"/>
         </form>
     </div>
 {% endblock %}

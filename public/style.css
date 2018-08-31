@@ -386,6 +386,9 @@ footer {
     -ms-flex-align: center;
     align-items: center;
 }
+.avatar img{
+    width: 100%;
+}
 /*- Photos -*/
 .itemMember img {
     display: block;
@@ -418,7 +421,8 @@ footer {
 }
 .itemMember:hover .photoName,
 .itemMember:hover .photoLikes,
-.itemMember:hover .voteButton{
+.itemMember:hover .voteButton,
+.itemMember:hover .photoEdit{
     opacity: 1;
     -webkit-transition: opacity .4s ease-in-out;
     -o-transition: opacity .4s ease-in-out;
@@ -460,6 +464,15 @@ footer {
 .voteForm {
     margin: 0;
 }
+.photoEdit {
+    position: absolute;
+    top: 0;
+    z-index: 12;
+    color: white;
+    font-weight: bold;
+    left: 0;
+    opacity: 0;
+}
 
 /*- Comments -*/
 .navComments{
@@ -479,6 +492,12 @@ footer {
 }
 .textCom {
     font-size: 1.2rem;
+}
+
+/*-- Photo editing page --*/
+.photoEditing{
+    max-width: 150px;
+    max-height: 150px;
 }
 
 /*----- Admin -----*/

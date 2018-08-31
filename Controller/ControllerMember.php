@@ -168,7 +168,6 @@ class ControllerMember extends ControllerMain
             'member' => $member,
             'session' => $_SESSION
         ));
-
     }
 
     public function updateAvatar($idMember, $url){

@@ -64,6 +64,11 @@
                                             <input type="hidden" name="memberId" value="{{ session.id }}" />
                                             <button type="submit" class="voteButton {% if photo.liked == 1 %}liked{% endif %}"><i class="fas fa-heart"></i></button>
                                         </form>
+                                        {% if session.id and session.pseudo and session.id==member.idMember %}
+                                            <a href="?action=editPhoto&id={{ photo.id }}" title="Editer">
+                                                <span class="photoEdit"><i class="far fa-edit"></i></span>
+                                            </a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             {% endfor %}

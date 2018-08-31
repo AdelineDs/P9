@@ -61,4 +61,20 @@ class Photos extends Model {
         $sql = 'INSERT INTO photos(memberId, name, description, url, lat, lng, status, date_added) VALUES(?, ?, ?, ?, ?, ?, ?, NOW())';
         $this->executeQuery($sql, array($idMember, $title, $description, $url, $lat, $lng, $status));
     }
+
+    public function getPhoto($idPhoto, $idMember){
+        $sql = 'SELECT id, memberId, name, description, url, lat, lng, status FROM photos WHERE id=? AND memberID=?';
+        $photo = $this->executeQuery($sql, array($idPhoto, $idMember));
+        if ($photo->rowCount() == 1) {
+            return $photo->fetch(); // Access to the first result line
+        }
+        else {
+            throw new \Exception("Aucune photo ne correspond à l'identifiant '$idPhoto' ou Vous n'êtes pas propriétaire de cette photo");
+        }
+    }
+
+    public function editPhoto($idPhoto, $title, $description, $lat, $lng, $status){
+        $sql = 'UPDATE photos SET name=?, description=?, lat=?, lng=?, status=? WHERE id=?';
+        $this->executeQuery($sql, array($title, $description, $lat, $lng, $status, $idPhoto));
+    }
 }

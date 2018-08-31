@@ -54,4 +54,29 @@ class ControllerPhotos extends ControllerMain {
         header('Location: index.php?action=member&id='.$idMember);
     }
 
+    // display profil management
+    public function viewPhotoEditing($idPhoto, $idMember, $error = null)
+    {
+        if ($error == null){
+            $photo = $this->photos->getPhoto($idPhoto, $idMember);
+            $this->render('viewAddPhoto.php.twig', array(
+                'photo' => $photo,
+                'session' => $_SESSION
+            ));
+        }
+        else{
+            $photo = $this->photos->getPhoto($idPhoto, $idMember);
+            $this->render('viewAddPhoto.php.twig', array(
+                'error' => $error,
+                'photo' => $photo,
+                'session' => $_SESSION
+            ));
+        }
+    }
+
+    public function editPhoto($idMember, $idPhoto, $title, $description, $lat, $lng, $status){
+        $this->photos->editPhoto($idPhoto, $title, $description, $lat, $lng, $status);
+        header('Location: index.php?action=member&id='.$idMember);
+    }
+
 }

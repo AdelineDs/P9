@@ -8,7 +8,7 @@ use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 use \AdelineD\OC\P9\Controller\ControllerVote;
 use \AdelineD\OC\P9\Controller\ControllerAdmin;
-//use Intervention\Image\ImageManager;
+//use \Intervention\Image\ImageManager;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -160,8 +160,13 @@ class Router {
                                                 $contraint->aspectRation();
                                             })
                                             ->save('public/img/thumbs/' .pathinfo($file));*/
-                                        $url = $folder.$file;
-                                        $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+                                       //if (is_numeric($lat) && is_numeric($lng)){
+                                           $url = $folder.$file;
+                                           $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+                                      /*}else{
+                                           $error = "Erreur de format ";
+                                           $this->ctrlPhotos->viewAddPhoto($error);
+                                       }*/
                                     }
                                     else{
                                         $error = "Echec de l'upload de la photo.";
@@ -366,6 +371,7 @@ class Router {
                     }
                     else{
                         throw new \Exception("Impossible de récupérer les données de sessions");
+                        error_log('coucou');
                     }
                 }
                 // update a member profile
@@ -402,6 +408,7 @@ class Router {
                                 }
                                 else{
                                     $error = 'Vous devez uploader un fichier de type png, gif, jpg, jpeg,...';
+                                    error_log('coucou');
                                     $this->ctrlMember->viewProfileManagement($error);
                                 }
                             }
@@ -417,6 +424,52 @@ class Router {
                     else{
                         $error = "Un problème est survenu durant le chargement";
                         $this->ctrlMember->viewProfileManagement($error);
+                    }
+                }
+                //display photo edit page
+                elseif ($_GET['action'] == 'editPhoto'){
+                    $idphoto = intval($this->getParam($_GET, 'id'));
+                    if ($idphoto > 0){
+                        if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
+                            if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
+                                $this->ctrlPhotos->viewPhotoEditing($idphoto, $_SESSION['id']);
+                            }else{
+                                throw new \Exception("Erreur lors de la récupération de la session");
+                            }
+                        }else{
+                            throw new \Exception("Vous n'avez pas l'autorisation d'aller sur cette page");
+                        }
+                    }
+                    else{
+                        throw new \Exception("Identifiant de photo non valide.");
+                    }
+                }
+                //edit a photo in member gallery
+                elseif ($_GET['action'] == 'confirmEdit'){
+                    if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['lat']) && isset($_POST['lng']) && isset($_POST['status'])  && isset($_POST['idPhoto'])) {
+                        if (!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['lat']) && !empty($_POST['lng']) && !empty($_POST['idMember']) && !empty($_POST['idPhoto'])) {
+                            $title = $this->getParam($_POST, 'title');
+                            $description = $this->getParam($_POST, 'description');
+                            $lat = $this->getParam($_POST, 'lat');
+                            $lng = $this->getParam($_POST, 'lng');
+                            $status = intval($this->getParam($_POST, 'status'));
+                            $idMember = intval($this->getParam($_POST, 'idMember'));
+                            $idphoto = intval($this->getParam($_POST, 'idPhoto'));
+                            if (is_numeric($lat) && is_numeric($lng)){
+                                $this->ctrlPhotos->editPhoto($idMember, $idphoto, $title, $description, $lat, $lng, $status);
+                            }else{
+                                $error = "La longitude et la latitude doivent être des valeurs numériques";
+                                $this->ctrlPhotos->viewPhotoEditing($idphoto, $idMember, $error);
+                            }
+                        }
+                        else{
+                            $error = "Tous les champs ne sont pas remplis";
+                            $this->ctrlPhotos->viewAddPhoto($error);
+                        }
+                    }
+                    else{
+                        $error = "Un problème est survenu durant le chargement";
+                        $this->ctrlPhotos->viewAddPhoto($error);
                     }
                 }
                 //if action don't exist
