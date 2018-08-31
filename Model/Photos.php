@@ -77,4 +77,10 @@ class Photos extends Model {
         $sql = 'UPDATE photos SET name=?, description=?, lat=?, lng=?, status=? WHERE id=?';
         $this->executeQuery($sql, array($title, $description, $lat, $lng, $status, $idPhoto));
     }
+
+    //delete a photo in database
+    public function confirmDelete($idPhoto) {
+        $sql = 'DELETE FROM photos WHERE id= ?';
+        $this->executeQuery($sql, array($idPhoto));
+    }
 }

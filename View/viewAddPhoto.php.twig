@@ -30,15 +30,20 @@
                 {{ error }}
             </div>
         {% endif %}
+        {% if photo %}
+            <img src="{{ photo.url }}" alt="{{ photo.name }}" class="photoEditing mb-3 mx-auto d-block">
+            <form action="?action=deletePhoto" method="post"/>
+                <input type="hidden" value="{{ session.id }}" name="idMember"/>
+                <input type="hidden" value="{{photo.id}}" name="idPhoto">
+                <input  class="confirm col-4 col-md-2" type="submit" value="Supprimer cette photo">
+            </form>
+        {% endif %}
         <form method="post" action="{% if photo %}?action=confirmEdit{% else %}?action=confirmAdd{% endif %}" enctype="multipart/form-data">
             <input type="hidden" value="{{ session.id }}" name="idMember"/>
             {% if photo.id %}
                 <input type="hidden" value="{{ photo.id }}" name="idPhoto" />
             {% endif %}
-            {% if photo.url %}
-                <img src="{{ photo.url }}" alt="{{ photo.name }}" class="photoEditing mb-3 mx-auto d-block">
-                <a href="" class="helpLink">Supprimer cette photo</a>
-            {% else %}
+            {% if not photo.url %}
                 <div class="form-group">
                     <label for="photo">Choisir une photo (max. 1 Mo) :</label>
                     <input type="hidden" name="MAX-FILE-SIZE" value="1048576"/>

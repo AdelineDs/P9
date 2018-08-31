@@ -1,6 +1,15 @@
 {% extends 'Template.php.twig' %}
 
-{% block title %}Supprimer le {% if com %} }}commentaire {% elseif member %} membre{% endif %}{% endblock %}
+{% block title %}
+    Supprimer
+    {% if com %} }}
+        le commentaire
+    {% elseif member %}
+        le membre
+    {% elseif photo %}
+        la photo
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     {% if session.id and session.pseudo and session.status == 1 %}
@@ -10,6 +19,8 @@
                 <a href="?action=comManagement" class="backLink">retour</a>
             {% elseif member %}
                 <a href="?action=membersManagement" class="backLink">retour</a>
+            {% elseif photo %}
+                <a href="?action=editPhoto&id={{ photo.id }}" class="backLink">retour à l'édition</a>
             {% endif %}
 
         </div>
@@ -43,6 +54,21 @@
                     <input  class="confirm col-12" type="submit" value="OUI">
                 </form>
                 <form action="?action=membersManagement" method="post" class="col-6">
+                    <input  class="cancel col-12" type="submit" value="NON">
+                </form>
+            </div>
+        {% elseif photo %}
+            <div class="col-lg-10 offset-lg-1 text-center memberDescription">
+                <h3>{{ photo.name }}</h3>
+                <img src="{{ photo.url }}" alt="{{ photo.name }}" class="photoEditing my-3 mx-auto d-block">
+                <p>{{ photo.description }}</p>
+            </div>
+            <div class="col-lg-4 offset-lg-4 text-center d-flex">
+                <form action="?action=confirmDeletePhoto" method="post" class="col-6">
+                    <input type="hidden" value="{{ photo.id }}" name="idPhoto"/>
+                    <input  class="confirm col-12" type="submit" value="OUI">
+                </form>
+                <form action="?action=editPhoto&id={{ photo.id }}" method="post" class="col-6">
                     <input  class="cancel col-12" type="submit" value="NON">
                 </form>
             </div>

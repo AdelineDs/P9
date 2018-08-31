@@ -79,4 +79,20 @@ class ControllerPhotos extends ControllerMain {
         header('Location: index.php?action=member&id='.$idMember);
     }
 
+    //display confirmation page for deleting photo
+    public function viewConfirmation($idPhoto, $idMember){
+        $photo = $this->photos->getPhoto($idPhoto, $idMember);
+        $this->render('viewConfirmation.php.twig', array(
+            'photo' => $photo,
+            'session' => $_SESSION
+        ));
+    }
+
+    //confirm deleting photo
+    //je dois modifier pour que lorsque l'on supprime une photo on supprime ses likes aussi
+    public function confirmDeletePhoto($idPhoto, $idMember) {
+        $this->photos->confirmDelete($idPhoto);
+        header('Location: index.php?action=member&id='.$idMember);
+    }
+
 }

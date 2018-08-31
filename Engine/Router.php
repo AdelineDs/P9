@@ -8,7 +8,7 @@ use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 use \AdelineD\OC\P9\Controller\ControllerVote;
 use \AdelineD\OC\P9\Controller\ControllerAdmin;
-//use \Intervention\Image\ImageManager;
+use \Intervention\Image\ImageManager;
 
 //class autoloading
 require_once 'Autoloader.php';
@@ -24,7 +24,7 @@ class Router {
     private $ctrlMember;
     private $ctrlVote;
     private $ctrlAdmin;
-    //private $manager;
+    private $manager;
 
 
     public function __construct() {
@@ -160,13 +160,13 @@ class Router {
                                                 $contraint->aspectRation();
                                             })
                                             ->save('public/img/thumbs/' .pathinfo($file));*/
-                                       //if (is_numeric($lat) && is_numeric($lng)){
-                                           $url = $folder.$file;
-                                           $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
-                                      /*}else{
-                                           $error = "Erreur de format ";
-                                           $this->ctrlPhotos->viewAddPhoto($error);
-                                       }*/
+                                        if (is_numeric($lat) && is_numeric($lng)){
+                                            $url = $folder.$file;
+                                            $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
+                                        }else{
+                                            $error = "La longitude et la latitude doivent être des valeurs numériques";
+                                            $this->ctrlPhotos->viewAddPhoto($error);
+                                        }
                                     }
                                     else{
                                         $error = "Echec de l'upload de la photo.";
@@ -338,7 +338,6 @@ class Router {
                     else{
                         throw new \Exception("Impossible de récupérer les données de sessions");
                     }
-
                 }
                 //delete member
                 elseif ($_GET['action'] == 'confirmDeleteMember') {
@@ -353,7 +352,7 @@ class Router {
                         }
                     }
                     else{
-
+                        throw new \Exception("Impossible de récupérer l'id du memebre");
                     }
                 }
                 elseif ($_GET['action'] == 'legalNotice'){
@@ -464,12 +463,41 @@ class Router {
                         }
                         else{
                             $error = "Tous les champs ne sont pas remplis";
-                            $this->ctrlPhotos->viewAddPhoto($error);
+                            $this->ctrlPhotos->viewPhotoEditing($error);
                         }
                     }
                     else{
                         $error = "Un problème est survenu durant le chargement";
-                        $this->ctrlPhotos->viewAddPhoto($error);
+                        $this->ctrlPhotos->viewPhotoEditing($error);
+                    }
+                }
+                //send to the confirmation page deleting a photo
+                elseif ($_GET['action'] == 'deletePhoto') {
+                    $idPhoto = intval($this->getParam($_POST, 'idPhoto'));
+                    $idMember = intval($this->getParam($_POST, 'idMember'));
+                    if ($idPhoto != 0) {
+                        $this->ctrlPhotos->viewConfirmation($idPhoto, $idMember);
+                    }
+                    else {
+                        $error = "Identifiant de photo non valide";
+                        $this->ctrlPhotos->viewPhotoEditing($idPhoto, $idMember, $error);
+                    }
+                }
+                //delete photo
+                elseif ($_GET['action'] == 'confirmDeletePhoto') {
+                    if (isset($_POST['idPhoto']) && isset($_SESSION['id'])){
+                        if (!empty($_POST['idPhoto']) && !empty($_SESSION)){
+                            $idPhoto = intval($this->getParam($_POST, 'idPhoto'));
+                            $idMember = intval($this->getParam($_SESSION, 'id'));
+                            $this->ctrlPhotos->confirmDeletePhoto($idPhoto, $idMember);
+                        }
+                        else{
+                            $error = "Erreur avec l'identifiant du membre";
+                            $this->ctrlAdmin->viewMembersManagement($error);
+                        }
+                    }
+                    else{
+                        throw new \Exception("Impossible de récupérer l'id du memebre");
                     }
                 }
                 //if action don't exist
