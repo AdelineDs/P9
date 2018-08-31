@@ -44,8 +44,11 @@
                 </p>
             </div>
             <div class="form-group">
-                <label for="place">Se situer :</label>
+                <label for="place">Me situer :</label>
                 <input class="form-control" type="text" name="place" placeholder="Où vous trouvez-vous ?" id="title" {% if member.place %} value="{{ member.place }}" {% endif %}/>
+                <p id="placeHelpBlock" class="form-text text-muted">
+                    Votre pays, votre région, votre ville... Choississez ce qui vous convient.
+                </p>
             </div>
             <input type="submit" name="submit" value="Mettre à jour mes infos" class="envoi"/>
         </form>

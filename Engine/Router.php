@@ -385,7 +385,7 @@ class Router {
                             $fileSize = filesize($_FILES['avatar']['tmp_name']);
                             $extends = array('.png', '.jpg', '.jpeg');
                             $extend = strtolower(strrchr($_FILES['avatar']['name'], '.'));
-                            if (!empty($_FILES['avatar'])){
+                            if (!empty($_FILES['avatar']['tmp_name'])){
                                 if(in_array($extend, $extends)) //Si l'extension est dans le tableau
                                 {
                                     if($fileSize < $sizeMax) {
