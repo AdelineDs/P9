@@ -1,6 +1,6 @@
 {% extends 'withSidebar.php.twig' %}
 
-{% block title %}Ajouter une nouvelle photo{% endblock %}
+{% block title %}{% if photo %}Modifiez {% else %} Ajoutez {% endif %}une photo{% endblock %}
 
 {% block sidebar %}
     <div class="sidebar-text d-flex text-center px-3 my-5">
@@ -35,7 +35,7 @@
             <form action="?action=deletePhoto" method="post"/>
                 <input type="hidden" value="{{ session.id }}" name="idMember"/>
                 <input type="hidden" value="{{photo.id}}" name="idPhoto">
-                <input  class="confirm col-4 col-md-2" type="submit" value="Supprimer cette photo">
+                <input  class="confirm col-4" type="submit" value="Supprimer cette photo">
             </form>
         {% endif %}
         <form method="post" action="{% if photo %}?action=confirmEdit{% else %}?action=confirmAdd{% endif %}" enctype="multipart/form-data">

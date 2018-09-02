@@ -2,7 +2,7 @@
 
 {% block title %}
     Supprimer
-    {% if com %} }}
+    {% if com %}
         le commentaire
     {% elseif member %}
         le membre
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if session.id and session.pseudo and session.status == 1 %}
+    {% if session.id and session.pseudo %}
         <div class="col-lg-10 offset-lg-1 text-center my-5">
             <h2 class="mb-4">Etes-vous sûre de vouloir supprimer ce {% if com %}commentaire{% elseif member %}membre{% endif %} ?</h2>
             {% if com %}
@@ -25,38 +25,50 @@
 
         </div>
         {% if com %}
-            <div class="col-lg-10 offset-lg-1 text-center">
-                <div class="comment">
-                    <p class="textCom">" {{ com.comment }} "</p>
-                    <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+            {% if session.status == 1 %}
+                <div class="col-lg-10 offset-lg-1 text-center">
+                    <div class="comment">
+                        <p class="textCom">" {{ com.comment }} "</p>
+                        <p class="infosCom">Par <strong>{{ com.author }}</strong>, le <em>{{ com.comment_date_fr }}</em></p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4 offset-lg-4 text-center d-flex">
-                <form action="?action=confirmDeleteCom" method="post" class="col-6">
-                    <input type="hidden" value="{{ com.id }}" name="idCom"/>
-                    <input  class="confirm col-12" type="submit" value="OUI">
-                </form>
-                <form action="?action=comManagement" method="post" class="col-6">
-                    <input  class="cancel col-12" type="submit" value="NON">
-                </form>
-            </div>
+                <div class="col-lg-4 offset-lg-4 text-center d-flex">
+                    <form action="?action=confirmDeleteCom" method="post" class="col-6">
+                        <input type="hidden" value="{{ com.id }}" name="idCom"/>
+                        <input  class="confirm col-12" type="submit" value="OUI">
+                    </form>
+                    <form action="?action=comManagement" method="post" class="col-6">
+                        <input  class="cancel col-12" type="submit" value="NON">
+                    </form>
+                </div>
+            {% else %}
+                <div class="col-lg-10 offset-lg-1 mt-5 text-center">
+                    Vous n'avez pas l'autorisation pour accéder à cette page
+                </div>
+            {% endif %}
         {% elseif member %}
-            <div class="col-lg-10 offset-lg-1 text-center memberDescription">
-                <ul>
-                    <li>Membre : {{ member.pseudo }}</li>
-                    <li>Inscrit depuis le : {{ member.registration_date_fr }}</li>
-                    <li>Signalé : {{ member.reported }} fois</li>
-                </ul>
-            </div>
-            <div class="col-lg-4 offset-lg-4 text-center d-flex">
-                <form action="?action=confirmDeleteMember" method="post" class="col-6">
-                    <input type="hidden" value="{{ member.idMember }}" name="idMember"/>
-                    <input  class="confirm col-12" type="submit" value="OUI">
-                </form>
-                <form action="?action=membersManagement" method="post" class="col-6">
-                    <input  class="cancel col-12" type="submit" value="NON">
-                </form>
-            </div>
+            {% if session.status == 1 %}
+                <div class="col-lg-10 offset-lg-1 text-center memberDescription">
+                    <ul>
+                        <li>Membre : {{ member.pseudo }}</li>
+                        <li>Inscrit depuis le : {{ member.registration_date_fr }}</li>
+                        <li>Signalé : {{ member.reported }} fois</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 offset-lg-4 text-center d-flex">
+                    <form action="?action=confirmDeleteMember" method="post" class="col-6">
+                        <input type="hidden" value="{{ member.idMember }}" name="idMember"/>
+                        <input  class="confirm col-12" type="submit" value="OUI">
+                    </form>
+                    <form action="?action=membersManagement" method="post" class="col-6">
+                        <input  class="cancel col-12" type="submit" value="NON">
+                    </form>
+                </div>
+            {% else %}
+                <div class="col-lg-10 offset-lg-1 mt-5 text-center">
+                    Vous n'avez pas l'autorisation pour accéder à cette page
+                </div>
+            {% endif %}
         {% elseif photo %}
             <div class="col-lg-10 offset-lg-1 text-center memberDescription">
                 <h3>{{ photo.name }}</h3>

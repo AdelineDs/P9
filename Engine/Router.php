@@ -36,7 +36,7 @@ class Router {
         $this->ctrlError = new ControllerError();
         $this->ctrlVote = new ControllerVote();
         $this->ctrlAdmin = new ControllerAdmin();
-        //$this->manager = new ImageManager();
+        $this->manager = new ImageManager();
     }
 
 
@@ -152,24 +152,25 @@ class Router {
                             if(in_array($extend, $extends)) //Si l'extension est dans le tableau
                             {
                                 if($fileSize < $sizeMax) {
-                                    $folder = 'public/img/';
-                                    $file = uniqid().$extend;
-                                    if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)){
+                                    if (is_numeric($lat) && is_numeric($lng)) {
+                                        $folder = 'public/img/';
+                                        $file = uniqid() . $extend;
                                        /* $this->manager->make($_FILES['photo']['tmp_name'])
-                                            ->resize(200, null, function ($contraint){
-                                                $contraint->aspectRation();
+                                            ->resize(200, null, function ($constraint) {
+                                                $constraint->aspectRatio();
                                             })
-                                            ->save('public/img/thumbs/' .pathinfo($file));*/
-                                        if (is_numeric($lat) && is_numeric($lng)){
-                                            $url = $folder.$file;
+                                            ->save('public/img/thumbs/' . $file);*/
+                                        if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)) {
+                                            $url = $folder . $file;
                                             $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
-                                        }else{
-                                            $error = "La longitude et la latitude doivent être des valeurs numériques";
+                                        }
+                                        else {
+                                            $error = "Echec de l'upload de la photo.";
                                             $this->ctrlPhotos->viewAddPhoto($error);
                                         }
                                     }
                                     else{
-                                        $error = "Echec de l'upload de la photo.";
+                                        $error = "La longitude et la latitude doivent être des valeurs numériques";
                                         $this->ctrlPhotos->viewAddPhoto($error);
                                     }
 
