@@ -486,11 +486,12 @@ class Router {
                 }
                 //delete photo
                 elseif ($_GET['action'] == 'confirmDeletePhoto') {
-                    if (isset($_POST['idPhoto']) && isset($_SESSION['id'])){
-                        if (!empty($_POST['idPhoto']) && !empty($_SESSION)){
+                    if (isset($_POST['idPhoto']) && isset($_POST['urlPhoto']) && isset($_SESSION['id'])){
+                        if (!empty($_POST['idPhoto']) &&!empty($_POST['urlPhoto']) && !empty($_SESSION['id'])){
                             $idPhoto = intval($this->getParam($_POST, 'idPhoto'));
+                            $urlPhoto = $this->getParam($_POST, 'urlPhoto');
                             $idMember = intval($this->getParam($_SESSION, 'id'));
-                            $this->ctrlPhotos->confirmDeletePhoto($idPhoto, $idMember);
+                            $this->ctrlPhotos->confirmDeletePhoto($idPhoto, $urlPhoto, $idMember);
                         }
                         else{
                             $error = "Erreur avec l'identifiant du membre";

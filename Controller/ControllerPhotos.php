@@ -90,8 +90,11 @@ class ControllerPhotos extends ControllerMain {
 
     //confirm deleting photo
     //je dois modifier pour que lorsque l'on supprime une photo on supprime ses likes aussi
-    public function confirmDeletePhoto($idPhoto, $idMember) {
+    public function confirmDeletePhoto($idPhoto, $urlPhoto, $idMember) {
         $this->photos->confirmDelete($idPhoto);
+        if (file_exists($urlPhoto)){
+            unlink($urlPhoto);
+        }
         header('Location: index.php?action=member&id='.$idMember);
     }
 
