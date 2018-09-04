@@ -1,12 +1,13 @@
 class leafletMap{
-    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=2, maxZoom=14){
+    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=2, maxZoom=14, maxBounds=[[-80, -170], [80, 170]]){
         this.map = map;
         this.latLng = latLng;
         this.zoom = zoom;
         this.layer = layer;
         this.minZoom = minZoom;
         this.maxZoom = maxZoom;
-        this.myMap = L.map(this.map).setView(this.latLng,this.zoom);
+        this.maxBounds = maxBounds;
+        this.myMap = L.map(this.map, {maxBounds: this.maxBounds}).setView(this.latLng,this.zoom);
         this.markersCluster = L.markerClusterGroup();
 
         L.tileLayer(this.layer, {minZoom: this.minZoom, maxZoom: this.maxZoom}).addTo(this.myMap);

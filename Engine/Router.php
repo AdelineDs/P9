@@ -156,10 +156,20 @@ class Router {
                                         $folder = 'public/img/';
                                         $file = uniqid() . $extend;
                                        /* $this->manager->make($_FILES['photo']['tmp_name'])
-                                            ->resize(200, null, function ($constraint) {
+                                            ->resize(700, null, function ($constraint) {
                                                 $constraint->aspectRatio();
                                             })
-                                            ->save('public/img/thumbs/' . $file);*/
+                                            ->save('public/img/700-' . $file);
+                                        $this->manager->make($_FILES['photo']['tmp_name'])
+                                            ->resize(150, null, function ($constraint) {
+                                                $constraint->aspectRatio();
+                                            })
+                                            ->save('public/img/150-' . $file);
+                                        $this->manager->make($_FILES['photo']['tmp_name'])
+                                            ->resize(1600, null, function ($constraint) {
+                                                $constraint->aspectRatio();
+                                            })
+                                            ->save('public/img/1600-' . $file);*/
                                         if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)) {
                                             $url = $folder . $file;
                                             $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
@@ -487,7 +497,7 @@ class Router {
                 //delete photo
                 elseif ($_GET['action'] == 'confirmDeletePhoto') {
                     if (isset($_POST['idPhoto']) && isset($_POST['urlPhoto']) && isset($_SESSION['id'])){
-                        if (!empty($_POST['idPhoto']) &&!empty($_POST['urlPhoto']) && !empty($_SESSION['id'])){
+                        if (!empty($_POST['idPhoto']) && !empty($_POST['urlPhoto']) && !empty($_SESSION['id'])){
                             $idPhoto = intval($this->getParam($_POST, 'idPhoto'));
                             $urlPhoto = $this->getParam($_POST, 'urlPhoto');
                             $idMember = intval($this->getParam($_SESSION, 'id'));
@@ -499,7 +509,7 @@ class Router {
                         }
                     }
                     else{
-                        throw new \Exception("Impossible de récupérer l'id du memebre");
+                        throw new \Exception("Impossible de récupérer l'id du membre");
                     }
                 }
                 //if action don't exist

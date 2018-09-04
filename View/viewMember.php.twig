@@ -55,7 +55,7 @@
                             {% for photo in photos %}
                                 <div class="grid-item itemMember">
                                     <div class="photoItem">
-                                        <img src="{{ photo.url }}" />
+                                        <img src="public/img/700-{{ photo.url }}" />
                                         <span class="photoName">{{ photo.name }}</span>
                                         <span class="photoLikes"><i class="fas fa-heart"></i> {{ photo.likes }}</span>
                                         <form method="post" action="{% if session.id and session.pseudo %}?action=vote{% else %}?action=registrationForm{% endif %}" class="voteForm">
