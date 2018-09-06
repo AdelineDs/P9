@@ -10,16 +10,19 @@ namespace AdelineD\OC\P9\Controller;
 
 use \AdelineD\OC\P9\Model\PhotosJson;
 use \AdelineD\OC\P9\Model\Photos;
+use AdelineD\OC\P9\Model\Vote;
 
 class ControllerPhotos extends ControllerMain {
 
     private $photosJson;
     private $photos;
+    private $vote;
 
     public function __construct()
     {
         $this->photosJson = new PhotosJson();
         $this->photos = new Photos();
+        $this->vote = new Vote();
     }
 
     public function getPictures(){
@@ -89,10 +92,9 @@ class ControllerPhotos extends ControllerMain {
     }
 
     //confirm deleting photo
-    //je dois modifier pour que lorsque l'on supprime une photo on supprime ses likes aussi
     public function confirmDeletePhoto($idPhoto, $urlPhoto, $idMember) {
+        $this->vote->deleteVote($idPhoto);
         $this->photos->confirmDelete($idPhoto);
-        var_dump($idMember);
         if (file_exists($urlPhoto)){
             unlink($urlPhoto);
         }

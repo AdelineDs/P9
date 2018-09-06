@@ -142,9 +142,12 @@ class leafletMap{
 
         //on recupère la liste des photos de la galerie principale
         let mainPhotos = document.getElementsByClassName("li");
-        let photosArray = [];
-        for (let photo of mainPhotos){
-            photosArray.push(photo.name);
+        let photosArray =[];
+        //for (let photo of mainPhotos){      ne fonctionne pas avec IE
+          //  photosArray.push(photo.name);
+        //}
+        for (let i = 0; i < mainPhotos.length; i++){
+            photosArray.push(mainPhotos[i].name);
         }
         let controleur = new ControllerAjax(latMin, latMax, lngMin, lngMax, photosArray);
     }

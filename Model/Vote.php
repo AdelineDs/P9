@@ -50,4 +50,9 @@ class Vote extends Model
         $result_count = $result->rowCount();
         return $result_count;
     }
+
+    public function deleteVote($idPhoto){
+        $sql = 'DELETE FROM likes WHERE id_photo=?';
+        $this->executeQuery($sql, array($idPhoto));
+    }
 }

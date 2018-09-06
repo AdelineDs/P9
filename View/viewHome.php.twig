@@ -15,10 +15,10 @@
                     {% for photo in photos %}
                         <div class="grid-item itemHome">
                             <div class="homeItem">
-                                <img src="public/img/700-{{ photo.url }}" />
+                                <img src="{{ photo.url }}" />
                                 <div class="photoInfos">
                                     <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
-                                    <span class="photoTitle"></i>{{ photo.name }}</span>
+                                    <span class="photoTitle">{{ photo.name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -28,10 +28,10 @@
                         {% if photo.status == 0 %}
                             <div class="grid-item itemHome">
                                 <div class="homeItem">
-                                    <img src="public/img/700-{{ photo.url }}" />
+                                    <img src="{{ photo.url }}" />
                                     <div class="photoInfos">
                                         <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
-                                        <span class="photoTitle"></i>{{ photo.name }}</span>
+                                        <span class="photoTitle">{{ photo.name }}</span>
                                     </div>
                                 </div>
                             </div>

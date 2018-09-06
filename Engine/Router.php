@@ -155,21 +155,6 @@ class Router {
                                     if (is_numeric($lat) && is_numeric($lng)) {
                                         $folder = 'public/img/';
                                         $file = uniqid() . $extend;
-                                       /* $this->manager->make($_FILES['photo']['tmp_name'])
-                                            ->resize(700, null, function ($constraint) {
-                                                $constraint->aspectRatio();
-                                            })
-                                            ->save('public/img/700-' . $file);
-                                        $this->manager->make($_FILES['photo']['tmp_name'])
-                                            ->resize(150, null, function ($constraint) {
-                                                $constraint->aspectRatio();
-                                            })
-                                            ->save('public/img/150-' . $file);
-                                        $this->manager->make($_FILES['photo']['tmp_name'])
-                                            ->resize(1600, null, function ($constraint) {
-                                                $constraint->aspectRatio();
-                                            })
-                                            ->save('public/img/1600-' . $file);*/
                                         if (move_uploaded_file($_FILES['photo']['tmp_name'], $folder . $file)) {
                                             $url = $folder . $file;
                                             $this->ctrlPhotos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);

@@ -177,6 +177,9 @@ footer {
 .homeItem{
     position: relative;
 }
+#rslides {
+    list-style-type: none;
+}
 .photoInfos {
     position: absolute;
     bottom: 0;
@@ -550,7 +553,12 @@ footer {
         margin-right: 15px;
     }
     #mapAndPhoto{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
         flex-direction: column;
     }
     .thumbnails{
@@ -568,3 +576,4 @@ footer {
     }
 
 }
+
