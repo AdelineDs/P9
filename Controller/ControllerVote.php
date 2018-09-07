@@ -8,7 +8,7 @@
 
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\Vote;
+use \AdelineD\OC\P9\Model\VoteManager;
 
 /**
  * Class ControllerVote
@@ -17,7 +17,7 @@ use \AdelineD\OC\P9\Model\Vote;
 class ControllerVote extends ControllerMain
 {
     /**
-     * @var Vote
+     * @var VoteManager
      */
     private $vote;
 
@@ -26,7 +26,7 @@ class ControllerVote extends ControllerMain
      */
     public function __construct()
     {
-        $this->vote = new Vote();
+        $this->vote = new VoteManager();
     }
 
     /**

@@ -8,9 +8,9 @@
 
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\PhotosJson;
-use \AdelineD\OC\P9\Model\Photos;
-use AdelineD\OC\P9\Model\Vote;
+use \AdelineD\OC\P9\Model\PhotosJsonManager;
+use \AdelineD\OC\P9\Model\PhotosManager;
+use AdelineD\OC\P9\Model\VoteManager;
 
 class ControllerPhotos extends ControllerMain {
 
@@ -20,9 +20,9 @@ class ControllerPhotos extends ControllerMain {
 
     public function __construct()
     {
-        $this->photosJson = new PhotosJson();
-        $this->photos = new Photos();
-        $this->vote = new Vote();
+        $this->photosJson = new PhotosJsonManager();
+        $this->photos = new PhotosManager();
+        $this->vote = new VoteManager();
     }
 
     public function getPictures(){

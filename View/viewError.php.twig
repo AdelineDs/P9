@@ -3,8 +3,9 @@
 {% block title %}Erreur{% endblock %}
 
 {% block content %}
-<div class="col-md-offset-2 col-md-8 col-xs-offset-1 col-xs-10 error">
-    <p>Une erreur est survenue : {{ msgError }}
+<div class="col-12 text-center my-5 error">
+    <a class="helpLink" href="index.php">Retour à la page d'accueil</a>
+    <p class="my-3">Une erreur est survenue : {{ msgError }}
 </div>
 {% endblock %}
 

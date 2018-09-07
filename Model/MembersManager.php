@@ -9,7 +9,7 @@
 namespace AdelineD\OC\P9\Model;
 
 
-class Members extends Model
+class MembersManager extends Model
 {
     //get member informations
     public function getMember($idMember){
@@ -84,6 +84,7 @@ class Members extends Model
         $sql = 'DELETE FROM members WHERE idMember= ?';
         $this->executeQuery($sql, array($idMember));
     }
+
 
     public function updateAvatar($idMember, $url){
         $sql = 'UPDATE members SET avatar_url=? WHERE idMember=?';

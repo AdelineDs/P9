@@ -2,7 +2,7 @@
 namespace AdelineD\OC\P9\Model;
 
 
-class Photos extends Model {
+class PhotosManager extends Model {
 
     public function getPopularPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 

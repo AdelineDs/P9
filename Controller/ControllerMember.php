@@ -8,9 +8,9 @@
 
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\Members;
-use \AdelineD\OC\P9\Model\Photos;
-use \AdelineD\OC\P9\Model\Comments;
+use \AdelineD\OC\P9\Model\MembersManager;
+use \AdelineD\OC\P9\Model\PhotosManager;
+use \AdelineD\OC\P9\Model\CommentsManager;
 
 class ControllerMember extends ControllerMain
 {
@@ -20,9 +20,9 @@ class ControllerMember extends ControllerMain
 
     public function __construct()
     {
-        $this->member = new Members();
-        $this->photos = new Photos();
-        $this->comments = new Comments();
+        $this->member = new MembersManager();
+        $this->photos = new PhotosManager();
+        $this->comments = new CommentsManager();
     }
 
     //display a member page

@@ -1,14 +1,14 @@
 <?php
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\Photos;
+use \AdelineD\OC\P9\Model\PhotosManager;
 
 class ControllerHome extends ControllerMain {
 
     private $photos;
 
     public function __construct(){
-        $this->photos = new Photos();
+        $this->photos = new PhotosManager();
     }
 
     //display home page

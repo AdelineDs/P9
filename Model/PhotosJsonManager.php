@@ -1,9 +1,9 @@
 <?php
 namespace AdelineD\OC\P9\Model;
 
-class PhotosJson extends Model {
+class PhotosJsonManager extends Model {
 
-    //Méthode qui recupere toutes les photos
+    //get all photos
     public function getAllPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 
                 FROM members AS m 
@@ -18,7 +18,7 @@ class PhotosJson extends Model {
         echo $photosJson;
     }
 
-    //Méthode qui recupere toutes les photos publics
+    //get all public photos
     public function getAllPublicPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 
                 FROM members AS m 

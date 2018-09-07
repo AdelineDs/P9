@@ -1,13 +1,13 @@
 <?php
 namespace AdelineD\OC\P9\Controller;
 
-use AdelineD\OC\P9\Model\Photos;
+use AdelineD\OC\P9\Model\PhotosManager;
 
 class ControllerPhotosAjax extends ControllerMain {
     private $photos;
 
     public function __construct(){
-        $this->photos = new Photos();
+        $this->photos = new PhotosManager();
     }
 
     //Renvoie les photos présentes dans les limites données

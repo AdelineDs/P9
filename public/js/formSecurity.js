@@ -1,6 +1,6 @@
 // ---- REGISTRATION SECURITY ----
 
-// Vérification de la longueur du pseudo saisi
+//pseudo length check
 document.getElementById("pseudo").addEventListener("input", function (e) {
     let pseudo = e.target.value;
     let regex = /^[0-9a-zA-Z]+$/;
@@ -15,58 +15,56 @@ document.getElementById("pseudo").addEventListener("input", function (e) {
         }
     }
 
-    let aidepseudo = document.getElementById("pseudoHelpBlock");
-    aidepseudo.textContent = message; // Texte de l'aide
-    aidepseudo.style.color = colorMsg; // Couleur du texte de l'aide
+    let pseudoHelp = document.getElementById("pseudoHelpBlock");
+    pseudoHelp.textContent = message; // help text
+    pseudoHelp.style.color = colorMsg; // color help text
 
 });
 
-// Vérification de la longueur du mot de passe saisi
+// password length check
 document.getElementById("pass1").addEventListener("input", function (e) {
-    let mdp = e.target.value; // Valeur saisie dans le champ mdp
+    let pass = e.target.value; // value of pass input
     let regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
     let message = "Format attendu : 8 caractères minimum dont au moins 1 chiffre, un caractère spécial et sans espaces";
-    let colorMsg = "red"; // Longueur faible => couleur rouge
-    if (regex.test(mdp)) {
+    let colorMsg = "red"; // low length => red color
+    if (regex.test(pass)) {
         message = "ok";
-        colorMsg = "green"; // Longueur suffisante => couleur verte
+        colorMsg = "green"; // good length => green color
     }
 
-    let aideMdpElt = document.getElementById("passwordHelpBlock");
-    aideMdpElt.textContent = message; // Texte de l'aide
-    aideMdpElt.style.color = colorMsg; // Couleur du texte de l'aide
+    let passHelp = document.getElementById("passwordHelpBlock");
+    passHelp.textContent = message; // help text
+    passHelp.style.color = colorMsg; // color help text
 
 });
 
-// Contrôle correspondance mdp
+// password correspondence control
 document.getElementById("pass2").addEventListener("input", function (e) {
-    let validitepass = "";
+    let passValidity = "";
     let inputpass1 = document.getElementById("pass1");
     let pass1 = inputpass1.value;
     let colorMsg = "red";
     if (e.target.value !== pass1) {
-        // Le courriel saisi ne contient pas le caractère @
-        validitepass = "Mot de passe différent, veuillez vérifier votre saisie";
+        passValidity = "Mot de passe différent, veuillez vérifier votre saisie";
     }else{
-        validitepass = "Mot de passe identique";
+        passValidity = "Mot de passe identique";
         colorMsg = "green";
     }
-    let aideMdp =document.getElementById("password2HelpBlock");
-    aideMdp.textContent = validitepass;
-    aideMdp.style.color = colorMsg;
+    let passHelp =document.getElementById("password2HelpBlock");
+    passHelp.textContent = passValidity;
+    passHelp.style.color = colorMsg;
 });
 
-// Contrôle du courriel
+// mail control
 document.getElementById("email").addEventListener("input", function (e) {
-    let validiteCourriel = "";
+    let mailValidity = "";
     let regex = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
     let couleurMsg = "red"
     if (!regex.test(e.target.value) ) {
-        // Le courriel saisi ne contient pas le caractère @
-        validiteCourriel = "Adresse invalide";
+        mailValidity = "Adresse invalide";
     }
-    document.getElementById("emailHelpBlock").textContent = validiteCourriel;
-    let aideMail =document.getElementById("emailHelpBlock");
-    aideMail.textContent = validiteCourriel;
-    aideMail.style.color = couleurMsg;
+    document.getElementById("emailHelpBlock").textContent = mailValidity;
+    let mailHelp =document.getElementById("emailHelpBlock");
+    mailHelp.textContent = mailValidity;
+    mailHelp.style.color = couleurMsg;
 });

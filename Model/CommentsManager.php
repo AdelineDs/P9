@@ -9,7 +9,7 @@
 namespace AdelineD\OC\P9\Model;
 
 
-class Comments extends Model{
+class CommentsManager extends Model{
 
     // insert new comment in bdd
     public function addComment($idMember, $author, $comment){
@@ -37,7 +37,12 @@ class Comments extends Model{
     public function getReportedCom() {
         $sql = 'SELECT comments.*, members.idMember, members.pseudo FROM members INNER JOIN comments ON comments.member_id=members.idMember WHERE comments.reported=1';
         $comments = $this->executeQuery($sql);
-        return $comments;
+        if($comments->rowCount() != 0){
+            return $comments;
+        }
+        else{
+            return false;
+        }
     }
 
     //return a comment

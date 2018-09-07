@@ -8,8 +8,8 @@
 
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\Comments;
-use \AdelineD\OC\P9\Model\Members;
+use \AdelineD\OC\P9\Model\CommentsManager;
+use \AdelineD\OC\P9\Model\MembersManager;
 
 class ControllerAdmin extends ControllerMain
 {
@@ -18,8 +18,8 @@ class ControllerAdmin extends ControllerMain
 
     public function __construct()
     {
-        $this->comments = new Comments();
-        $this->members = new  Members();
+        $this->comments = new CommentsManager();
+        $this->members = new  MembersManager();
     }
 
     //display comments admin page

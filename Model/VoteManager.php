@@ -9,7 +9,7 @@
 namespace AdelineD\OC\P9\Model;
 
 
-class Vote extends Model
+class VoteManager extends Model
 {
     public function doVote($photoId, $memberId){
         //on verifie que la photo existe bien
