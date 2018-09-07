@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1:3306
--- Généré le :  Ven 31 Août 2018 à 13:13
+-- Généré le :  Ven 07 Septembre 2018 à 08:56
 -- Version du serveur :  5.6.34-log
 -- Version de PHP :  7.0.13
 
@@ -33,15 +33,14 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `comment` text NOT NULL,
   `reported` tinyint(4) NOT NULL,
   `comment_date` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `comments`
 --
 
 INSERT INTO `comments` (`id`, `member_id`, `author`, `comment`, `reported`, `comment_date`) VALUES
-(2, 1, 'ReTest', 'Je RE teste les commentaires..........', 2, '2018-08-15 05:59:14'),
-(3, 1, 'Adeline', 'test !!!', 1, '2018-08-30 15:04:34');
+(2, 1, 'ReTest', 'Je RE teste les commentaires..........', 2, '2018-08-15 05:59:14');
 
 -- --------------------------------------------------------
 
@@ -53,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   `id` int(11) NOT NULL,
   `id_photo` int(11) NOT NULL,
   `id_member` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `likes`
@@ -98,8 +97,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 
 INSERT INTO `members` (`idMember`, `pseudo`, `password`, `email`, `place`, `avatar_url`, `registration_date`, `statusMember`, `reported`) VALUES
 (1, 'Adeline', '$2y$10$fCZ6k6WUSWuWsGO4FQbe3uVsXomzQ/vGWJwYPa8GlY00t.m4FDPwG', 'deca.adeline@gmail.com', 'Brest', 'public/avatar/5b86c2cc01cba.png', '2018-08-14', 1, 0),
-(22, 'Ambre', '$2y$10$ZBAROchxRMvf33S7wcUTq.Tv6B4VvcB.6lF8lzCriguEMGy6O4bkq', 'mail@mail.com', '', '', '2018-08-15', 0, 1),
-(23, 'MembreTest', '$2y$10$2pnhAbRPpEFvLo1VjRFHou19/PgxC59Sw.2hi.GTufRCw2ohgVHHK', 'monmail@mail.com', 'Loin', 'public/avatar/5b893d5b21378.jpg', '2018-08-31', 0, 0);
+(22, 'Ambre', '$2y$10$ZBAROchxRMvf33S7wcUTq.Tv6B4VvcB.6lF8lzCriguEMGy6O4bkq', 'mail@mail.com', '', '', '2018-08-15', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -118,28 +116,28 @@ CREATE TABLE IF NOT EXISTS `photos` (
   `status` tinyint(4) NOT NULL,
   `likes` int(11) NOT NULL,
   `date_added` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `photos`
 --
 
 INSERT INTO `photos` (`id`, `memberId`, `name`, `description`, `url`, `lat`, `lng`, `status`, `likes`, `date_added`) VALUES
-(1, 22, 'Les calanques', 'Près de Marseille', 'public/img/calanques.jpg', 43.000000, 50.000000, 0, 6, '2018-08-07 16:25:00'),
-(2, 1, 'Le Conquet', 'Le Conquet, Finistère, Bretagne... ', 'public/img/LeConquet.JPG', 48.362595, -4.788442, 0, 11, '2018-08-07 16:39:00'),
-(3, 1, 'Lac de Longemer', 'Les lac de longemer dans les vosges', 'public/img/longemer.JPG', 48.067688, 6.954273, 0, 10, '2018-08-07 16:42:00'),
-(6, 1, 'Le phare du petit Minou', 'Le phare du petit minou dans le finistère', 'public/img/minou2.JPG', 48.336592, -4.614252, 0, 5, '2018-08-07 17:26:38'),
-(7, 22, 'Notre Dame de Paris', 'Notre Dame de Paris', 'public/img/NDdeParis.jpeg', 48.852729, 2.350564, 0, 11, '2018-08-07 17:26:38'),
-(8, 1, 'Phare du petit Minou', 'Phare du petit Minou', 'public/img/pharePetitMinou.JPG', 48.336592, -4.614252, 0, 6, '2018-08-07 16:54:00'),
-(9, 1, 'Phare du Portzic', 'Le phare du Portzic', 'public/img/pharePortzic.JPG', 48.358303, -4.534028, 0, 7, '2018-08-07 16:55:00'),
-(11, 22, 'Strasbourg', 'Strasbourg', 'public/img/strasbourg.jpg', 48.573405, 7.752111, 1, 1, '2018-08-07 16:59:00'),
-(12, 1, 'Sainte Yved ', 'Sainte Yved de Braine', 'public/img/StYved.JPG', 49.339510, 3.535375, 0, 4, '2018-08-07 17:26:00'),
-(13, 22, 'Toulouse', 'Toulouse la ville rose', 'public/img/toulouse.jpg', 43.604652, 1.444209, 0, 7, '2018-08-07 17:54:00'),
-(14, 22, 'La tour Eiffel', 'Tour Eiffel', 'public/img/tourEiffel.jpg', 48.855899, 2.298088, 0, 9, '2018-08-07 17:56:00'),
-(15, 1, 'Cathédrale de Troyes', 'A l''intérieur de la cathédrale de Troyes', 'public/img/troyes.JPG', 48.300208, 4.080853, 0, 1, '2018-08-07 18:00:00'),
-(17, 1, 'Petit port', 'Près de Brest...', 'public/img/5b7ac4cb75d8b.jpg', 48.351506, -4.570553, 0, 0, '2018-08-20 15:40:27'),
-(18, 1, 'Vue sur mer', 'Finistère ...', 'public/img/5b7ac73b088ff.jpg', 48.329857, -4.770867, 0, 0, '2018-08-20 15:50:51'),
-(19, 1, 'Pointe Saint-Mathieu', 'dans le Finistère', 'public/img/5b7f9cf411df7.jpg', 48.329857, -4.770867, 1, 0, '2018-08-24 07:51:48');
+(1, 22, 'Les calanques', 'Près de Marseille', 'public/img/5b92384411fc3.jpg', 43.000000, 50.000000, 0, 6, '2018-08-07 16:25:00'),
+(2, 1, 'Le Conquet', 'Le Conquet, Finistère, Bretagne... ', 'public/img/5b9238db136a7.jpg', 48.362595, -4.788442, 0, 11, '2018-08-07 16:39:00'),
+(3, 1, 'Lac de Longemer', 'Les lac de longemer dans les vosges', 'public/img/5b8d389490da8.jpg', 48.067688, 6.954273, 0, 10, '2018-08-07 16:42:00'),
+(6, 1, 'Le phare du petit Minou', 'Le phare du petit minou dans le finistère', 'public/img/5b92398cb13e1.jpg', 48.336592, -4.614252, 0, 5, '2018-08-07 17:26:38'),
+(7, 22, 'Notre Dame de Paris', 'Notre Dame de Paris', 'public/img/5b9239c006ae2.jpg', 48.852729, 2.350564, 0, 11, '2018-08-07 17:26:38'),
+(8, 1, 'Phare du petit Minou', 'Phare du petit Minou', 'public/img/5b9239da76ffd.jpg', 48.336592, -4.614252, 0, 6, '2018-08-07 16:54:00'),
+(9, 1, 'Phare du Portzic', 'Le phare du Portzic', 'public/img/5b923a491f61f.jpg', 48.358303, -4.534028, 0, 7, '2018-08-07 16:55:00'),
+(11, 22, 'Strasbourg', 'Strasbourg', 'public/img/5b923a727462c.jpg', 48.573405, 7.752111, 1, 1, '2018-08-07 16:59:00'),
+(12, 1, 'Sainte Yved ', 'Sainte Yved de Braine', 'public/img/5b923a8df0dfa.jpg', 49.339510, 3.535375, 0, 4, '2018-08-07 17:26:00'),
+(13, 22, 'Toulouse', 'Toulouse la ville rose', 'public/img/5b923bed46a83.jpg', 43.604652, 1.444209, 0, 7, '2018-08-07 17:54:00'),
+(14, 22, 'La tour Eiffel', 'Tour Eiffel', 'public/img/5b923aeb18d55.jpg', 48.855899, 2.298088, 0, 9, '2018-08-07 17:56:00'),
+(15, 1, 'Cathédrale de Troyes', 'A l''intérieur de la cathédrale de Troyes', 'public/img/5b923c2aaf7fe.jpg', 48.300208, 4.080853, 0, 1, '2018-08-07 18:00:00'),
+(17, 1, 'Petit port', 'Près de Brest...', 'public/img/5b923b01e5547.jpg', 48.351506, -4.570553, 0, 0, '2018-08-20 15:40:27'),
+(19, 1, 'Pointe Saint-Mathieu', 'dans le Finistère', 'public/img/5b923b2094521.jpg', 48.329857, -4.770867, 1, 0, '2018-08-24 07:51:48'),
+(27, 22, 'Louvre', 'Musée du Louvre à Paris', 'public/img/5b923b3878a39.jpg', 43.000000, 7.000000, 0, 0, '2018-09-02 23:22:30');
 
 --
 -- Index pour les tables exportées
@@ -177,12 +175,12 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT pour la table `members`
 --
@@ -192,7 +190,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT pour la table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
