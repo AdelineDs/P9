@@ -4,7 +4,6 @@ use \AdelineD\OC\P9\Controller\ControllerHome;
 use \AdelineD\OC\P9\Controller\ControllerError;
 use \AdelineD\OC\P9\Controller\ControllerMap;
 use \AdelineD\OC\P9\Controller\ControllerPhotos;
-use \AdelineD\OC\P9\Controller\ControllerPhotosAjax;
 use \AdelineD\OC\P9\Controller\ControllerMember;
 use \AdelineD\OC\P9\Controller\ControllerVote;
 use \AdelineD\OC\P9\Controller\ControllerAdmin;
@@ -20,7 +19,6 @@ class Router {
     private $ctrlError;
     private $ctrlMap;
     private $ctrlPhotos;
-    private $ctrlPhotosAjax;
     private $ctrlMember;
     private $ctrlVote;
     private $ctrlAdmin;
@@ -31,7 +29,6 @@ class Router {
         $this->ctrlHome = new ControllerHome();
         $this->ctrlMap = new ControllerMap();
         $this->ctrlPhotos = new ControllerPhotos();
-        $this->ctrlPhotosAjax = new ControllerPhotosAjax();
         $this->ctrlMember= new ControllerMember();
         $this->ctrlError = new ControllerError();
         $this->ctrlVote = new ControllerVote();
@@ -58,7 +55,7 @@ class Router {
                         $lngMin = $_GET["lngMin"];
                         $lngMax = $_GET["lngMax"];
                         $photosArray = $_GET["photosArray"];
-                        $this->ctrlPhotosAjax->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray);
+                        $this->ctrlPhotos->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray);
                     }
                     else{
                         throw new \Exception( "Données non présentes");
