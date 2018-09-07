@@ -1,11 +1,11 @@
-// Exécute un appel AJAX GET
-// Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
+// Execute a AJAX GET call
+// take in parameters the target URL and callback function call on success
 function ajaxGet(url, callback) {
     var req = new XMLHttpRequest();
     req.open("GET", url);
     req.addEventListener("load", function () {
         if (req.status >= 200 && req.status < 400) {
-            // Appelle la fonction callback en lui passant la réponse de la requête
+            // call the callback function passing the request response
             callback(req.responseText);
         } else {
             console.error(req.status + " " + req.statusText + " " + url);

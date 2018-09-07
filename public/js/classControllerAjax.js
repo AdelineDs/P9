@@ -10,7 +10,7 @@ class ControllerAjax {
         this.searchAroundPhotos(this.latMin, this.latMax, this.lngMin, this.lngMax, this.photosArray);
     }//-- end contructor --
     //
-    //cherche les photos présente dans les limites de la carte
+    //search for the photos in the bounds of the map
     searchAroundPhotos(latMin, latMax, lngMin, lngMax, photosArray) {
         $.ajax({
             url: this.phpcontroller + "getAroundPhotos",

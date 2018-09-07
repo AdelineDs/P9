@@ -51,8 +51,6 @@ class leafletMap{
                     marker.bindPopup(photo.name);
                 }//--end if--
             }//-- end for --
-            //this.list = new L.Control.ListMarkers({layer: this.markersCluster, itemIcon: null, maxZoom: this.maxZoom});
-            //this.myMap.addControl(this.list);
 
             this.markersCluster.on("mouseover", (e) => {
                 e.layer.openPopup();
@@ -133,19 +131,20 @@ class leafletMap{
 
     searchBoundsGallery(){
         $("#boundsGallery").removeClass();
-        //on récupère les limites de la carte
+        //get the bounds of the map
         let bounds =this.myMap.getBounds();
         let latMin = bounds.getSouthWest().lat;
         let lngMin = bounds.getSouthWest().lng;
         let latMax = bounds.getNorthEast().lat;
         let lngMax = bounds.getNorthEast().lng
 
-        //on recupère la liste des photos de la galerie principale
+        //we get the list of photos from the main gallery
         let mainPhotos = document.getElementsByClassName("li");
         let photosArray =[];
-        //for (let photo of mainPhotos){      ne fonctionne pas avec IE
-          //  photosArray.push(photo.name);
-        //}
+        /*  **dont' work with IE**
+        for (let photo of mainPhotos){
+            photosArray.push(photo.name);
+        } */
         for (let i = 0; i < mainPhotos.length; i++){
             photosArray.push(mainPhotos[i].name);
         }
