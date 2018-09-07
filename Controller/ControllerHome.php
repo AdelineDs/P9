@@ -13,20 +13,23 @@ class ControllerHome extends ControllerMain {
 
     //display home page
     public function home(){
-        $photos = $this->photos->getPublicPopularPhotos();
-        $this->render('viewHome.php.twig', array(
-            'publicPhotos' => $photos,
-            'session' => $_SESSION
-        ));
-    }
+        if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
+            if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
+                $photos = $this->photos->getPopularPhotos();
+                $this->render('viewHome.php.twig', array(
+                    'photos' => $photos,
+                    'session' => $_SESSION
+                ));
+            }
+        }
+        else{
+            $publicPhotos = $this->photos->getPublicPopularPhotos();
+            $this->render('viewHome.php.twig', array(
+                'publicPhotos' => $publicPhotos,
+                'session' => $_SESSION
+            ));
 
-    //display home page
-    public function homeMembers(){
-        $photos = $this->photos->getPopularPhotos();
-        $this->render('viewHome.php.twig', array(
-            'photos' => $photos,
-            'session' => $_SESSION
-        ));
+        }
     }
 
     public function legalNotice(){

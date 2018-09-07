@@ -4,6 +4,38 @@ namespace AdelineD\OC\P9\Model;
 
 class PhotosManager extends Model {
 
+    //get all photos
+    public function getAllPhotosJson(){
+        $sql = 'SELECT p.*, m.pseudo, m.idMember 
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON memberId = idMember';
+        $photos = $this->executeQuery($sql);
+        while ($photo = $photos->fetch(\PDO::FETCH_ASSOC))
+        {
+            $data [] = $photo;
+        }
+        $photosJson = json_encode($data);
+        echo $photosJson;
+    }
+
+    //get all public photos
+    public function getAllPublicPhotosJson(){
+        $sql = 'SELECT p.*, m.pseudo, m.idMember 
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON memberId = idMember
+                WHERE status=0';
+        $photos = $this->executeQuery($sql);
+        while ($photo = $photos->fetch(\PDO::FETCH_ASSOC))
+        {
+            $data [] = $photo;
+        }
+        $photosJson = json_encode($data);
+        echo $photosJson;
+    }
+
+    //get the most popular public photos
     public function getPublicPopularPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 
                 FROM members AS m 
@@ -15,6 +47,7 @@ class PhotosManager extends Model {
         return $photos;
     }
 
+    //get the mst popular photos
     public function getPopularPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 
                 FROM members AS m 

@@ -8,19 +8,16 @@
 
 namespace AdelineD\OC\P9\Controller;
 
-use \AdelineD\OC\P9\Model\PhotosJsonManager;
 use \AdelineD\OC\P9\Model\PhotosManager;
 use AdelineD\OC\P9\Model\VoteManager;
 
 class ControllerPhotos extends ControllerMain {
 
-    private $photosJson;
     private $photos;
     private $vote;
 
     public function __construct()
     {
-        $this->photosJson = new PhotosJsonManager();
         $this->photos = new PhotosManager();
         $this->vote = new VoteManager();
     }
@@ -28,11 +25,11 @@ class ControllerPhotos extends ControllerMain {
     public function getPictures(){
         if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
             if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
-                $this->photosJson->getAllPhotos();
+                $this->photos->getAllPhotosJson();
             }
         }
         else{
-            $this->photosJson->getAllPublicPhotos();
+            $this->photos->getAllPublicPhotosJson();
         }
 
     }
