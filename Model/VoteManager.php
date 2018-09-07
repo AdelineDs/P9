@@ -11,20 +11,21 @@ namespace AdelineD\OC\P9\Model;
 
 class VoteManager extends Model
 {
+
     public function doVote($photoId, $memberId){
-        //on verifie que la photo existe bien
+        //checking tha the photo exists
         $photo = $this->searchPhoto($photoId, $memberId);
         if ($photo > 0 ){
-            //si la photo existe bien on verifie s'il existe déjà un vote de  la part de l'utilisateur
+            //if the photo exists to check if is already a vote from the user
             $vote = $this->searchVote($photoId, $memberId);
-            //s'il n'existe aucun vote sur cette photo pour cet utilisateur on enregistre le vote
+            //if there no vote on this photo for this user, the vote is recorded
             if ($vote == 0){
                 $sql = 'INSERT INTO likes(id_photo, id_member) VALUES(?, ?)';
                 $this->executeQuery($sql, array($photoId, $memberId));
                 $sql_update = 'UPDATE photos SET likes=likes+1 WHERE id=?';
                 $this->executeQuery($sql_update, array($photoId));
             }
-            //sinon on efface le vote
+            //if there is a vote it is erased
             else{
                 $sql = 'DELETE FROM likes WHERE id_photo=? AND id_member=?';
                 $this->executeQuery($sql, array($photoId, $memberId));
@@ -37,6 +38,7 @@ class VoteManager extends Model
         }
     }
 
+    //checking tha the photo exists
     public function searchPhoto($photoId){
         $sql = 'SELECT * FROM photos WHERE id=?';
         $result= $this->executeQuery($sql, array($photoId));
@@ -44,6 +46,7 @@ class VoteManager extends Model
         return $result_count;
     }
 
+    //checking is vote exists
     public function searchVote($photoId, $memberId){
         $sql = 'SELECT * FROM likes WHERE id_photo=? AND id_member=?';
         $result = $this->executeQuery($sql, array($photoId, $memberId));
@@ -51,6 +54,7 @@ class VoteManager extends Model
         return $result_count;
     }
 
+    //delete the vote of a photo
     public function deleteVote($idPhoto){
         $sql = 'DELETE FROM likes WHERE id_photo=?';
         $this->executeQuery($sql, array($idPhoto));

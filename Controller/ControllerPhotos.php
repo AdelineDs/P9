@@ -22,6 +22,7 @@ class ControllerPhotos extends ControllerMain {
         $this->vote = new VoteManager();
     }
 
+    //get photos for the map
     public function getPictures(){
         if (isset($_SESSION['id']) && isset($_SESSION['pseudo'])){
             if (!empty($_SESSION['id']) && !empty($_SESSION['pseudo'])){
@@ -34,7 +35,7 @@ class ControllerPhotos extends ControllerMain {
 
     }
 
-    // display connect page
+    // display add photo page
     public function viewAddPhoto ($error = null)
     {
         if ($error == null){
@@ -49,6 +50,7 @@ class ControllerPhotos extends ControllerMain {
         }
     }
 
+    //add a photo
     public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
         $this->photos->addPhoto($idMember, $title, $description, $url, $lat, $lng, $status);
         header('Location: index.php?action=member&id='.$idMember);
@@ -74,6 +76,7 @@ class ControllerPhotos extends ControllerMain {
         }
     }
 
+    //edit a photo
     public function editPhoto($idMember, $idPhoto, $title, $description, $lat, $lng, $status){
         $this->photos->editPhoto($idPhoto, $title, $description, $lat, $lng, $status);
         header('Location: index.php?action=member&id='.$idMember);

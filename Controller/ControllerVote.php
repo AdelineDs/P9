@@ -35,6 +35,7 @@ class ControllerVote extends ControllerMain
      * @param $likedMemberId int id of the member owning the photo
      * @throws \Exception
      */
+    //do a vote for a photo
     public function vote($photoId, $memberId, $likedMemberId){
         $this->vote->doVote($photoId, $memberId);
         header('Location: index.php?action=member&id='.$likedMemberId);

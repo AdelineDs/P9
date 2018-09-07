@@ -10,7 +10,7 @@ class ControllerPhotosAjax extends ControllerMain {
         $this->photos = new PhotosManager();
     }
 
-    //Renvoie les photos présentes dans les limites données
+    //get all photo in the bounds of the map
     public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray){
         $arroundPhotos = $this->photos->getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray);
         $this->render('viewAroundPhotos.php.twig', array('aroundPhotos' => $arroundPhotos));

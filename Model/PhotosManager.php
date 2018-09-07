@@ -58,13 +58,13 @@ class PhotosManager extends Model {
         return $photos;
     }
 
-    //Renvoie les photos publiques  présentes dans les limites de la cartes données
+    //get public photos in bounds of the map
     public function getAroundPhotos($latMin, $latMax, $lngMin, $lngMax, $photosArray){
         $sql = 'SELECT * FROM photos WHERE lat > ? && lat < ? && lng > ? && lng < ? && status=0';
         $aroundPhotos = $this->executeQuery($sql, array($latMin, $latMax, $lngMin, $lngMax));
         $array = json_decode($photosArray);
         $data = [];
-        //on retire le prefixe pour recupérer l'id de la photo
+        //retain the prefix to retrieve the id of the photo
         foreach($array as $key => $element){
             $array[$key]= str_replace('photo_', '', $element);
         }
@@ -72,8 +72,8 @@ class PhotosManager extends Model {
         {
             $data [] = $aPhoto;
         }
-        //pour chaque photo de la galerie secondaire si son id est déjà présent dans la galerie principale
-        //on retire la photo de la galerie secondaire
+        /*for each photo of the secondary gallery if is id already present in the
+        main gallery we remove the photo of the secondary gallery*/
         foreach ($data as $photo){
             if (in_array($photo['id'], $array)){
                 unset($data[array_search($photo, $data)]);
@@ -82,14 +82,14 @@ class PhotosManager extends Model {
         return $data;
     }
 
-    //récupère toutes les photos d'un membre
+    //get all public photos of a member
     public function getAllPhotosMember($idMember){
         $sql = 'SELECT * FROM photos WHERE memberId=? AND status=0 ORDER BY likes DESC';
         $photos = $this->executeQuery($sql, array($idMember));
         return $photos;
     }
 
-    //récupère toutes les photos d'un membre
+    //get all photos and likes og a member
     public function getAllPhotosAndLikes($idMember, $idConnectMember){
         $sql = 'SELECT photos.*, IF(likes.id_photo IS NULL, FALSE, TRUE) as liked 
                 FROM photos 
@@ -101,11 +101,13 @@ class PhotosManager extends Model {
         return $photos;
     }
 
+    //add a photo in database
     public function addPhoto($idMember, $title, $description, $url, $lat, $lng, $status){
         $sql = 'INSERT INTO photos(memberId, name, description, url, lat, lng, status, date_added) VALUES(?, ?, ?, ?, ?, ?, ?, NOW())';
         $this->executeQuery($sql, array($idMember, $title, $description, $url, $lat, $lng, $status));
     }
 
+    // get a photo
     public function getPhoto($idPhoto, $idMember){
         $sql = 'SELECT id, memberId, name, description, url, lat, lng, status FROM photos WHERE id=? AND memberID=?';
         $photo = $this->executeQuery($sql, array($idPhoto, $idMember));
@@ -117,6 +119,7 @@ class PhotosManager extends Model {
         }
     }
 
+    //update a photo after editing
     public function editPhoto($idPhoto, $title, $description, $lat, $lng, $status){
         $sql = 'UPDATE photos SET name=?, description=?, lat=?, lng=?, status=? WHERE id=?';
         $this->executeQuery($sql, array($title, $description, $lat, $lng, $status, $idPhoto));

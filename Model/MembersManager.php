@@ -22,6 +22,7 @@ class MembersManager extends Model
             throw new \Exception("Aucun membre ne correspond à l'identifiant '$idMember'");
         }
     }
+    //checking in database the existence of a pseudo or email
     public function verifyMember($pseudo, $email){
         $sql = 'SELECT COUNT(*) FROM members WHERE pseudo=? OR email=?';
         $data = $this->executeQuery($sql, array($pseudo, $email));
@@ -85,12 +86,13 @@ class MembersManager extends Model
         $this->executeQuery($sql, array($idMember));
     }
 
-
+    //update avatar of a member in database
     public function updateAvatar($idMember, $url){
         $sql = 'UPDATE members SET avatar_url=? WHERE idMember=?';
         $this->executeQuery($sql, array($url, $idMember));
     }
 
+    //update place of a member in database
     public function updatePlace($idMember, $place){
         $sql = 'UPDATE members SET place=? WHERE idMember=?';
         $this->executeQuery($sql, array($place, $idMember));

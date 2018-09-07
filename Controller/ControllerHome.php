@@ -32,6 +32,7 @@ class ControllerHome extends ControllerMain {
         }
     }
 
+    //display legal notice page
     public function legalNotice(){
         $this->render('viewLegalNotice.php.twig', array());
     }
