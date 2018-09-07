@@ -29,20 +29,23 @@
         </div>
         <div class="col-12 col-lg-6 offset-lg-4 text-center mt-5">
             <h2>Commentaires à modérer :</h2>
-        {% if error %}
-            <div class="col-12 text-center error">
-                {{ error }}
-            </div>
-        {% endif %}
-        {% for com in reportedCom %}
-                <div class="warning">
-                Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a class="managementLink" href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
-                <p class="comAdminManagement">
-                    <span><a class="managementLink" href="?action=moderateCom&id={{ com.id }}">Modérer le commentaire</a></span> /
-                    <span><a class="managementLink" href="?action=deleteCom&id={{ com.id }}">Supprimer le commentaire</a></span>
-                </p>
+            {% if error %}
+                <div class="col-12 text-center error">
+                    {{ error }}
                 </div>
-        {% endfor %}
+            {% endif %}
+            {% if message %}
+                {{ message }}
+            {% endif %}
+            {% for com in reportedCom %}
+                <div class="warning">
+                    Le commentaire de "{{ com.author }}" a été signalé sur le profil de  : <a class="managementLink" href="?action=member&id={{ com.idMember }}">{{ com.pseudo }}</a>
+                    <p class="comAdminManagement">
+                        <span><a class="managementLink" href="?action=moderateCom&id={{ com.id }}">Modérer le commentaire</a></span> /
+                        <span><a class="managementLink" href="?action=deleteCom&id={{ com.id }}">Supprimer le commentaire</a></span>
+                    </p>
+                </div>
+            {% endfor %}
         </div>
     {% else %}
         <div class="col-6 offset-4 text-center">

@@ -41,7 +41,8 @@ class CommentsManager extends Model{
             return $comments;
         }
         else{
-            return false;
+            $message = "Aucun commentaire à modérer pour le moment";
+            return $message;
         }
     }
 

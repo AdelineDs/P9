@@ -26,10 +26,18 @@ class ControllerAdmin extends ControllerMain
     public function viewComManagement($error = null){
         $reportedCom = $this->comments->getReportedCom();
         if ($error == null){
-            $this->render('viewComAdmin.php.twig', array(
-                'reportedCom' => $reportedCom,
-                'session' => $_SESSION
-            ));
+            if (is_string($reportedCom)){
+                $this->render('viewComAdmin.php.twig', array(
+                    'message' => $reportedCom,
+                    'session' => $_SESSION
+                ));
+            }
+            else{
+                $this->render('viewComAdmin.php.twig', array(
+                    'reportedCom' => $reportedCom,
+                    'session' => $_SESSION
+                ));
+            }
         }
         else{
             $this->render('viewComAdmin.php.twig', array(
