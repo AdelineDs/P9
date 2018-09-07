@@ -24,18 +24,16 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    {% for photo in photos %}
-                        {% if photo.status == 0 %}
-                            <div class="grid-item itemHome">
-                                <div class="homeItem">
-                                    <img src="{{ photo.url }}" />
-                                    <div class="photoInfos">
-                                        <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
-                                        <span class="photoTitle">{{ photo.name }}</span>
-                                    </div>
+                    {% for photo in publicPhotos %}
+                        <div class="grid-item itemHome">
+                            <div class="homeItem">
+                                <img src="{{ photo.url }}" />
+                                <div class="photoInfos">
+                                    <span class="photoAuthor"><a href="?action=member&id={{ photo.idMember }}">{{ photo.pseudo }}</a></span>
+                                    <span class="photoTitle">{{ photo.name }}</span>
                                 </div>
                             </div>
-                        {% endif %}
+                        </div>
                     {% endfor %}
                 {% endif %}
             </div>

@@ -504,7 +504,15 @@ class Router {
             }
             // default action home page
            else{
-               $this->ctrlHome->home();
+               if (isset($_SESSION['id'])){
+                   if (!empty($_SESSION['id'])){
+                       $this->ctrlHome->homeMembers();
+                   }
+               }
+               else{
+                   $this->ctrlHome->home();
+               }
+
             } 
         }
         catch (\Exception $e) {

@@ -4,6 +4,17 @@ namespace AdelineD\OC\P9\Model;
 
 class PhotosManager extends Model {
 
+    public function getPublicPopularPhotos(){
+        $sql = 'SELECT p.*, m.pseudo, m.idMember 
+                FROM members AS m 
+                INNER JOIN photos AS p 
+                ON memberId = idMember
+                WHERE status=0
+                ORDER BY likes DESC LIMIT 9';
+        $photos = $this->executeQuery($sql, array());
+        return $photos;
+    }
+
     public function getPopularPhotos(){
         $sql = 'SELECT p.*, m.pseudo, m.idMember 
                 FROM members AS m 

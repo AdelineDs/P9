@@ -1,5 +1,5 @@
 class leafletMap{
-    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=2, maxZoom=14, maxBounds=[[-80, -170], [80, 170]]){
+    constructor(map, latLng=[48.862725, 2.287592], zoom=6, layer='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',minZoom=4, maxZoom=14, maxBounds=[[-80, -170], [80, 170]]){
         this.map = map;
         this.latLng = latLng;
         this.zoom = zoom;

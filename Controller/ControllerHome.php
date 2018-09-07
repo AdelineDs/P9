@@ -13,6 +13,15 @@ class ControllerHome extends ControllerMain {
 
     //display home page
     public function home(){
+        $photos = $this->photos->getPublicPopularPhotos();
+        $this->render('viewHome.php.twig', array(
+            'publicPhotos' => $photos,
+            'session' => $_SESSION
+        ));
+    }
+
+    //display home page
+    public function homeMembers(){
         $photos = $this->photos->getPopularPhotos();
         $this->render('viewHome.php.twig', array(
             'photos' => $photos,
